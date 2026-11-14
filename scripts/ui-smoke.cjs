@@ -29,7 +29,9 @@ async function run() {
         assert(await page.locator('.nl-mobile-dock').isVisible(), device.name + ': app dock');
         assert.equal(await page.locator('#nl-build-overlay').count(), 0, device.name + ': no heavy animation on mobile');
       } else if (device.name === 'desktop') {
-        await page.waitForFunction(() => !document.querySelector('.nl-is-building'), null, { timeout: 11000 });
+        await page.locator('.nl-sw-controls').waitFor({ timeout: 9000 });
+        await page.screenshot({ path: 'test-results/newro-desktop-swarm.png', fullPage: false });
+        await page.locator('.nl-sw-skip').click();
       }
       if (device.name !== 'tablet') {
         await page.screenshot({ path: 'test-results/newro-' + device.name + '.png', fullPage: true });
