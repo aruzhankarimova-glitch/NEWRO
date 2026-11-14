@@ -69,8 +69,9 @@ function icon(name){
 function navItem(page,label,iconName,active){return '<button class="nf-navitem '+(active===page?'is-active':'')+'" type="button" data-flow-go="'+page+'" aria-current="'+(active===page?'page':'false')+'">'+icon(iconName)+label+'</button>';}
 function layout(title,subtitle,content,active){
  if(window.NEWROSwarm)window.NEWROSwarm.stop();
- root.innerHTML='<div class="nf-app"><header class="nf-top"><div class="nf-topinner"><button class="nf-brand" data-flow-go="home" aria-label="NEWRO Home"><span>n</span> newro.</button><nav class="nf-navdesk" aria-label="Learning navigation">'+navItem("dashboard","My learning","home",active)+navItem("paths","Career paths","paths",active)+navItem("portfolio","Portfolio","portfolio",active)+navItem("profile","Profile","profile",active)+'</nav><span class="nf-save"><i></i> Saved on this device</span></div></header><main class="nf-main"><div class="nf-heading"><div><p class="nf-kicker">NEWRO / YOUR LEARNING SPACE</p><h1 tabindex="-1" id="nf-title">'+title+'</h1><p>'+subtitle+'</p></div></div>'+content+'</main><nav class="nf-dock" aria-label="Mobile learning navigation">'+navItem("dashboard","Home","home",active)+navItem("paths","Explore","paths",active)+navItem("portfolio","My work","portfolio",active)+navItem("profile","Profile","profile",active)+'</nav></div>';
+ root.innerHTML='<div class="nf-app"><header class="nf-top"><div class="nf-topinner"><button class="nf-brand" data-flow-go="home" aria-label="NEWRO Home"><span>n</span> newro.</button><nav class="nf-navdesk" aria-label="Learning navigation">'+navItem("dashboard","Overview","home",active)+navItem("paths","Career paths","paths",active)+navItem("portfolio","Portfolio","portfolio",active)+navItem("profile","Profile","profile",active)+'</nav></div></header><main class="nf-main"><div class="nf-heading"><div><h1 tabindex="-1" id="nf-title">'+title+'</h1><p>'+subtitle+'</p></div></div>'+content+'</main><nav class="nf-dock" aria-label="Mobile learning navigation">'+navItem("dashboard","Home","home",active)+navItem("paths","Explore","paths",active)+navItem("portfolio","My work","portfolio",active)+navItem("profile","Profile","profile",active)+'</nav></div>';
  if(window.NEWROMobile)window.NEWROMobile.enhanceLayout(active);
+ if(window.NEWROPremium)window.NEWROPremium.flowView(active);
  window.scrollTo(0,0);
  var h=document.getElementById("nf-title");if(h)h.focus({preventScroll:true});
 }
@@ -90,7 +91,7 @@ function dash(){
  var next=st.done[role]?(p.complete?"Your next step: build on your work":"Your next step: a guided project"):"Your next step: a career try-out";
  var nextLabel=st.done[role]?(p.complete?"Explore another career":"Continue guided project"):"Start free career try-out";
  var nextAction=st.done[role]?(p.complete?'browse':'project'):'tryout';
- var mood='<section class="nf-banner"><div class="nf-banner-copy"><span class="nf-label">YOUR NEXT ASSIGNMENT</span><h2>Hey, '+esc(name)+'.<br><em>Continue where you left off.</em></h2><p>Your next assignment and saved work are below.</p>'+button(nextLabel,nextAction,"nf-btn nf-lime",'data-role="'+role+'"')+'</div><div class="nf-banner-art">'+art(role)+'</div></section>';
+ var mood='<section class="nf-banner"><div class="nf-banner-copy"><span class="nf-label">YOUR NEXT ASSIGNMENT</span><h2>Hey, '+esc(name)+'.<br><em>Continue where you left off.</em></h2>'+button(nextLabel,nextAction,"nf-btn nf-lime",'data-role="'+role+'"')+'</div><div class="nf-banner-art">'+art(role)+'</div></section>';
  var dayHtml=dates.map(function(d){return '<div class="nf-day '+(st.days.indexOf(d.key)>=0?'done':'')+'"><span>'+d.day+'</span><b>'+d.date+'</b><small>'+(st.days.indexOf(d.key)>=0?'✓':'·')+'</small></div>';}).join("");
  var milestones=[
   ['Try the role','Take a short realistic assignment.',st.done[role]?'Completed':'Start here','tryout'],
@@ -99,7 +100,7 @@ function dash(){
  ];
  var cards=milestones.map(function(m,i){return '<button class="nf-milestone '+((i===0&&st.done[role])||(i===1&&p.complete)||(i===2&&p.complete)?'done':'')+'" data-flow-action="'+m[3]+'" data-role="'+role+'"><span class="nf-step-circle">'+((i===0&&st.done[role])||(i===1&&p.complete)||(i===2&&p.complete)?'✓':i+1)+'</span><span><b>'+m[0]+'</b><small>'+m[1]+'</small></span><span class="nf-step-status">'+m[2]+'</span></button>';}).join("");
  var body=mood+'<div class="nf-overview"><section class="nf-whitecard"><div class="nf-same"><div><h2>Your weekly rhythm</h2><p>Only your actual activity is shown.</p></div><span class="nf-counter">'+weekly+' / 7 days</span></div><div class="nf-days">'+dayHtml+'</div><p class="nf-small">Your plan: '+esc(st.profile.time||"10–15 minutes per day")+'. No streak penalties or invented points.</p></section><section class="nf-whitecard nf-stat"><div><p class="nf-label">CURRENT CAREER</p><h2>'+names[role]+'</h2><p>'+next+'</p></div><div class="nf-ring" style="--progress:'+Math.round(total/2*100)+'%"><b>'+total+'/2</b><span>milestones</span></div></section></div><section class="nf-section"><div class="nf-section-head"><h2>Your path</h2>'+button("Switch career ↗","browse","nf-linkbtn")+'</div><div class="nf-path">'+cards+'</div></section><section class="nf-section"><div class="nf-section-head"><h2>My recent work</h2>'+button("View portfolio ↗","portfolio","nf-linkbtn")+'</div><div class="nf-workgrid">'+(st.samples.length?st.samples.slice().reverse().slice(0,2).map(sampleCard).join(""):'<div class="nf-empty"><img src="'+images.mentor+'" alt="" loading="lazy"><b>No work samples saved yet.</b><p>Complete a career try-out to save a real decision card.</p></div>')+'</div></section>';
- layout("My learning","Your completed steps, next assignment and saved work.",body,"dashboard");
+ layout("My learning","Your practice track: "+names[role]+".",body,"dashboard");
 }
 function sampleCard(s){
  return '<article class="nf-sample"><span class="nf-sample-art">'+art(s.role)+'</span><div class="nf-sample-body"><span class="nf-label">'+(s.kind==="tryout"?"CAREER TRY-OUT":"GUIDED PROJECT")+' · '+niceDate(s.date)+'</span><h3>'+esc(s.title)+'</h3><p>'+names[s.role]+'</p>'+button("Open work sample →","sample","nf-linkbtn",'data-id="'+esc(s.id)+'"')+'</div></article>';
@@ -214,13 +215,13 @@ function augmentLanding(root){
  var hero=root.querySelector(".cs-phone-illus");
  if(hero){hero.innerHTML='<img src="'+images.mentor+'" alt="" width="600" height="440" class="nf-hero-mentor">';}
  var top=root.querySelector(".cs-toplinks");
- if(top){var btn=document.createElement("button");btn.type="button";btn.className="nf-top-link";btn.textContent="My learning";btn.dataset.flowGo="dashboard";top.appendChild(btn);}
+ if(top){var btn=document.createElement("button");btn.type="button";btn.className="nf-top-link";btn.textContent="Learning space";btn.dataset.flowGo="dashboard";top.appendChild(btn);}
  var cta=root.querySelector(".cs-join");if(cta){cta.textContent="Start free exercise ↗";cta.removeAttribute("data-flow-go");cta.onclick=function(){window.NEWRO.start("marketing");};}
  var dock=root.querySelector(".cs-mobile-dock");
  if(dock){var buttons=dock.querySelectorAll("button");if(buttons[2]){buttons[2].disabled=false;buttons[2].removeAttribute("data-resume");buttons[2].removeAttribute("aria-label");buttons[2].innerHTML=icon("home")+"My learning";buttons[2].dataset.flowGo="dashboard";}}
  var role=root.querySelector("#careers");
  if(role){
-  var section=document.createElement("section");section.className="nf-landing-bridge";section.innerHTML='<div><span class="nf-label">THE NEXT STEP</span><h2>From a first task to a finished brief.</h2><p>Finish a short try-out, move into a guided project, then save the work in your portfolio.</p>'+button("Open my learning space ↗","dashboard","nf-btn nf-secondary")+'</div><img src="'+images.mentor+'" alt="" loading="lazy">';
+  var section=document.createElement("section");section.className="nf-landing-bridge";section.innerHTML='<div><span class="nf-label">WHAT HAPPENS AFTER THE TRY-OUT?</span><h2>Build a complete brief.</h2><p>Finish a short try-out, move into a guided project, then save the work in your portfolio.</p>'+button("Open my learning space ↗","dashboard","nf-btn nf-secondary")+'</div><img src="'+images.mentor+'" alt="" loading="lazy">';
   role.after(section);
  }
 }
@@ -300,6 +301,7 @@ var previousHome=window.NEWROHome;
 window.NEWROHome=function(meta,target){
  if(previousHome)previousHome(meta,target);
  augmentLanding(target);
+ if(window.NEWROPremium)window.NEWROPremium.home(target.querySelector(".cs-shell"));
 };
 window.NEWROFlow={
  goto:go,
