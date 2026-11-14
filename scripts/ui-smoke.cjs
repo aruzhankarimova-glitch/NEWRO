@@ -20,26 +20,33 @@ async function run() {
       const page = await ctx.newPage();
       page.on('pageerror', error => errors.push(device.name + ': ' + error.message));
       await page.goto(site, { waitUntil: 'domcontentloaded' });
-      await page.locator('.nl-hero-title').waitFor();
-      await page.locator('.nl-role').first().waitFor();
-      assert.equal(await page.locator('.nl-role').count(), 2, device.name + ': role cards');
+      if (device.name === 'desktop') {
+        // Capture animation before waiting for content lower on the page.
+        await page.locator('.nl-sw-controls').waitFor({ timeout: 5000 });
+        await page.screenshot({ path: 'test-results/newro-desktop-swarm.png', fullPage: false });
+        await page.locator('.nl-sw-skip').click();
+        assert.equal(await page.locator('.cs-title').evaluate(el => getComputedStyle(el).opacity), '1', 'skip instantly reveals hero');
+      }
+      await page.locator('.cs-title').waitFor();
+      await page.locator('.cs-role').first().waitFor();
+      assert.equal(await page.locator('.cs-role').count(), 2, device.name + ': role cards');
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
       assert(overflow <= 2, device.name + ': overflow ' + overflow + 'px');
       if (device.width <= 760) {
         assert(await page.locator('.nl-mobile-dock').isVisible(), device.name + ': app dock');
         assert.equal(await page.locator('#nl-build-overlay').count(), 0, device.name + ': no heavy animation on mobile');
-      } else if (device.name === 'desktop') {
-        await page.locator('.nl-sw-controls').waitFor({ timeout: 9000 });
-        await page.screenshot({ path: 'test-results/newro-desktop-swarm.png', fullPage: false });
-        await page.locator('.nl-sw-skip').click();
       }
       if (device.name !== 'tablet') {
         await page.screenshot({ path: 'test-results/newro-' + device.name + '.png', fullPage: true });
       }
 
       if (device.name === 'mobile') {
-        await page.locator('.nl-role').first().click();
+        await page.locator('.cs-role').first().click();
         await page.getByText('Your first day in AI marketing.').waitFor();
+        assert(await page.locator('.cs-player .cs-course-meta').count() === 1, 'learning meta displayed');
+        await page.getByRole('button', { name: 'View your learning path' }).click();
+        await page.getByRole('dialog', { name: 'Career learning path' }).waitFor();
+        await page.getByRole('button', { name: 'Close learning path' }).click();
         await page.screenshot({ path: 'test-results/newro-mobile-player.png', fullPage: true });
         await page.getByRole('button', { name: 'Open the brief' }).click();
         await page.reload({ waitUntil: 'domcontentloaded' });
@@ -49,7 +56,7 @@ async function run() {
         assert(await page.getByRole('button', { name: 'Resume', exact: true }).count() >= 1, 'resume action');
       }
       if (device.name === 'desktop') {
-        await page.locator('.nl-role').nth(1).click();
+        await page.locator('.cs-role').nth(1).click();
         await page.getByText('Your first day as a Product Manager').waitFor();
         await page.getByRole('button', { name: 'Open the release brief' }).click();
         await page.getByRole('button', { name: 'Choose what ships' }).click();
@@ -73,10 +80,10 @@ async function run() {
     await phone.screenshot({ path: 'test-results/newro-mobile-swarm.png', fullPage: false });
     await phone.locator('.nl-sw-skip').click();
     assert(await phone.locator('.nl-sw-controls').count() === 0, 'mobile skip ends construction');
-    await phone.locator('.nl-replay').click();
+    await phone.locator('.cs-replay').click();
     await phone.locator('.nl-sw-controls').waitFor({ timeout: 5000 });
     await phone.locator('.nl-sw-skip').click();
-    await phone.locator('.nl-role').first().click();
+    await phone.locator('.cs-role').first().click();
     await phone.getByText('Your first day in AI marketing.').waitFor();
     await animated.close();
 

@@ -21,3 +21,9 @@ This is a prototype design system, not final branding. Refer to `PRODUCT.md` and
 - Attribution: inspired by the **idea** of Dhvanil Patel's Swarm Rebuild / Joel Califa's Swarm; their code and art are not used because no open license is provided.
 
 - Mobile and desktop have a cursor-led assembly. The real UI must become interactive immediately when the user skips. Motion respects reduced-motion preferences, and any audio starts only after a user gesture.
+
+## Approved learning-app direction — v2
+
+For all NEWRO surfaces: background #fafbff / white; foreground #171921; violet #6154f5 for selections and progress; green #21bb63 for primary actions; soft lavender #f2f2ff for instructional panels; 14–23px radii. Single obvious next action per screen, short descriptions, large option tiles, user-generated outcome at the end. Illustrations are custom simple graphics, never fake product screenshots or fake endorsements. On mobile keep app-style navigation and a sticky Continue button. Learning path is viewable from each step; completed steps can be revisited, locked ones cannot be skipped.
+
+The cursor-led building animation is preserved and runs with parallel workers; every page must be fully usable on Skip or reduced motion.

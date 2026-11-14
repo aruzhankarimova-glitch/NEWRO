@@ -36,7 +36,12 @@
     if(s.overlay) s.overlay.remove();
     if(s.skip) s.skip.remove();
     if(s.shell && s.shell.isConnected) {
-      s.shell.querySelectorAll("[data-build]").forEach(show);
+      s.shell.classList.add("nl-sw-skip-instant");
+      s.shell.querySelectorAll("[data-build]").forEach(function(node){
+        if(node.getAnimations)node.getAnimations().forEach(function(a){a.cancel();});
+        show(node);
+      });
+      window.setTimeout(function(){if(s.shell && s.shell.isConnected)s.shell.classList.remove("nl-sw-skip-instant");},500);
       s.shell.classList.remove("nl-sw-running");
       var status=s.shell.querySelector("[data-build-progress]");
       if(status) status.textContent="STUDIO READY";

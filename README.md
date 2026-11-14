@@ -60,3 +60,11 @@ Existing older files inside `NEWRO/` were preserved to avoid destructive changes
 - Mobile runs three cursors and a compact bottom control bar above the app dock. Desktop uses five cursors. Scroll to reveal more tasks.
 - Replay, Skip and optional user-initiated synthetic click sounds are included; reduced-motion preferences skip the performance.
 - This is an independent reimplementation inspired by the idea, **not a reproduction of or inclusion of unlicensed original source code** from [Swarm Rebuild](https://github.com/DhvanilPatel/swarm-cursors) / [Swarm](https://github.com/califa/swarm-site).
+
+## Course-style design system (November 2026)
+
+NEWRO now uses a unified, mobile-first learning-app visual system: white surfaces, violet selection and progress, green primary actions, purpose-built role illustrations, short lesson cards, mentor feedback and a functional learning-path dialog. Home animation keeps its independently implemented parallel cursor swarm, including on phones.
+
+The design is an original adaptation of user-provided learning app screenshots. It does not reuse those screenshots or copyrighted illustrations as website assets.
+
+The course progress path reflects simulation steps only. Paid subscriptions, real AI feedback and verified professional credentials are not present.
