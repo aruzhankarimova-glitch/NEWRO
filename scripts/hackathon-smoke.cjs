@@ -46,7 +46,7 @@ async function run() {
   await page.goto(site,{waitUntil:'domcontentloaded'});
   assert.equal((await page.evaluate(()=>window.__pulses)).length,0,'No vibration before interaction');
   assert(await page.getByText('Try the job').count()>=1,'Hackathon-focused headline present');
-  assert.equal(await page.locator('.cs-phone-status').innerText().then(x=>x.includes('32%')),false,'No fake progress');
+  assert.equal((await page.locator('.cs-stage').innerText()).includes('32%'),false,'No fake progress');
   await page.locator('.cs-role').first().click();
   assert((await page.evaluate(()=>window.__pulses)).length>=1,'Vibration on intentional tap');
   await page.getByRole('button',{name:'Open the brief'}).click();
