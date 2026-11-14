@@ -105,3 +105,17 @@
  .cs-shell .nm-quick-feedback{font-size:9px}
  .cs-shell{scroll-padding-bottom:110px}
 }
+
+/* Contextual mobile dock: never cover the first playable question's action. */
+@media(max-width:760px){
+ .cs-shell .cs-mobile-dock{transition:transform .28s cubic-bezier(.22,.72,.26,1),opacity .2s,visibility .2s}
+ .cs-shell .cs-mobile-dock.nm-dock-hidden{
+   transform:translateY(calc(130% + 20px));
+   opacity:0;
+   visibility:hidden;
+   pointer-events:none;
+ }
+}
+@media(max-width:760px) and (prefers-reduced-motion:reduce){
+ .cs-shell .cs-mobile-dock{transition:none!important}
+}

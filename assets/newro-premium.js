@@ -84,6 +84,14 @@ function setupScroll(shell){
  function update(){
   scrollFrame=0;
   if(!shell.isConnected)return;
+  // Keep the playable preview unobstructed. Show bottom navigation after it leaves view.
+  var dock=shell.querySelector(".cs-mobile-dock");
+  var preview=shell.querySelector(".cs-stage");
+  if(dock && preview){
+    var rect=preview.getBoundingClientRect();
+    var hide=window.innerWidth<=760 && rect.bottom>window.innerHeight*.45 && rect.top<window.innerHeight*.88;
+    dock.classList.toggle("nm-dock-hidden",hide);
+  }
   var all=document.documentElement.scrollHeight-window.innerHeight;
   var ratio=all>0?Math.max(0,Math.min(1,window.scrollY/all)):0;
   bar.style.transform="scaleX("+ratio.toFixed(4)+")";

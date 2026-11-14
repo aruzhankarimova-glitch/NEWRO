@@ -33,7 +33,8 @@ async function run() {
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
       assert(overflow <= 2, device.name + ': overflow ' + overflow + 'px');
       if (device.width <= 760) {
-        assert(await page.locator('.nl-mobile-dock').isVisible(), device.name + ': app dock');
+        assert.equal(await page.locator('.nl-mobile-dock').count(), 1, device.name + ': app dock exists');
+        assert(await page.locator('.nl-mobile-dock').evaluate(el => el.classList.contains('nm-dock-hidden')), device.name + ': dock clears interactive preview');
         assert.equal(await page.locator('#nl-build-overlay').count(), 0, device.name + ': no heavy animation on mobile');
       }
       if (device.name !== 'tablet') {
