@@ -52,7 +52,7 @@ async function run() {
         await page.reload({ waitUntil: 'domcontentloaded' });
         await page.getByText('Meet your client, Harbor').waitFor();
         await page.getByRole('button', { name: 'Exit to careers (progress is saved)' }).click();
-        await page.getByRole('button', { name: 'Browse careers' }).click();
+        await page.locator('.cs-title').waitFor();
         assert(await page.locator('.cs-resume [data-resume]').count() === 1, 'saved session resume action');
       }
       if (device.name === 'desktop') {
