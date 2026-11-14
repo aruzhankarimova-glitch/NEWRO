@@ -105,7 +105,7 @@ async function runCase(browser,role,device) {
     assert(download.suggestedFilename().includes('newro-project'),'Download is a real artifact');
     await page.reload({waitUntil:'domcontentloaded'});
     await page.locator('.nf-detail-banner').waitFor();
-    await page.locator('.nf-navitem[data-flow-go=profile]').first().click();
+    await page.locator(device.name==='mobile'?'.nf-dock .nf-navitem[data-flow-go=profile]':'.nf-navdesk .nf-navitem[data-flow-go=profile]').click();
     await page.locator('#nf-profile-form').waitFor();
     await page.locator('#nf-name').fill('Test Learner');
     await page.locator('#nf-profile-form button[type=submit]').click();
