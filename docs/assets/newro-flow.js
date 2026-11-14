@@ -215,12 +215,12 @@ function augmentLanding(root){
  if(hero){hero.innerHTML='<img src="'+images.mentor+'" alt="" width="600" height="440" class="nf-hero-mentor">';}
  var top=root.querySelector(".cs-toplinks");
  if(top){var btn=document.createElement("button");btn.type="button";btn.className="nf-top-link";btn.textContent="My learning";btn.dataset.flowGo="dashboard";top.appendChild(btn);}
- var cta=root.querySelector(".cs-join");if(cta){cta.textContent="My learning ↗";cta.removeAttribute("onclick");cta.dataset.flowGo="dashboard";}
+ var cta=root.querySelector(".cs-join");if(cta){cta.textContent="Start free exercise ↗";cta.removeAttribute("data-flow-go");cta.onclick=function(){window.NEWRO.start("marketing");};}
  var dock=root.querySelector(".cs-mobile-dock");
  if(dock){var buttons=dock.querySelectorAll("button");if(buttons[2]){buttons[2].disabled=false;buttons[2].removeAttribute("data-resume");buttons[2].removeAttribute("aria-label");buttons[2].innerHTML=icon("home")+"My learning";buttons[2].dataset.flowGo="dashboard";}}
  var role=root.querySelector("#careers");
  if(role){
-  var section=document.createElement("section");section.className="nf-landing-bridge";section.innerHTML='<div><span class="nf-label">THE NEXT STEP</span><h2>A career path you can actually build.</h2><p>Finish a short try-out, move into a guided project, then save the work in your portfolio.</p>'+button("Open my learning space ↗","dashboard","nf-btn nf-secondary")+'</div><img src="'+images.mentor+'" alt="" loading="lazy">';
+  var section=document.createElement("section");section.className="nf-landing-bridge";section.innerHTML='<div><span class="nf-label">THE NEXT STEP</span><h2>From a first task to a finished brief.</h2><p>Finish a short try-out, move into a guided project, then save the work in your portfolio.</p>'+button("Open my learning space ↗","dashboard","nf-btn nf-secondary")+'</div><img src="'+images.mentor+'" alt="" loading="lazy">';
   role.after(section);
  }
 }

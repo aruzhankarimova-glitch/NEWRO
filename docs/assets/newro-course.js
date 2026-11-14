@@ -39,13 +39,13 @@ function home(meta,root){
           '<div class="cs-phone-status"><span>DAY ONE / MARKETING</span><span>EXAMPLE</span></div>' +
           '' +
           '<p class="cs-phone-head" data-build="board-eyebrow">FICTIONAL CLIENT BRIEF</p>' +
-          '<h2 class="cs-phone-title" data-build="board-heading">Harbor needs a campaign. You choose the audience.</h2>' +
+          '<h2 class="cs-phone-title" data-build="board-heading">Choose Harbor’s audience.</h2>' +
           '<div class="cs-phone-illus" aria-hidden="true"><span class="cs-illus-blob"></span><span class="cs-illus-person"><span class="cs-illus-head"></span><span class="cs-illus-body"></span></span><span class="cs-illus-card">✳</span></div>' +
           '<p class="cs-phone-task" data-build="board-copy">Which customer problem fits Harbor?</p>' +
           '<div class="cs-phone-question" data-build="board-card">People surprised by subscription renewals</div>' +
           '<button class="cs-phone-cta" type="button" onclick="NEWRO.start(\'marketing\')" aria-label="Try this marketing assignment">Continue →</button>' +
         '</div>' +
-        '<div class="cs-float top" data-build="board-mentor"><strong>MENTOR TIP</strong>Look for evidence in the customer notes.</div>' +
+        '' +
         '' +
         '' +
       '</div>' +
