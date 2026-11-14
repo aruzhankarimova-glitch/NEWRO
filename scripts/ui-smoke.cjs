@@ -20,6 +20,12 @@ async function run() {
       const page = await ctx.newPage();
       page.on('pageerror', error => errors.push(device.name + ': ' + error.message));
       await page.goto(site, { waitUntil: 'domcontentloaded' });
+      if (device.name === 'desktop') {
+        // Capture animation before waiting for content lower on the page.
+        await page.locator('.nl-sw-controls').waitFor({ timeout: 5000 });
+        await page.screenshot({ path: 'test-results/newro-desktop-swarm.png', fullPage: false });
+        await page.locator('.nl-sw-skip').click();
+      }
       await page.locator('.cs-title').waitFor();
       await page.locator('.cs-role').first().waitFor();
       assert.equal(await page.locator('.cs-role').count(), 2, device.name + ': role cards');
@@ -28,10 +34,6 @@ async function run() {
       if (device.width <= 760) {
         assert(await page.locator('.nl-mobile-dock').isVisible(), device.name + ': app dock');
         assert.equal(await page.locator('#nl-build-overlay').count(), 0, device.name + ': no heavy animation on mobile');
-      } else if (device.name === 'desktop') {
-        await page.locator('.nl-sw-controls').waitFor({ timeout: 9000 });
-        await page.screenshot({ path: 'test-results/newro-desktop-swarm.png', fullPage: false });
-        await page.locator('.nl-sw-skip').click();
       }
       if (device.name !== 'tablet') {
         await page.screenshot({ path: 'test-results/newro-' + device.name + '.png', fullPage: true });
