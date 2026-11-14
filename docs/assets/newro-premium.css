@@ -89,3 +89,19 @@
 .cs-shell .cs-hero-buttons .nl-bigcta::before{display:none!important}
 .nf-app .nf-day.done small{animation:none!important}
 }
+/* Final handset composition: the interactive action must clear the fixed dock. */
+.cs-shell .cs-phone-head{margin-top:12px}
+.cs-shell .cs-bottom{column-gap:24px;row-gap:7px}
+@media(max-width:760px){
+ .cs-shell .cs-stage{height:364px!important;min-height:364px!important}
+ .cs-shell .cs-card-device{min-height:287px;margin-top:45px;padding:11px 12px 12px}
+ .cs-shell .cs-phone-head{margin-top:7px;margin-bottom:7px}
+ .cs-shell .cs-phone-illus{height:48px}
+ .cs-shell .cs-phone-title{font-size:17px;margin-bottom:7px}
+ .cs-shell .cs-phone-task{font-size:10px;margin:6px 0}
+ .cs-shell .cs-bottom{display:flex;flex-direction:column;gap:5px;line-height:1.5;align-items:flex-start}
+ .cs-shell .cs-stage .nm-quick-choice{min-height:29px}
+ .cs-shell .cs-phone-cta{min-height:30px;margin-top:7px}
+ .cs-shell .nm-quick-feedback{font-size:9px}
+ .cs-shell{scroll-padding-bottom:110px}
+}

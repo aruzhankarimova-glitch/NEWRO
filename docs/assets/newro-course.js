@@ -29,14 +29,14 @@ function home(meta,root){
         '<h1 class="cs-title" data-build="heading">Try the job <em>before you retrain.</em></h1>' +
         '<p class="cs-lede" data-build="description">Thinking about changing careers? Spend ten minutes on a realistic assignment. See your decisions, save the result and decide what to explore next.</p>' +
         '<div class="cs-hero-buttons" data-build="actions"><button class="nl-bigcta" type="button" onclick="NEWRO.start(\'marketing\')">Try AI marketing · 10 min<span class="cs-button-arrow">↗</span></button><button class="cs-linkbtn" type="button" data-scroll="how">What will I do? ↘</button></div>' +
-        '<div class="cs-chips" data-build="proof"><span class="cs-chip">No payment</span><span class="cs-chip">About 10 minutes</span><span class="cs-chip">Keep your work sample</span></div>' +
+        '<div class="cs-chips" data-build="proof"><span class="cs-chip">No payment</span><span class="cs-chip">Keep your work sample</span></div>' +
         (saved?'<div class="cs-resume" data-build="saved"><div><b>Welcome back</b><small>'+text(role)+' · your progress is saved</small></div><button type="button" data-resume>Resume →</button></div>':'') +
       '</div>' +
       '<div class="nl-stage cs-stage" data-build="stage">' +
         '' +
         '<div class="cs-stage-top"><span class="cs-stage-live">INTERACTIVE PREVIEW</span><button class="cs-replay" type="button" data-replay>↺ Replay</button></div>' +
         '<div class="cs-card-device">' +
-          '<div class="cs-phone-status"><span>DAY ONE / MARKETING</span><span>PRACTICE</span></div>' +
+
           '<p class="cs-phone-head" data-build="board-eyebrow">CLIENT: HARBOR</p>' +
           '<h2 class="cs-phone-title" data-build="board-heading">Who would you target?</h2>' +
           '<div class="cs-phone-illus" aria-hidden="true"><span class="cs-illus-blob"></span><span class="cs-illus-person"><span class="cs-illus-head"></span><span class="cs-illus-body"></span></span><span class="cs-illus-card">✳</span></div>' +
