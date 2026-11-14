@@ -53,3 +53,10 @@ Go to http://localhost:8000.
 - `design-stack.lock` and `scripts/setup-design-stack.sh`: pinned third-party design skills.
 
 Existing older files inside `NEWRO/` were preserved to avoid destructive changes. New active files are at the repository root.
+
+## Responsive Swarm 2.0 (mobile + desktop)
+
+- Both screen sizes now show a multi-cursor construction sequence: blank canvas, cursor orbit, frames/guides, text typing, copied cards and a final reveal.
+- Mobile runs three cursors and a compact bottom control bar above the app dock. Desktop uses five cursors. Scroll to reveal more tasks.
+- Replay, Skip and optional user-initiated synthetic click sounds are included; reduced-motion preferences skip the performance.
+- This is an independent reimplementation inspired by the idea, **not a reproduction of or inclusion of unlicensed original source code** from [Swarm Rebuild](https://github.com/DhvanilPatel/swarm-cursors) / [Swarm](https://github.com/califa/swarm-site).

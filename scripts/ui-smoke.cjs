@@ -58,6 +58,25 @@ async function run() {
       }
       await ctx.close();
     }
+    // Motion must also run on phones: verify multiple cursors, replay and skip.
+    const animated = await browser.newContext({ viewport: { width: 390, height: 844 }, reducedMotion: 'no-preference' });
+    contexts.push(animated);
+    const phone = await animated.newPage();
+    phone.on('pageerror', error => errors.push('mobile-animation: ' + error.message));
+    await phone.goto(site, { waitUntil: 'domcontentloaded' });
+    await phone.locator('.nl-sw-controls').waitFor({ timeout: 8000 });
+    assert(await phone.locator('.nl-sw-cursor').count() >= 3, 'three or more animated mobile cursors');
+    await phone.waitForTimeout(1100);
+    await phone.screenshot({ path: 'test-results/newro-mobile-swarm.png', fullPage: false });
+    await phone.locator('.nl-sw-skip').click();
+    assert(await phone.locator('.nl-sw-controls').count() === 0, 'mobile skip ends construction');
+    await phone.locator('.nl-replay').click();
+    await phone.locator('.nl-sw-controls').waitFor({ timeout: 5000 });
+    await phone.locator('.nl-sw-skip').click();
+    await phone.locator('.nl-role').first().click();
+    await phone.getByText('Your first day in AI marketing.').waitFor();
+    await animated.close();
+
     assert.deepEqual(errors, [], 'No page exceptions');
     console.log('PASS: desktop, tablet, mobile, persistence, PM flow, a11y entrypoints, no overflow, no JS errors');
   } finally {

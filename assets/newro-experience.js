@@ -98,7 +98,7 @@
       '</div>';
 
     var shell = document.getElementById("nl-shell");
-    shell.querySelectorAll("[data-replay]").forEach(function (b) { b.addEventListener("click", function () { beginBuild(shell, true); }); });
+    shell.querySelectorAll("[data-replay]").forEach(function (b) { b.addEventListener("click", function () { if(window.NEWROSwarm) window.NEWROSwarm.start(shell,true); else beginBuild(shell,true); }); });
     shell.querySelectorAll("[data-scroll]").forEach(function (b) {
       b.addEventListener("click", function () {
         var target = document.getElementById(b.getAttribute("data-scroll"));
@@ -110,7 +110,7 @@
     });
     var resumeButton = shell.querySelector("[data-resume]");
     if (resumeButton) resumeButton.addEventListener("click", function () { if (window.NEWRO && hasProgress) window.NEWRO.resume(); });
-    if (!prefersLessMotion && !shortScreen) beginBuild(shell, false);
+    if (window.NEWROSwarm && !prefersLessMotion) window.NEWROSwarm.start(shell,false); else if (!prefersLessMotion && !shortScreen) beginBuild(shell, false);
   }
 
   function actorEl(name, color, overlay) {

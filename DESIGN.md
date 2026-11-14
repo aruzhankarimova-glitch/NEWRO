@@ -19,3 +19,5 @@ This is a prototype design system, not final branding. Refer to `PRODUCT.md` and
 - User choices, practice progress and result downloads must remain accessible. No live AI or invented social proof.
 - Animation supports Replay, Skip, reduced motion and is limited to desktop; never gate a CTA on an animation.
 - Attribution: inspired by the **idea** of Dhvanil Patel's Swarm Rebuild / Joel Califa's Swarm; their code and art are not used because no open license is provided.
+
+- Mobile and desktop have a cursor-led assembly. The real UI must become interactive immediately when the user skips. Motion respects reduced-motion preferences, and any audio starts only after a user gesture.

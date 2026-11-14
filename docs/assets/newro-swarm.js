@@ -193,7 +193,7 @@
   function placeOrbit(s) {
     var brand=s.shell.querySelector(".nl-brand");
     var r=brand&&brand.getBoundingClientRect();
-    var centerX=r?Math.min(window.innerWidth/2,r.left+r.width/2):window.innerWidth/2;
+    var centerX=window.innerWidth/2;
     var centerY=window.innerHeight*.43;
     s.cursors.forEach(function(a,i){
       var angle=2*Math.PI*i/s.cursors.length;
