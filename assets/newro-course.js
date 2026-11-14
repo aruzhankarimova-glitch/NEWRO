@@ -17,11 +17,11 @@ function home(meta,root){
   var saved=!!(meta&&meta.resume),role=meta&&meta.role==="marketing"?"AI Marketing Specialist":"Product Manager";
   root.innerHTML=
   '<div id="nl-shell" class="nl-shell cs-shell">' +
+    '<div class="nm-page-progress" aria-hidden="true"></div>' +
     '<header id="top" class="cs-top"><div class="cs-topin">' +
       '<a class="nl-brand" href="#top" data-build="brand"><span class="nl-brand-icon">n</span>newro<span class="nl-brand-dot">.</span></a>' +
       '<nav class="cs-toplinks" aria-label="Site navigation"><a href="#careers">Explore roles</a><a href="#how">How it works</a></nav>' +
-      (saved?'<button class="cs-sign" onclick="NEWRO.resume()" type="button">Resume your session</button>':'') +
-      '<button class="cs-join" onclick="NEWRO.start(\'marketing\')" type="button">Start free try-out ↗</button>' +
+      '' +
     '</div></header>' +
     '<main><div class="nl-wrap"><section class="cs-hero" aria-label="Explore careers">' +
       '<div class="cs-hero-text">' +
@@ -34,16 +34,19 @@ function home(meta,root){
       '</div>' +
       '<div class="nl-stage cs-stage" data-build="stage">' +
         '' +
-        '<div class="cs-stage-top"><span class="cs-stage-live">EXAMPLE TASK / HARBOR</span><button class="cs-replay" type="button" data-replay>↺ Replay</button></div>' +
+        '<div class="cs-stage-top"><span class="cs-stage-live">INTERACTIVE PREVIEW</span><button class="cs-replay" type="button" data-replay>↺ Replay</button></div>' +
         '<div class="cs-card-device">' +
-          '<div class="cs-phone-status"><span>DAY ONE / MARKETING</span><span>EXAMPLE</span></div>' +
-          '' +
-          '<p class="cs-phone-head" data-build="board-eyebrow">FICTIONAL CLIENT BRIEF</p>' +
-          '<h2 class="cs-phone-title" data-build="board-heading">Choose Harbor’s audience.</h2>' +
+          '<div class="cs-phone-status"><span>DAY ONE / MARKETING</span><span>PRACTICE</span></div>' +
+          '<p class="cs-phone-head" data-build="board-eyebrow">CLIENT: HARBOR</p>' +
+          '<h2 class="cs-phone-title" data-build="board-heading">Who would you target?</h2>' +
           '<div class="cs-phone-illus" aria-hidden="true"><span class="cs-illus-blob"></span><span class="cs-illus-person"><span class="cs-illus-head"></span><span class="cs-illus-body"></span></span><span class="cs-illus-card">✳</span></div>' +
-          '<p class="cs-phone-task" data-build="board-copy">Which customer problem fits Harbor?</p>' +
-          '<div class="cs-phone-question" data-build="board-card">People surprised by subscription renewals</div>' +
-          '<button class="cs-phone-cta" type="button" onclick="NEWRO.start(\'marketing\')" aria-label="Try this marketing assignment">Continue →</button>' +
+          '<p class="cs-phone-task" data-build="board-copy">Harbor tracks subscription renewals. Which audience fits?</p>' +
+          '<div class="nm-quick-choices" data-build="board-card" role="group" aria-label="Try the marketing decision">' +
+            '<button type="button" class="nm-quick-choice" data-quick-choice="trials" aria-pressed="false">People managing free trials</button>' +
+            '<button type="button" class="nm-quick-choice" data-quick-choice="stocks" aria-pressed="false">People analyzing stocks</button>' +
+          '</div>' +
+          '<p class="nm-quick-feedback" aria-live="polite" role="status" hidden></p>' +
+          '<button class="cs-phone-cta" type="button" onclick="NEWRO.start(\'marketing\')" aria-label="Open the full AI marketing assignment">Start the full task →</button>' +
         '</div>' +
         '' +
         '' +
@@ -139,6 +142,7 @@ function enhance(o){
    celebration.innerHTML='<span class="cs-celebrate-icon" aria-hidden="true">🏆</span><b>You did the work.</b><p>Explore what you decided, keep your work sample and choose your next step.</p>';
    main.insertBefore(celebration,meta.nextSibling);
  }
+ if(window.NEWROPremium)window.NEWROPremium.lesson();
 }
 window.NEWROHome=home;
 window.NEWROCourseUI={enhance:enhance};
