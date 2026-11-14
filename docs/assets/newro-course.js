@@ -87,7 +87,13 @@ function home(meta,root){
   });
   shell.querySelectorAll("[data-resume]").forEach(function(btn){btn.addEventListener("click",function(){if(window.NEWRO)window.NEWRO.resume();});});
   shell.querySelectorAll("[data-replay]").forEach(function(btn){btn.addEventListener("click",function(){if(window.NEWROSwarm)window.NEWROSwarm.start(shell,true);});});
-  if(window.NEWROSwarm && !window.matchMedia("(prefers-reduced-motion: reduce)").matches)window.NEWROSwarm.start(shell,false);
+  // Show the short build only on a fresh session. Returning learners see the UI immediately.
+  var hasSeen=false;
+  try{hasSeen=sessionStorage.getItem("newro-swarm-once")==="1";}catch(e){}
+  if(window.NEWROSwarm && !saved && !hasSeen && !window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+    try{sessionStorage.setItem("newro-swarm-once","1");}catch(e){}
+    window.NEWROSwarm.start(shell,false);
+  }
 }
 var tracks={
  marketing:[
