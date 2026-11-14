@@ -91,7 +91,15 @@ Use CI to verify the automatable items, and complete the human-only checks on ac
 6. Check the 5-minute pitch against a stopwatch and rehearse the 2-minute Q&A.
 7. Keep the GitHub URL, GitHub Pages URL and deck link in one short submission note, and make sure you can open all three.
 
-## 7. Follow-up roadmap after the hackathon
+## 7. Competitive reality (checked against official product pages, 15 Nov 2026)
+
+- **[Forage](https://www.theforage.com/):** Free employer-designed job simulations with practical assignments, model answers and certificates. Its catalog also contains **[under-15-minute Shorts](https://www.theforage.com/simulations)**. Therefore neither "free job simulation" nor "short job preview" is a unique invention of NEWRO.
+- **[Coursiv](https://support.coursiv.io/en/support/solutions/articles/73000619521-what-is-coursiv-):** AI-skills guides, daily challenges, progress tracking, practice and AI tools. An attractive mobile UI and daily exercises are not enough to establish differentiation.
+- **Proposed NEWRO edge — a hypothesis to test:** a career sampler leads immediately to **several linked role-specific projects**, with reasoning review and reusable portfolio artifacts. The present prototype demonstrates the navigation and project-artifact path, but not high-quality LLM review or proven paid retention.
+- **Pitch phrasing:** "We're testing whether a work-first, connected learning journey makes career decisions easier," not "We're the first to let people try a job."
+- **Validation:** compare NEWRO with a comparable Forage or Coursiv experience in moderated user sessions. Ask whether the output, feedback and next step are genuinely more useful.
+
+## 8. Follow-up roadmap after the hackathon
 
 **P0 research:** five or more observed usability sessions with potential career changers; measure where people drop out and whether the task genuinely helps decision-making. Avoid treating any arbitrary sample size as validation.
 
