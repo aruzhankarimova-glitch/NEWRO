@@ -5,7 +5,7 @@
   "use strict";
   var current = null;
   var palette = ["#6553E8", "#219268", "#EA8064", "#8A6AD9", "#2C8DAB"];
-  var people = ["mentor", "strategist", "builder", "you", "designer"];
+  var people = ["layout", "copy", "cards", "motion", "review"];
   var K = [
     "brand","eyebrow","heading","description","actions","proof","stage",
     "board-eyebrow","board-heading","board-copy","board-card","board-mentor",
@@ -295,17 +295,14 @@
   async function finale(s) {
     if(s.finishing||s.dead)return;
     s.finishing=true;
-    if(s.count)s.count.textContent="READY TO EXPLORE ✓";
-    var center=s.shell.querySelector(".nl-bigcta");
-    if(center && center.isConnected) {
-      var r=center.getBoundingClientRect();
-      s.cursors.forEach(function(a,i){
-        var angle=2*Math.PI*i/s.cursors.length;
-        move(a,clamp(r.left+r.width/2+Math.cos(angle)*65,8,window.innerWidth-90),
-          clamp(r.top+r.height/2+Math.sin(angle)*48,8,window.innerHeight-42),235,s,i%2?7:-7);
-      });
-    }
-    await sleep(420,s);
+    if(s.count)s.count.textContent="PAGE READY";
+    // Each cursor exits past the bottom edge. Nothing converges on the CTA.
+    var width=window.innerWidth,height=window.innerHeight,count=s.cursors.length;
+    s.cursors.forEach(function(a){a.el.classList.add("nl-sw-exiting");});
+    await Promise.all(s.cursors.map(function(actor,i){
+      var x=clamp(((i+0.5)/count)*width,8,width-55);
+      return move(actor,x,height+140,480,s,0);
+    }));
     if(!s.dead)clear(s);
   }
   function start(shell,replay){
