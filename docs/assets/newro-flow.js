@@ -161,7 +161,7 @@ function projectNext(nextAction){
    p.review=getReview(role,step,textValue);save();
    var out=document.getElementById("nf-review");if(out)out.innerHTML='<div class="nf-feedback" role="status">'+esc(p.review)+'</div>';return;
  }
- if(nextAction==="back"){p.step=Math.max(0,step-1);p.review="";save();projectView(role);return;}
+ if(nextAction==="back"){if(step===0){go("dashboard");return;}p.step=Math.max(0,step-1);p.review="";save();projectView(role);return;}
  if(textValue.length<task.min){input.focus();input.setAttribute("aria-invalid","true");var out=document.getElementById("nf-review");if(out)out.innerHTML='<div class="nf-error" role="alert">Please add at least '+task.min+' characters before continuing.</div>';return;}
  p.review="";
  if(step===3){p.complete=true;p.finishedAt=new Date().toISOString();save();
@@ -236,7 +236,7 @@ function resetConfirm(){
  layout("Reset learning progress","This deletes your local profile, work samples and all saved practice data.",'<div class="nf-whitecard"><h2>Reset everything on this device?</h2><p>This cannot be undone. Download your data before continuing.</p><div class="nf-actions">'+button("Download my data","export","nf-btn nf-secondary")+button("Yes, delete local progress","reset-confirmed","nf-btn nf-danger")+button("Cancel","profile","nf-linkbtn")+'</div></div>',"profile");
 }
 function go(page,arg,skipHash){
- if(page==="home"){if(window.NEWRO){window.NEWRO.leave();}return;}
+ if(page==="home"){history.replaceState(null,"",location.pathname+location.search);if(window.NEWRO){window.NEWRO.leave();}return;}
  if(!skipHash)history.replaceState(null,"",page==="dashboard"?"#/dashboard":"#/"+page);
  switch(page){
   case "dashboard":dash();break;
@@ -261,7 +261,7 @@ document.addEventListener("click",function(event){
  event.preventDefault();
  switch(act){
   case "dashboard":go("dashboard");break;case "portfolio":go("portfolio");break;case "browse":go("paths");break;case "profile":go("profile");break;case "reset":go("reset");break;
-  case "reset-confirmed":{localStorage.removeItem(STORAGE);localStorage.removeItem(SIM_KEY);st=initial();go("home");break;}
+  case "reset-confirmed":{localStorage.removeItem(STORAGE);localStorage.removeItem(SIM_KEY);location.replace(location.pathname+location.search);break;}
   case "tryout":st.preferred=safeRole(role);save();window.NEWRO.start(st.preferred);break;
   case "project":go("project",role);break;
   case "project-next":projectNext("next");break;case "project-back":projectNext("back");break;case "project-review":projectNext("review");break;
