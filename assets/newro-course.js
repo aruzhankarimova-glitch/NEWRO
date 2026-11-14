@@ -43,7 +43,7 @@ function home(meta,root){
           '<div class="cs-phone-illus" aria-hidden="true"><span class="cs-illus-blob"></span><span class="cs-illus-person"><span class="cs-illus-head"></span><span class="cs-illus-body"></span></span><span class="cs-illus-card">✳</span></div>' +
           '<p class="cs-phone-task" data-build="board-copy">Who would you reach first?</p>' +
           '<div class="cs-phone-question" data-build="board-card">People who forget free-trial renewals</div>' +
-          '<div class="cs-phone-cta">Continue →</div>' +
+          '<button class="cs-phone-cta" type="button" onclick="NEWRO.start(\'marketing\')" aria-label="Try this marketing assignment">Continue →</button>' +
         '</div>' +
         '<div class="cs-float top" data-build="board-mentor"><strong>✦ YOUR MENTOR</strong>Start with the customer problem.</div>' +
         '<div class="cs-float bottom green">✓ A real decision, not a quiz</div>' +

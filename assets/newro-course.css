@@ -269,3 +269,5 @@ body{background:#fff}
 }
 @media(max-width:350px){.cs-title{font-size:44px}.cs-stage{height:330px;min-height:330px}.cs-card-device{width:200px}.cs-float.top{max-width:120px}}
 @media(prefers-reduced-motion:reduce){.cs-shell *,.cs-player *{transition:none!important;animation:none!important}}
+
+.cs-phone-cta{border:0;width:100%;cursor:pointer;font-family:inherit}.cs-phone-cta:hover{background:#17a952}.nl-shell.nl-sw-skip-instant [data-build]{visibility:visible!important;opacity:1!important;clip-path:none!important;transition:none!important;animation:none!important}

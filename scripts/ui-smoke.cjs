@@ -25,6 +25,7 @@ async function run() {
         await page.locator('.nl-sw-controls').waitFor({ timeout: 5000 });
         await page.screenshot({ path: 'test-results/newro-desktop-swarm.png', fullPage: false });
         await page.locator('.nl-sw-skip').click();
+        assert.equal(await page.locator('.cs-title').evaluate(el => getComputedStyle(el).opacity), '1', 'skip instantly reveals hero');
       }
       await page.locator('.cs-title').waitFor();
       await page.locator('.cs-role').first().waitFor();
