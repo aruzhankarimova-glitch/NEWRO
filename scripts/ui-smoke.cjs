@@ -68,7 +68,8 @@ async function run() {
     await phone.goto(site, { waitUntil: 'domcontentloaded' });
     await phone.locator('.nl-sw-controls').waitFor({ timeout: 8000 });
     assert(await phone.locator('.nl-sw-cursor').count() >= 3, 'three or more animated mobile cursors');
-    await phone.waitForTimeout(1100);
+    await phone.waitForFunction(() => document.querySelectorAll('.nl-sw-cursor[data-working="true"]').length >= 2, null, { timeout: 3000 });
+    await phone.waitForTimeout(450);
     await phone.screenshot({ path: 'test-results/newro-mobile-swarm.png', fullPage: false });
     await phone.locator('.nl-sw-skip').click();
     assert(await phone.locator('.nl-sw-controls').count() === 0, 'mobile skip ends construction');

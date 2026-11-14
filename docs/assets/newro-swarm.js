@@ -134,13 +134,13 @@
     var r=viewportRect(node);
     if(!intoView(node)){show(node);return;}
     var lx=clamp(r.left,8,window.innerWidth-58),ty=clamp(r.top,12,window.innerHeight-49);
-    await move(actor,lx,ty,235,s,index%2?13:-13);
+    await move(actor,lx,ty,125,s,index%2?13:-13);
     if(s.dead) return;
     drawGuide(r,s,index%palette.length);
     var rect=outlineRect(r,s,index%palette.length);
     var rx=clamp(r.right-8,10,window.innerWidth-35),by=clamp(r.bottom-8,12,window.innerHeight-36);
-    var tween=rect.animate([{clipPath:"inset(0 100% 100% 0)",opacity:0.9},{clipPath:"inset(0 0 0 0)",opacity:1}],{duration:480,easing:"cubic-bezier(.22,1,.36,1)",fill:"forwards"});
-    await move(actor,rx,by,480,s,0);
+    var tween=rect.animate([{clipPath:"inset(0 100% 100% 0)",opacity:0.9},{clipPath:"inset(0 0 0 0)",opacity:1}],{duration:275,easing:"cubic-bezier(.22,1,.36,1)",fill:"forwards"});
+    await move(actor,rx,by,275,s,0);
     if(s.dead){rect.remove();return;}
     show(node);
     sound(s,false);
@@ -152,7 +152,7 @@
     var r=viewportRect(node);
     if(!intoView(node)){show(node);return;}
     var left=clamp(r.left,9,window.innerWidth-48),y=clamp(r.top+Math.min(r.height/2,28),10,window.innerHeight-38);
-    await move(actor,left,y,200,s,index%2?-10:10);
+    await move(actor,left,y,110,s,index%2?-10:10);
     if(s.dead)return;
     show(node);
     var caret=make("div","nl-sw-caret",s.overlay);
@@ -161,10 +161,10 @@
     caret.style.background=palette[index%palette.length];
     var clip=null;
     try { clip=node.animate([{clipPath:"inset(0 100% 0 0)",opacity:1},{clipPath:"inset(0 0 0 0)",opacity:1}],{
-      duration:Math.min(800,Math.max(340,((node.textContent||"").length)*14)),
+      duration:Math.min(450,Math.max(180,((node.textContent||"").length)*7)),
       easing:"steps("+Math.min(30,Math.max(8,(node.textContent||"").length))+ ", end)",fill:"forwards"
     }); } catch(e){}
-    var duration=Math.min(800,Math.max(340,((node.textContent||"").length)*14));
+    var duration=Math.min(450,Math.max(180,((node.textContent||"").length)*7));
     await move(actor,clamp(r.left+Math.min(r.width,Math.max(r.width*.68,82)),12,window.innerWidth-42),y,duration,s,0);
     if(clip)clip.cancel(); // Native text remains visible after clipping animation
     caret.remove();
@@ -183,8 +183,8 @@
       var animation=ghost.animate([
         {transform:"translate(0px,0px) scale(.98)",opacity:.85},
         {transform:"translate("+(to.left-from.left)+"px,"+(to.top-from.top)+"px) scale(1)",opacity:.22}
-      ],{duration:600,easing:"cubic-bezier(.3,0,.2,1)",fill:"forwards"});
-      await move(actor,clamp(to.left+35,8,window.innerWidth-35),clamp(to.top+22,8,window.innerHeight-36),565,s);
+      ],{duration:330,easing:"cubic-bezier(.3,0,.2,1)",fill:"forwards"});
+      await move(actor,clamp(to.left+35,8,window.innerWidth-35),clamp(to.top+22,8,window.innerHeight-36),330,s);
       animation.cancel();ghost.remove();
     }
     if(s.dead)return;
@@ -211,12 +211,12 @@
     var orbit=placeOrbit(s);
     s.cursors.forEach(function(cursor,i) {
       move(cursor,clamp(orbit[0]+Math.cos((i+.55)*Math.PI*2/s.cursors.length)*Math.min(120,window.innerWidth*.31),6,window.innerWidth-95),
-        clamp(orbit[1]+Math.sin((i+.55)*Math.PI*2/s.cursors.length)*Math.min(70,window.innerHeight*.14),6,window.innerHeight-50),690,s,i%2?15:-15);
+        clamp(orbit[1]+Math.sin((i+.55)*Math.PI*2/s.cursors.length)*Math.min(70,window.innerHeight*.14),6,window.innerHeight-50),265,s,i%2?15:-15);
     });
-    await sleep(820,s);
+    await sleep(320,s);
     if(s.dead)return;
     scrim.classList.add("nl-sw-scrim-out");
-    s.timers.push(setTimeout(function(){scrim.remove()},350));
+    s.timers.push(setTimeout(function(){scrim.remove()},180));
   }
   function addControl(s) {
     var dock=make("div","nl-sw-controls");
@@ -240,36 +240,52 @@
     skipButton.addEventListener("click",function(){clear(s);});
     document.body.appendChild(dock);
   }
-  async function drain(s) {
-    if(s.draining||s.dead||!s.introDone)return;
-    s.draining=true;
-    while(s.queue.length && !s.dead){
-      s.queue.sort(function(a,b){return a.index-b.index;});
-      var task=s.queue.shift();
-      var n=task.node;
+  // Work is distributed across all cursors in parallel, not one cursor at a time.
+  function pump(s) {
+    if(s.dead||!s.introDone||s.finishing)return;
+    s.queue.sort(function(a,b){return a.index-b.index;});
+    while(s.queue.length && s.busy.size<s.cursors.length) {
+      var task=s.queue.shift(), n=task.node;
       if(!n||!n.isConnected||s.done.has(n))continue;
-      if(task.index>7 && !intoView(n)) {s.queued.delete(n);continue;}
-      var cursor=s.cursors[s.completed%s.cursors.length];
-      var type=special[n.dataset.build]||"box";
-      if(type==="type")await typingTask(n,cursor,s,task.index);
-      else if(type==="duplicate")await duplicateTask(n,cursor,s,task.index);
-      else await boxTask(n,cursor,s,task.index);
-      if(s.dead) break;
-      show(n);
-      s.done.add(n);s.completed++;
-      if(s.count)s.count.textContent="BUILDING  "+String(Math.round(100*s.completed/s.nodes.length))+"%";
-      var p=s.shell.querySelector("[data-build-progress]");
-      if(p)p.textContent="ASSEMBLING "+String(Math.round(100*s.completed/s.nodes.length))+"%";
-      await sleep(65,s);
+      if(task.index>7&&!intoView(n)){s.queued.delete(n);continue;}
+      var slot=-1;
+      for(var i=0;i<s.cursors.length;i++)if(!s.busy.has(i)){slot=i;break;}
+      if(slot<0)break;
+      s.busy.add(slot);
+      var actor=s.cursors[slot];
+      actor.el.dataset.working="true";
+      (async function(node,cursor,cursorIndex,index){
+        try {
+          var type=special[node.dataset.build]||"box";
+          if(type==="type")await typingTask(node,cursor,s,index);
+          else if(type==="duplicate")await duplicateTask(node,cursor,s,index);
+          else await boxTask(node,cursor,s,index);
+        } catch(e) {
+          // Animation errors never block the actual UI.
+          if(window.console)console.warn("NEWRO visual effect skipped",e);
+        } finally {
+          if(!s.dead){
+            show(node);
+            s.done.add(node);
+            s.completed++;
+            if(s.count)s.count.textContent="BUILDING "+Math.round(100*s.completed/s.nodes.length)+"%";
+            var label=s.shell.querySelector("[data-build-progress]");
+            if(label)label.textContent="ASSEMBLING "+Math.round(100*s.completed/s.nodes.length)+"%";
+          }
+          delete cursor.el.dataset.working;
+          s.busy.delete(cursorIndex);
+          pump(s);
+        }
+      })(n,actor,slot,task.index);
     }
-    s.draining=false;
-    if(s.completed===s.nodes.length && !s.dead) finale(s);
+    // Do not wait for off-screen sections before showing a usable page.
+    if(!s.queue.length&&!s.busy.size&&!s.finishing)finale(s);
   }
   function queue(s,node){
-    if(s.dead||s.done.has(node)||s.queued.has(node))return;
+    if(s.dead||s.finishing||s.done.has(node)||s.queued.has(node))return;
     s.queued.add(node);
     s.queue.push({node:node,index:s.nodes.indexOf(node)});
-    drain(s);
+    pump(s);
   }
   async function finale(s) {
     if(s.finishing||s.dead)return;
@@ -281,10 +297,10 @@
       s.cursors.forEach(function(a,i){
         var angle=2*Math.PI*i/s.cursors.length;
         move(a,clamp(r.left+r.width/2+Math.cos(angle)*65,8,window.innerWidth-90),
-          clamp(r.top+r.height/2+Math.sin(angle)*48,8,window.innerHeight-42),630,s,i%2?7:-7);
+          clamp(r.top+r.height/2+Math.sin(angle)*48,8,window.innerHeight-42),235,s,i%2?7:-7);
       });
     }
-    await sleep(1250,s);
+    await sleep(420,s);
     if(!s.dead)clear(s);
   }
   function start(shell,replay){
@@ -294,7 +310,7 @@
       shell.querySelectorAll("[data-build]").forEach(show);
       return;
     }
-    var s={shell:shell,dead:false,draining:false,introDone:false,timers:[],done:new Set(),
+    var s={shell:shell,dead:false,introDone:false,timers:[],busy:new Set(),done:new Set(),
       queued:new Set(),queue:[],completed:0,cursors:[],overlay:null,skip:null,
       nodes:K.map(function(k){return shell.querySelector('[data-build="'+k+'"]');}).filter(Boolean),
       observer:null,soundOn:false,audio:null,finishing:false};
@@ -312,9 +328,9 @@
     introduction(s).then(function(){
       if(s.dead)return;
       s.introDone=true;
-      // The page's first visible elements build in source order.
+      // All cursors start constructing visible elements at the same time.
       s.nodes.forEach(function(n){if(intoView(n))queue(s,n);});
-      drain(s);
+      pump(s);
     });
   }
   window.NEWROSwarm={start:start,stop:stop};
