@@ -237,7 +237,7 @@ function resetConfirm(){
 }
 function go(page,arg,skipHash){
  if(page==="home"){history.replaceState(null,"",location.pathname+location.search);if(window.NEWRO){window.NEWRO.leave();}return;}
- if(!skipHash)history.replaceState(null,"",page==="dashboard"?"#/dashboard":"#/"+page);
+ if(!skipHash)history.replaceState(null,"","#/"+page+(arg?"/"+encodeURIComponent(arg):""));
  switch(page){
   case "dashboard":dash();break;
   case "paths":paths();break;
@@ -262,7 +262,7 @@ document.addEventListener("click",function(event){
  switch(act){
   case "dashboard":go("dashboard");break;case "portfolio":go("portfolio");break;case "browse":go("paths");break;case "profile":go("profile");break;case "reset":go("reset");break;
   case "reset-confirmed":{localStorage.removeItem(STORAGE);localStorage.removeItem(SIM_KEY);location.replace(location.pathname+location.search);break;}
-  case "tryout":st.preferred=safeRole(role);save();window.NEWRO.start(st.preferred);break;
+  case "tryout":st.preferred=safeRole(role);save();history.replaceState(null,"",location.pathname+location.search);window.NEWRO.start(st.preferred);break;
   case "project":go("project",role);break;
   case "project-next":projectNext("next");break;case "project-back":projectNext("back");break;case "project-review":projectNext("review");break;
   case "sample":go("sample",btn.dataset.id);break;
@@ -288,8 +288,12 @@ document.addEventListener("submit",function(e){
  if(form.id==="nf-profile-form"){var out=document.getElementById("nf-profile-status");if(out)out.textContent="Saved to this device.";setTimeout(function(){dash();},250);}
  else dash();
 });
-window.addEventListener("hashchange",function(){var route=location.hash.match(/^#\/(dashboard|paths|portfolio|profile)$/);if(route)go(route[1],null,true);});
-window.addEventListener("DOMContentLoaded",function(){var route=location.hash.match(/^#\/(dashboard|paths|portfolio|profile)$/);if(route)go(route[1],null,true);});
+function restoreLocation(){
+ var route=location.hash.match(/^#\/(dashboard|paths|portfolio|profile|project|sample|onboarding|project-finished)(?:\/([a-z0-9-]+))?$/);
+ if(route)go(route[1],route[2]?decodeURIComponent(route[2]):null,true);
+}
+window.addEventListener("hashchange",restoreLocation);
+window.addEventListener("DOMContentLoaded",restoreLocation);
 var previousHome=window.NEWROHome;
 window.NEWROHome=function(meta,target){
  if(previousHome)previousHome(meta,target);
