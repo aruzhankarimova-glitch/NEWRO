@@ -1,5 +1,5 @@
-const CACHE = "newro-v2-2026-11-15";
-const ASSETS = ["./", "./index.html", "./assets/newro-experience.css", "./assets/newro-experience.js", "./manifest.webmanifest", "./icon.svg"];
+const CACHE = "newro-v3-swarm-mobile-2026-11-15";
+const ASSETS = ["./", "./index.html", "./assets/newro-experience.css", "./assets/newro-experience.js", "./assets/newro-swarm.js", "./manifest.webmanifest", "./icon.svg"];
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting()));
 });

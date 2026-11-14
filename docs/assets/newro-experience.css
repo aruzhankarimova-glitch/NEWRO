@@ -206,3 +206,44 @@ body:has(.player){background:#eef0eb}
 @media(max-width:760px){.nl-board-card{max-width:240px}}
 
 @media(max-width:760px){.nl-mentor-note{display:none}.nl-board-card{box-shadow:5px 7px 0 #13251e}}
+
+
+/* NEWRO / original page-rebuilding cursor performance. Works on phone and desktop. */
+.nl-shell.nl-sw-running [data-build]:not(.nl-built){visibility:hidden!important;opacity:0!important;transform:none!important}
+.nl-shell.nl-sw-running [data-build].nl-built{visibility:visible;opacity:1}
+.nl-sw-overlay{position:fixed;inset:0;z-index:1000;pointer-events:none;overflow:hidden}
+.nl-sw-cursor{position:absolute;top:0;left:0;z-index:6;will-change:transform;opacity:0;filter:drop-shadow(1px 1px 0 #fff) drop-shadow(-1px -1px 0 #fff) drop-shadow(1px 4px 3px #17172c45)}
+.nl-sw-arrow{display:block;width:27px;height:35px;background:var(--cursor-color);clip-path:polygon(0 0,0 97%,31% 73%,50% 100%,67% 90%,46% 64%,91% 61%)}
+.nl-sw-cursor-label{display:inline-block;margin-left:18px;margin-top:-3px;background:var(--cursor-color);color:white;font:750 10px/1.2 Inter,ui-sans-serif,system-ui,sans-serif;border-radius:3px;padding:5px 8px;letter-spacing:-.01em;white-space:nowrap;box-shadow:0 2px 4px #0001}
+.nl-sw-outline{position:fixed;box-sizing:border-box;border:1.4px solid var(--draw-color,#6954dc);border-radius:5px;pointer-events:none;z-index:3;box-shadow:0 0 0 1px #ffffff77;transition:opacity .2s}
+.nl-sw-guide{position:fixed;z-index:3;border-top:1px dashed var(--guide-color,#6954dc);pointer-events:none}
+.nl-sw-guide:after{content:"";position:absolute;left:12px;top:-5px;background:var(--guide-color);height:9px;width:9px;border-radius:50%;box-shadow:0 0 0 3px #ffffffaa}
+.nl-sw-caret{position:fixed;width:2px;z-index:4;pointer-events:none;box-shadow:0 0 0 1px #fff}
+.nl-sw-duplicate{position:fixed;z-index:4;border:1.5px dashed #795ed3;border-radius:15px;background:#e6dcff42;pointer-events:none}
+.nl-sw-measure{position:fixed;background:#eee9ff;border:1px solid #cfc4f7;z-index:5;color:#4e3f96;border-radius:3px;min-width:40px;text-align:center;padding:3px 5px;font:700 9px/1.2 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:nowrap;pointer-events:none;box-shadow:0 2px 8px #18163022}
+.nl-sw-controls{position:fixed;left:50%;bottom:23px;transform:translateX(-50%);z-index:1002;display:flex;align-items:center;gap:7px;border:1px solid #47574ba8;background:#1a3027f2;box-shadow:0 6px 27px #0d1e1880;color:#eff7e8;border-radius:50px;padding:7px 9px 7px 14px;max-width:calc(100vw - 24px);font-family:Inter,ui-sans-serif,system-ui,sans-serif;white-space:nowrap;backdrop-filter:blur(10px)}
+.nl-sw-count{font-size:9px;font-weight:800;letter-spacing:.11em;padding:0 6px 0 0;max-width:145px;overflow:hidden;text-overflow:ellipsis}
+.nl-sw-controls button{min-height:33px;border:1px solid #78927f;border-radius:100px;background:#364b3e;color:#fff;padding:7px 12px;font-size:10px;font-weight:750}
+.nl-sw-controls button.nl-sw-skip{background:#cbfb87;border-color:#cbfb87;color:#1b3425}
+.nl-sw-controls button:focus-visible{outline:2px solid #cbfb87;outline-offset:3px}
+.nl-sw-scrim{position:fixed;inset:0;z-index:1;background:#f7f7f2;display:grid;place-items:center;opacity:1;pointer-events:none}
+.nl-sw-scrim-out{opacity:0;transition:opacity .32s ease}
+.nl-sw-intro-logo{display:flex;align-items:center;gap:12px;color:#1d2e24;font:800 11px/1.25 Inter,system-ui,sans-serif;letter-spacing:.17em}
+.nl-sw-intro-mark{width:42px;height:42px;border-radius:13px;background:#182e23;color:#c9fb83;display:grid;place-items:center;font-size:33px;font-weight:900;letter-spacing:-.1em}
+@keyframes nl-sw-guides-in{from{opacity:0;transform:scaleX(.15)}to{opacity:1;transform:scaleX(1)}}
+@media(max-width:760px){
+  .nl-sw-overlay{display:block!important}
+  .nl-sw-controls{display:flex!important;bottom:calc(86px + env(safe-area-inset-bottom));padding:5px 7px 5px 9px}
+  .nl-sw-count{font-size:8px;max-width:92px;letter-spacing:.06em}
+  .nl-sw-controls button{padding:7px 9px;min-height:32px;font-size:9px}
+  .nl-sw-cursor-label{font-size:9px;padding:4px 6px}
+  .nl-sw-arrow{width:22px;height:29px}
+  .nl-sw-intro-logo{font-size:9px;letter-spacing:.05em;gap:8px}
+  .nl-sw-intro-mark{width:35px;height:35px;font-size:25px}
+  .nl-sw-measure{font-size:8px}
+  .nl-replay{display:inline-flex!important}
+}
+@media(prefers-reduced-motion:reduce){
+ .nl-sw-overlay,.nl-sw-controls{display:none!important}
+ .nl-shell.nl-sw-running [data-build]{visibility:visible!important;opacity:1!important}
+}

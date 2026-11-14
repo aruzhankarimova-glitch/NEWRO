@@ -30,6 +30,7 @@ jobs:
       - name: Smoke-test static app
         run: |
           node --check docs/assets/newro-experience.js
+          node --check docs/assets/newro-swarm.js
           node <<'NODE'
           const fs = require('fs');
           const assert = require('assert');
@@ -37,9 +38,10 @@ jobs:
           assert(html.includes('NEWROHome'), 'NEWRO landing adapter missing');
           assert(html.includes('newro-experience.css'), 'Design stylesheet missing');
           assert(html.includes('newro-experience.js'), 'Experience script missing');
+          assert(html.includes('newro-swarm.js'), 'Mobile swarm script missing');
           const inline = Array.from(html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)).map(m => m[1]);
           inline.forEach(src => new Function(src));
-          ['docs/index.html', 'docs/assets/newro-experience.js', 'docs/assets/newro-experience.css', 'docs/manifest.webmanifest', 'docs/sw.js'].forEach(f => assert(fs.statSync(f).size > 0, f + ' is empty'));
+          ['docs/index.html', 'docs/assets/newro-experience.js', 'docs/assets/newro-swarm.js', 'docs/assets/newro-experience.css', 'docs/manifest.webmanifest', 'docs/sw.js'].forEach(f => assert(fs.statSync(f).size > 0, f + ' is empty'));
           console.log('NEWRO markup and JavaScript syntax validated');
           NODE
       - name: Configure GitHub Pages
