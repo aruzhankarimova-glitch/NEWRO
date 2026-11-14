@@ -37,6 +37,7 @@ jobs:
           node scripts/ui-smoke.cjs
           node scripts/full-flow-smoke.cjs
           node scripts/hackathon-smoke.cjs
+          node scripts/premium-smoke.cjs
       - name: Upload QA screenshots
         uses: actions/upload-artifact@v4
         if: always()
