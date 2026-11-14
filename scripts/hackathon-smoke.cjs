@@ -60,6 +60,9 @@ async function run() {
       date:'2026-11-15T00:00:00.000Z',sections:[['Audience','People managing trial renewals'],['Headline','Know what renews next.']]}],days:[]};
   await page.evaluate(d=>localStorage.setItem('newro-learning-flow-v1',JSON.stringify(d)),fixture);
   await page.goto(site+'#/profile',{waitUntil:'domcontentloaded'});
+  // Hash navigation alone does not reload the in-memory app state; fixture needs a page reload.
+  await page.reload({waitUntil:'domcontentloaded'});
+  await page.locator('#nf-profile-form').waitFor();
   const toggle=page.locator('[data-nm-haptic-toggle]');
   await toggle.waitFor();
   assert.equal(await toggle.getAttribute('aria-pressed'),'true','Haptics on for supported touch device');
