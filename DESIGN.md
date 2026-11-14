@@ -31,3 +31,7 @@ The cursor-led building animation is preserved and runs with parallel workers; e
 ## Product-flow design — illustrated learning app
 
 Required navigation: Home → Career try-out → Saved work → Local onboarding → Dashboard → Guided project → Portfolio → My profile. Both role tracks must remain functional without registering. Original illustration assets are served locally and contain no external tracking. All forms have labels, validation, saved drafts, keyboard support and readable mobile layouts. AI mentor feedback must remain explicitly rule-based until a protected backend is available.
+
+## Interaction v3
+
+Do not repeat the same status in the page title, navigation and a separate header label. One primary CTA per surface. The hero preview is a genuine two-choice practice question, with plain-language feedback grounded in Harbor's fictional brief. Use depth and spotlight only for fine-pointer devices; keep all important content visible without scripts or motion. Progress indicators reflect actual state, never invented results. All one-time transitions honor `prefers-reduced-motion`.
