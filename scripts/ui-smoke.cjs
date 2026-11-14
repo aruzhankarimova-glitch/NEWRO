@@ -20,9 +20,9 @@ async function run() {
       const page = await ctx.newPage();
       page.on('pageerror', error => errors.push(device.name + ': ' + error.message));
       await page.goto(site, { waitUntil: 'domcontentloaded' });
-      await page.locator('.nl-hero-title').waitFor();
-      await page.locator('.nl-role').first().waitFor();
-      assert.equal(await page.locator('.nl-role').count(), 2, device.name + ': role cards');
+      await page.locator('.cs-title').waitFor();
+      await page.locator('.cs-role').first().waitFor();
+      assert.equal(await page.locator('.cs-role').count(), 2, device.name + ': role cards');
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
       assert(overflow <= 2, device.name + ': overflow ' + overflow + 'px');
       if (device.width <= 760) {
@@ -38,8 +38,12 @@ async function run() {
       }
 
       if (device.name === 'mobile') {
-        await page.locator('.nl-role').first().click();
+        await page.locator('.cs-role').first().click();
         await page.getByText('Your first day in AI marketing.').waitFor();
+        assert(await page.locator('.cs-player .cs-course-meta').count() === 1, 'learning meta displayed');
+        await page.getByRole('button', { name: 'View your learning path' }).click();
+        await page.getByRole('dialog', { name: 'Career learning path' }).waitFor();
+        await page.getByRole('button', { name: 'Close learning path' }).click();
         await page.screenshot({ path: 'test-results/newro-mobile-player.png', fullPage: true });
         await page.getByRole('button', { name: 'Open the brief' }).click();
         await page.reload({ waitUntil: 'domcontentloaded' });
@@ -49,7 +53,7 @@ async function run() {
         assert(await page.getByRole('button', { name: 'Resume', exact: true }).count() >= 1, 'resume action');
       }
       if (device.name === 'desktop') {
-        await page.locator('.nl-role').nth(1).click();
+        await page.locator('.cs-role').nth(1).click();
         await page.getByText('Your first day as a Product Manager').waitFor();
         await page.getByRole('button', { name: 'Open the release brief' }).click();
         await page.getByRole('button', { name: 'Choose what ships' }).click();
@@ -73,10 +77,10 @@ async function run() {
     await phone.screenshot({ path: 'test-results/newro-mobile-swarm.png', fullPage: false });
     await phone.locator('.nl-sw-skip').click();
     assert(await phone.locator('.nl-sw-controls').count() === 0, 'mobile skip ends construction');
-    await phone.locator('.nl-replay').click();
+    await phone.locator('.cs-replay').click();
     await phone.locator('.nl-sw-controls').waitFor({ timeout: 5000 });
     await phone.locator('.nl-sw-skip').click();
-    await phone.locator('.nl-role').first().click();
+    await phone.locator('.cs-role').first().click();
     await phone.getByText('Your first day in AI marketing.').waitFor();
     await animated.close();
 
