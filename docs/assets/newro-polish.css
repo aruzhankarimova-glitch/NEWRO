@@ -1,0 +1,60 @@
+/* NEWRO hackathon release: restrained, job-focused visual system and mobile feedback.
+ * Small, purposeful animations are CSS-based, not large looping GIF downloads. */
+.cs-shell .cs-stage {background:#f0edff!important;border-color:#e0dcf4;box-shadow:none!important}
+.cs-stage::before,.cs-stage::after{display:none!important}
+.cs-shell .cs-title em{font-family:inherit!important;font-size:1em!important;font-style:normal!important;font-weight:850!important;letter-spacing:-.06em!important;color:#5a4be0!important}
+.cs-shell .cs-card-device{transform:rotate(-2deg);box-shadow:0 13px 35px #342d831c}
+.cs-shell .cs-float{box-shadow:0 3px 10px #342d8312}
+.cs-shell .cs-sparks,.cs-shell .cs-orbit,.cs-shell .cs-phone-bar{display:none!important}
+.cs-shell .cs-stage-top{color:#7466a0}
+.cs-shell .cs-role,.cs-shell .cs-resume{box-shadow:none!important}
+.cs-shell .cs-hero{gap:clamp(24px,4vw,48px)}
+.cs-shell .cs-chip{background:transparent;border-color:#e4e4ec;color:#555b6e}
+.cs-shell .cs-role-visual:after,.cs-shell .cs-role-visual:before{display:none}
+.cs-shell .cs-role-visual{background:#d9cbff}
+.cs-shell .cs-role:nth-child(2) .cs-role-visual{background:#cee5fa}
+.cs-shell .cs-hero .cs-lede{color:#565f70}
+.cs-shell .cs-role h3{letter-spacing:-.035em}
+.cs-shell .nl-bigcta{box-shadow:none!important}
+.cs-shell .cs-stage-live:before{display:none}
+.cs-shell .cs-float.top{max-width:160px;right:7px;background:#fff}
+.cs-shell .cs-role-body{padding-bottom:23px}
+.cs-shell .cs-steps{background:#f8f8ff}
+.cs-shell .cs-step{border-color:#deddee}
+.nf-app .nf-banner{background:#e7e2ff!important;box-shadow:none!important;color:#1e1d35!important}
+.nf-app .nf-banner h2 em{font-family:inherit!important;font-weight:800!important;color:#5b4dde!important;font-style:normal!important;letter-spacing:-.045em!important}
+.nf-app .nf-banner p{color:#595973!important}
+.nf-app .nf-stat,.nf-app .nf-whitecard,.nf-app .nf-track,.nf-app .nf-sample{box-shadow:none!important}
+.nf-app .nf-track-art{background:#e2dbff}
+.nf-app .nf-portfolio-banner{background:#eae7ff}
+.nf-app .nf-ring{box-shadow:none}
+.nf-app .nf-label,.nf-app .nf-kicker{letter-spacing:.06em!important}
+.nf-app .nf-btn,.cs-shell button,.cs-player button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.nf-app button,.cs-shell button,.cs-player button{transition:transform .16s ease,background-color .16s ease,border-color .16s ease}
+@media(hover:none) and (pointer:coarse){
+ .nf-app button:active,.cs-shell button:active,.cs-player button:active{transform:scale(.975)}
+ .nf-app .nf-milestone:active,.cs-shell .cs-role:active{transform:scale(.987);background-color:#f2f0ff}
+ .cs-player .choice:active{transform:scale(.99)}
+}
+.nm-device-setting{border-top:1px solid #e6e5ee;margin-top:22px;padding-top:18px;display:flex;align-items:center;gap:14px;justify-content:space-between}
+.nm-device-setting strong{font-size:14px;color:#35384d}
+.nm-device-setting p{font-size:12px!important;color:#797e8b;margin:7px 0 0!important}
+.nm-device-setting .nf-btn{min-width:90px}
+.nm-device-setting button:disabled{opacity:.65;cursor:not-allowed}
+.nf-app .nf-primary:hover,.cs-shell .nl-bigcta:hover{box-shadow:none!important}
+.nf-app .nf-celebrate img{animation:nm-enter .65s cubic-bezier(.2,.9,.25,1) both}
+.cs-player .nf-result-hint img{animation:nm-enter .55s cubic-bezier(.2,.9,.25,1) both}
+@keyframes nm-enter{from{transform:translateY(12px) scale(.96);opacity:.55}to{transform:translateY(0) scale(1);opacity:1}}
+.nl-sw-cursor.nl-sw-exiting .nl-sw-cursor-label{opacity:.65;transition:opacity .4s ease}
+@media(max-width:760px){
+ .cs-shell .cs-float.top{max-width:120px;top:79px}
+ .cs-shell .cs-hero{gap:17px}
+ .cs-shell .cs-stage{background:#eeeaff!important}
+ .nf-app .nf-banner{background:#e7e2ff!important}
+ .nm-device-setting .nf-btn{padding:9px 12px}
+ .nf-app .nf-portfolio-banner h2{letter-spacing:-.035em}
+}
+@media(prefers-reduced-motion:reduce){
+ .nf-app .nf-celebrate img,.cs-player .nf-result-hint img{animation:none!important}
+ .nf-app button,.cs-shell button,.cs-player button{transition:none!important}
+}

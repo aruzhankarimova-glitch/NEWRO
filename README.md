@@ -80,3 +80,15 @@ The dashboard shows only real local activity, completed try-outs, project progre
 **Limits:** This is a browser-only functional prototype. No server, authentication, cloud sync, LLM-based grading or billing. Clearing browser storage deletes progress. Onboarding creates a local profile, not an account. All sample client briefs are fictional.
 
 Test both paths with `node scripts/full-flow-smoke.cjs` (requires Playwright and a static server on port 4173).
+
+## Business Cup 2.0 hackathon release (15 November 2026)
+
+**Track:** SKILLS. **One pain:** Career changers don't know whether a profession fits them until after committing time or money to training. **Primary demo:** AI Marketing Specialist (Product Manager is a secondary example).
+
+The homepage now says this clearly, removes fake preview percentages and generic marketing slogans, and keeps one short, actionable experience. Cursor builders leave down past the bottom edge together after completing their work; Replay and Skip still work.
+
+**Phone features:** Optional short vibration through `navigator.vibrate` for meaningful taps/decisions when supported (usually Android; not available through iOS Safari), preference in Profile, visual press feedback on touch, native Share sheet for saved work samples where supported, and optional PWA install button where the browser exposes `beforeinstallprompt`. Unsupported features degrade without errors and without false success messages. No automatic vibration on entry.
+
+**Motion:** One-time result illustration transition replaces heavyweight generic looping GIFs; all motion respects `prefers-reduced-motion`.
+
+**Audit and 5-minute jury walkthrough:** see [docs/HACKATHON_AUDIT.md](docs/HACKATHON_AUDIT.md).

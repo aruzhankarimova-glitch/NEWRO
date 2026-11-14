@@ -25,50 +25,50 @@ function home(meta,root){
     '</div></header>' +
     '<main><div class="nl-wrap"><section class="cs-hero" aria-label="Explore careers">' +
       '<div class="cs-hero-text">' +
-        '<p class="cs-eyebrow" data-build="eyebrow"><span class="cs-eyebrow-dot"></span>REAL WORK. SMALL STEPS. YOUR FUTURE.</p>' +
-        '<h1 class="cs-title" data-build="heading">Find your next <em>big thing.</em></h1>' +
-        '<p class="cs-lede" data-build="description">Wondering what a new career feels like? Try the actual decisions, work with a mentor, and see if the work clicks.</p>' +
-        '<div class="cs-hero-buttons" data-build="actions"><button class="nl-bigcta" type="button" onclick="NEWRO.start(\'marketing\')">Start my first task<span class="cs-button-arrow">↗</span></button><button class="cs-linkbtn" type="button" data-scroll="how">How it works ↘</button></div>' +
-        '<div class="cs-chips" data-build="proof"><span class="cs-chip"><b>✓</b> Free to try</span><span class="cs-chip">◷ ~10 min</span><span class="cs-chip">✦ Learn by doing</span></div>' +
+        '<p class="cs-eyebrow" data-build="eyebrow"><span class="cs-eyebrow-dot"></span>CAREER TEST / SKILLS</p>' +
+        '<h1 class="cs-title" data-build="heading">Try the job <em>before you retrain.</em></h1>' +
+        '<p class="cs-lede" data-build="description">Thinking about changing careers? Spend ten minutes on a realistic assignment. See your decisions, save the result and decide what to explore next.</p>' +
+        '<div class="cs-hero-buttons" data-build="actions"><button class="nl-bigcta" type="button" onclick="NEWRO.start(\'marketing\')">Try AI marketing · 10 min<span class="cs-button-arrow">↗</span></button><button class="cs-linkbtn" type="button" data-scroll="how">What will I do? ↘</button></div>' +
+        '<div class="cs-chips" data-build="proof"><span class="cs-chip">No payment</span><span class="cs-chip">About 10 minutes</span><span class="cs-chip">Keep your work sample</span></div>' +
         (saved?'<div class="cs-resume" data-build="saved"><div><b>Welcome back</b><small>'+text(role)+' · your progress is saved</small></div><button type="button" data-resume>Resume →</button></div>':'') +
       '</div>' +
       '<div class="nl-stage cs-stage" data-build="stage">' +
-        '<div class="cs-orbit" aria-hidden="true"></div><div class="cs-orbit two" aria-hidden="true"></div>' +
-        '<div class="cs-stage-top"><span class="cs-stage-live">LIVE LEARNING PREVIEW</span><button class="cs-replay" type="button" data-replay>↺ Replay</button></div>' +
+        '' +
+        '<div class="cs-stage-top"><span class="cs-stage-live">EXAMPLE TASK / HARBOR</span><button class="cs-replay" type="button" data-replay>↺ Replay</button></div>' +
         '<div class="cs-card-device">' +
-          '<div class="cs-phone-status"><span>NEWRO · DAY ONE</span><span>✦ 32%</span></div>' +
-          '<div class="cs-phone-bar"><i></i></div>' +
-          '<p class="cs-phone-head" data-build="board-eyebrow">YOUR FIRST REAL ASSIGNMENT</p>' +
-          '<h2 class="cs-phone-title" data-build="board-heading">Make your first marketing decision.</h2>' +
+          '<div class="cs-phone-status"><span>DAY ONE / MARKETING</span><span>EXAMPLE</span></div>' +
+          '' +
+          '<p class="cs-phone-head" data-build="board-eyebrow">FICTIONAL CLIENT BRIEF</p>' +
+          '<h2 class="cs-phone-title" data-build="board-heading">Choose Harbor’s audience.</h2>' +
           '<div class="cs-phone-illus" aria-hidden="true"><span class="cs-illus-blob"></span><span class="cs-illus-person"><span class="cs-illus-head"></span><span class="cs-illus-body"></span></span><span class="cs-illus-card">✳</span></div>' +
-          '<p class="cs-phone-task" data-build="board-copy">Who would you reach first?</p>' +
-          '<div class="cs-phone-question" data-build="board-card">People who forget free-trial renewals</div>' +
+          '<p class="cs-phone-task" data-build="board-copy">Which customer problem fits Harbor?</p>' +
+          '<div class="cs-phone-question" data-build="board-card">People surprised by subscription renewals</div>' +
           '<button class="cs-phone-cta" type="button" onclick="NEWRO.start(\'marketing\')" aria-label="Try this marketing assignment">Continue →</button>' +
         '</div>' +
-        '<div class="cs-float top" data-build="board-mentor"><strong>✦ YOUR MENTOR</strong>Start with the customer problem.</div>' +
-        '<div class="cs-float bottom green">✓ A real decision, not a quiz</div>' +
-        '<div class="cs-sparks" aria-hidden="true">✦</div>' +
+        '' +
+        '' +
+        '' +
       '</div>' +
     '</section></div>' +
     '<section class="cs-role-section" id="careers"><div class="nl-wrap">' +
-      '<div class="cs-section-heading"><h2 data-build="careers-heading">Pick a profession.<br>Try a real task.</h2><p>Learn how the work feels before committing to a long course.</p></div>' +
+      '<div class="cs-section-heading"><h2 data-build="careers-heading">Two roles. Two short assignments.</h2><p>Start with a practical decision, not another career quiz.</p></div>' +
       '<div class="cs-roles">' +
         '<button class="cs-role" data-build="career-one" type="button" onclick="NEWRO.start(\'marketing\')">' +
-          '<div class="cs-role-visual"><span class="cs-role-badge">FREE TRY-OUT</span><div class="cs-role-graphic"><span class="cs-role-symbol">✳</span></div></div>' +
-          '<div class="cs-role-body"><span class="cs-role-small">CAREER 01 · CREATIVE + ANALYTICAL</span><h3>AI Marketing<br>Specialist</h3><p>Understand your audience, direct AI, and design an experiment that makes sense.</p><div class="cs-role-footer"><span class="cs-role-tag">◷ About 10 minutes</span><span class="cs-role-play">Play now ↗</span></div></div>' +
+          '<div class="cs-role-visual"><span class="cs-role-badge">FREE EXERCISE</span><div class="cs-role-graphic"><span class="cs-role-symbol">✳</span></div></div>' +
+          '<div class="cs-role-body"><span class="cs-role-small">TRACK 01 · CUSTOMER RESEARCH</span><h3>AI Marketing<br>Specialist</h3><p>Choose an audience, edit a campaign message and plan a measurable test.</p><div class="cs-role-footer"><span class="cs-role-tag">◷ About 10 minutes</span><span class="cs-role-play">Start task ↗</span></div></div>' +
         '</button>' +
         '<button class="cs-role" data-build="career-two" type="button" onclick="NEWRO.start(\'pm\')">' +
-          '<div class="cs-role-visual"><span class="cs-role-badge">FREE TRY-OUT</span><div class="cs-role-graphic"><span class="cs-role-symbol">▤</span></div></div>' +
-          '<div class="cs-role-body"><span class="cs-role-small">CAREER 02 · STRATEGY + PRODUCT</span><h3>Product<br>Manager</h3><p>Make a release decision, balance trade-offs, and defend your priorities.</p><div class="cs-role-footer"><span class="cs-role-tag">◷ Short exercise</span><span class="cs-role-play">Play now ↗</span></div></div>' +
+          '<div class="cs-role-visual"><span class="cs-role-badge">FREE EXERCISE</span><div class="cs-role-graphic"><span class="cs-role-symbol">▤</span></div></div>' +
+          '<div class="cs-role-body"><span class="cs-role-small">TRACK 02 · PRIORITIZATION</span><h3>Product<br>Manager</h3><p>Choose what ships with 24 engineering hours and explain what waits.</p><div class="cs-role-footer"><span class="cs-role-tag">◷ Short exercise</span><span class="cs-role-play">Start task ↗</span></div></div>' +
         '</button>' +
       '</div>' +
     '</div></section>' +
-    '<section class="cs-steps" id="how"><div class="nl-wrap cs-steps-grid"><h2>Try it.<br>Learn it.<br>Own it.</h2>' +
-      '<div class="cs-step"><span class="cs-step-number">01</span><h3>Enter the scenario</h3><p>Get a short brief that feels like a task from a real workplace.</p></div>' +
-      '<div class="cs-step"><span class="cs-step-number">02</span><h3>Make the decisions</h3><p>Answer questions, improve work, and get feedback on your reasoning.</p></div>' +
-      '<div class="cs-step"><span class="cs-step-number">03</span><h3>Keep your result</h3><p>Leave with a work sample and decide what you want to explore next.</p></div>' +
+    '<section class="cs-steps" id="how"><div class="nl-wrap cs-steps-grid"><h2>From one task<br>to a work sample.</h2>' +
+      '<div class="cs-step"><span class="cs-step-number">01</span><h3>Read a short client brief</h3><p>See the customer problem, available evidence and constraints.</p></div>' +
+      '<div class="cs-step"><span class="cs-step-number">02</span><h3>Make the trade-offs</h3><p>Choose an audience or a release scope and explain your reasoning.</p></div>' +
+      '<div class="cs-step"><span class="cs-step-number">03</span><h3>Save the decision card</h3><p>Download what you made, then start a guided follow-up project.</p></div>' +
     '</div></section></main>' +
-    '<footer class="cs-bottom nl-wrap"><span>NEWRO · Career exploration prototype</span><span>Fictional clients and tasks. Mentor feedback is rule-based, not a live AI service.</span></footer>' +
+    '<footer class="cs-bottom nl-wrap"><span>NEWRO · Career exploration prototype</span><span>Fictional practice cases. Feedback uses rules, not a connected AI model.</span></footer>' +
     '<nav class="nl-mobile-dock cs-mobile-dock" aria-label="Mobile navigation">' +
       '<button class="active" type="button" data-scroll="top">'+icon("explore")+'Explore</button>' +
       '<button type="button" data-scroll="careers">'+icon("roles")+'Try-outs</button>' +
@@ -87,7 +87,13 @@ function home(meta,root){
   });
   shell.querySelectorAll("[data-resume]").forEach(function(btn){btn.addEventListener("click",function(){if(window.NEWRO)window.NEWRO.resume();});});
   shell.querySelectorAll("[data-replay]").forEach(function(btn){btn.addEventListener("click",function(){if(window.NEWROSwarm)window.NEWROSwarm.start(shell,true);});});
-  if(window.NEWROSwarm && !window.matchMedia("(prefers-reduced-motion: reduce)").matches)window.NEWROSwarm.start(shell,false);
+  // Show the short build only on a fresh session. Returning learners see the UI immediately.
+  var hasSeen=false;
+  try{hasSeen=sessionStorage.getItem("newro-swarm-once")==="1";}catch(e){}
+  if(window.NEWROSwarm && !saved && !hasSeen && !window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+    try{sessionStorage.setItem("newro-swarm-once","1");}catch(e){}
+    window.NEWROSwarm.start(shell,false);
+  }
 }
 var tracks={
  marketing:[
