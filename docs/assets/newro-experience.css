@@ -199,3 +199,8 @@ body:has(.player){background:#eef0eb}
 }
 @media(max-width:380px){.nl-hero-title{font-size:48px}.nl-stage{height:328px;min-height:328px}.nl-stage-board{height:267px}.nl-mentor-note{max-width:148px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.nl-shell *, .nl-shell *:before,.nl-shell *:after{animation:none!important;transition:none!important}.nl-is-building [data-build]{opacity:1!important;transform:none!important}}
+
+.nl-board-card{display:block;text-align:left;width:min(100%,345px);cursor:pointer;font:inherit}
+.nl-board-card:focus-visible{outline:3px solid var(--nl-green);outline-offset:3px}
+@media(min-width:761px) and (prefers-reduced-motion:no-preference){.nl-is-building [data-build="heading"].nl-built,.nl-is-building [data-build="board-heading"].nl-built{animation:nl-write .75s steps(12,end) both}@keyframes nl-write{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}}
+@media(max-width:760px){.nl-board-card{max-width:240px}}
