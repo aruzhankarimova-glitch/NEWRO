@@ -1,0 +1,67 @@
+const { chromium } = require('playwright');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const site = 'http://127.0.0.1:4173/';
+fs.mkdirSync('test-results', { recursive: true });
+
+async function run() {
+  const browser = await chromium.launch({ headless: true });
+  const errors = [];
+  const contexts = [];
+  try {
+    for (const device of [
+      { name: 'desktop', width: 1440, height: 900, reducedMotion: 'no-preference' },
+      { name: 'mobile', width: 390, height: 844, reducedMotion: 'reduce' },
+      { name: 'small-mobile', width: 360, height: 800, reducedMotion: 'reduce' },
+      { name: 'tablet', width: 768, height: 1024, reducedMotion: 'reduce' }
+    ]) {
+      const ctx = await browser.newContext({ viewport: { width: device.width, height: device.height }, reducedMotion: device.reducedMotion });
+      contexts.push(ctx);
+      const page = await ctx.newPage();
+      page.on('pageerror', error => errors.push(device.name + ': ' + error.message));
+      await page.goto(site, { waitUntil: 'domcontentloaded' });
+      await page.locator('.nl-hero-title').waitFor();
+      await page.locator('.nl-role').first().waitFor();
+      assert.equal(await page.locator('.nl-role').count(), 2, device.name + ': role cards');
+      const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+      assert(overflow <= 2, device.name + ': overflow ' + overflow + 'px');
+      if (device.width <= 760) {
+        assert(await page.locator('.nl-mobile-dock').isVisible(), device.name + ': app dock');
+        assert.equal(await page.locator('#nl-build-overlay').count(), 0, device.name + ': no heavy animation on mobile');
+      } else if (device.name === 'desktop') {
+        await page.waitForFunction(() => !document.querySelector('.nl-is-building'), null, { timeout: 11000 });
+      }
+      if (device.name !== 'tablet') {
+        await page.screenshot({ path: 'test-results/newro-' + device.name + '.png', fullPage: true });
+      }
+
+      if (device.name === 'mobile') {
+        await page.locator('.nl-role').first().click();
+        await page.getByText('Your first day in AI marketing.').waitFor();
+        await page.screenshot({ path: 'test-results/newro-mobile-player.png', fullPage: true });
+        await page.getByRole('button', { name: 'Open the brief' }).click();
+        await page.reload({ waitUntil: 'domcontentloaded' });
+        await page.getByText('Meet your client, Harbor').waitFor();
+        await page.getByRole('button', { name: 'Exit to careers (progress is saved)' }).click();
+        await page.getByRole('button', { name: 'Browse careers' }).click();
+        assert(await page.getByRole('button', { name: /Resume previous session|Resume session/ }).count() >= 1, 'resume action');
+      }
+      if (device.name === 'desktop') {
+        await page.locator('.nl-role').nth(1).click();
+        await page.getByText('Your first day as a Product Manager').waitFor();
+        await page.getByRole('button', { name: 'Open the release brief' }).click();
+        await page.getByRole('button', { name: 'Choose what ships' }).click();
+        await page.getByRole('button', { name: /Fix the iOS login crash/ }).click();
+        await page.getByRole('button', { name: /Renewal reminders/ }).click();
+        await page.getByRole('button', { name: 'Review my trade-offs' }).click();
+        await page.getByText('Every release makes trade-offs').waitFor();
+      }
+      await ctx.close();
+    }
+    assert.deepEqual(errors, [], 'No page exceptions');
+    console.log('PASS: desktop, tablet, mobile, persistence, PM flow, a11y entrypoints, no overflow, no JS errors');
+  } finally {
+    await browser.close();
+  }
+}
+run().catch(e => { console.error(e.stack || e); process.exit(1); });
