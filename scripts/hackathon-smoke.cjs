@@ -62,7 +62,9 @@ async function run() {
   await page.goto(site+'#/profile',{waitUntil:'domcontentloaded'});
   // Hash navigation alone does not reload the in-memory app state; fixture needs a page reload.
   await page.reload({waitUntil:'domcontentloaded'});
-  await page.locator('#nf-profile-form').waitFor();
+  const diagnostic=await page.evaluate(()=>({hash:location.hash,profile:window.NEWROFlow?.getState()?.profile,hasProfile:!!document.querySelector('#nf-profile-form'),hasOnboarding:!!document.querySelector('#nf-onboard-form'),view:document.querySelector('#app')?.textContent?.slice(0,100),hasMobile:!!window.NEWROMobile}));
+  console.log('PROFILE DIAGNOSTIC',JSON.stringify(diagnostic));
+  assert(diagnostic.hasProfile,'Profile route did not render: '+JSON.stringify(diagnostic));
   const toggle=page.locator('[data-nm-haptic-toggle]');
   await toggle.waitFor();
   assert.equal(await toggle.getAttribute('aria-pressed'),'true','Haptics on for supported touch device');
