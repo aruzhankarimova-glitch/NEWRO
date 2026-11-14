@@ -68,3 +68,15 @@ NEWRO now uses a unified, mobile-first learning-app visual system: white surface
 The design is an original adaptation of user-provided learning app screenshots. It does not reuse those screenshots or copyrighted illustrations as website assets.
 
 The course progress path reflects simulation steps only. Paid subscriptions, real AI feedback and verified professional credentials are not present.
+
+## Complete local-first user flow (v1)
+
+**Visitor → free career try-out → saved result → profile onboarding → learning dashboard → guided four-step project → portfolio/export → explore another career.**
+
+Illustrated role cards and mentor graphics are original in-repository SVGs under `docs/assets/illustrations/`. Full flow modules: `docs/assets/newro-flow.js`, `docs/assets/newro-flow.css`.
+
+The dashboard shows only real local activity, completed try-outs, project progress and portfolio artifacts. Drafts are auto-saved using localStorage. Guided projects are real editable exercises with minimum-length validation and transparent deterministic mentor feedback. The user can export work samples as text and download their personal learning data as JSON. No emails are collected or transmitted.
+
+**Limits:** This is a browser-only functional prototype. No server, authentication, cloud sync, LLM-based grading or billing. Clearing browser storage deletes progress. Onboarding creates a local profile, not an account. All sample client briefs are fictional.
+
+Test both paths with `node scripts/full-flow-smoke.cjs` (requires Playwright and a static server on port 4173).

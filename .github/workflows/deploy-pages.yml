@@ -32,6 +32,7 @@ jobs:
           node --check docs/assets/newro-experience.js
           node --check docs/assets/newro-swarm.js
           node --check docs/assets/newro-course.js
+          node --check docs/assets/newro-flow.js
           node <<'NODE'
           const fs = require('fs');
           const assert = require('assert');
@@ -42,9 +43,11 @@ jobs:
           assert(html.includes('newro-swarm.js'), 'Mobile swarm script missing');
           assert(html.includes('newro-course.css'), 'Course design CSS missing');
           assert(html.includes('newro-course.js'), 'Course UI JS missing');
+          assert(html.includes('newro-flow.js'), 'End-to-end flow JS missing');
+          assert(html.includes('newro-flow.css'), 'End-to-end flow CSS missing');
           const inline = Array.from(html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)).map(m => m[1]);
           inline.forEach(src => new Function(src));
-          ['docs/index.html', 'docs/assets/newro-experience.js', 'docs/assets/newro-swarm.js', 'docs/assets/newro-course.js', 'docs/assets/newro-course.css', 'docs/assets/newro-experience.css', 'docs/manifest.webmanifest', 'docs/sw.js'].forEach(f => assert(fs.statSync(f).size > 0, f + ' is empty'));
+          ['docs/index.html', 'docs/assets/newro-experience.js', 'docs/assets/newro-swarm.js', 'docs/assets/newro-course.js', 'docs/assets/newro-course.css', 'docs/assets/newro-flow.js', 'docs/assets/newro-flow.css', 'docs/assets/illustrations/marketing-illustration.svg', 'docs/assets/illustrations/product-illustration.svg', 'docs/assets/illustrations/mentor-illustration.svg', 'docs/assets/newro-experience.css', 'docs/manifest.webmanifest', 'docs/sw.js'].forEach(f => assert(fs.statSync(f).size > 0, f + ' is empty'));
           console.log('NEWRO markup and JavaScript syntax validated');
           NODE
       - name: Configure GitHub Pages
