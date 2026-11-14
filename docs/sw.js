@@ -13,8 +13,8 @@ self.addEventListener("fetch", event => {
     event.respondWith(fetch(req).then(res => { if (res.ok) { const copy = res.clone(); caches.open(CACHE).then(c => c.put(req, copy)); } return res; }).catch(() => caches.match("./index.html")));
     return;
   }
-  event.respondWith(caches.match(req).then(cached => cached || fetch(req).then(res => {
+  event.respondWith(fetch(req).then(res => {
     if (res.ok) { const copy = res.clone(); caches.open(CACHE).then(c => c.put(req, copy)); }
     return res;
-  })));
+  }).catch(() => caches.match(req)));
 });

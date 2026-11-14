@@ -204,3 +204,5 @@ body:has(.player){background:#eef0eb}
 .nl-board-card:focus-visible{outline:3px solid var(--nl-green);outline-offset:3px}
 @media(min-width:761px) and (prefers-reduced-motion:no-preference){.nl-is-building [data-build="heading"].nl-built,.nl-is-building [data-build="board-heading"].nl-built{animation:nl-write .75s steps(12,end) both}@keyframes nl-write{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}}
 @media(max-width:760px){.nl-board-card{max-width:240px}}
+
+@media(max-width:760px){.nl-mentor-note{display:none}.nl-board-card{box-shadow:5px 7px 0 #13251e}}
