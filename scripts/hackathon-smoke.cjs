@@ -58,9 +58,12 @@ async function run() {
     projects:{marketing:{step:0,answers:{},complete:false,review:''},pm:{step:0,answers:{},complete:false,review:''}},
     samples:[{id:'tryout-marketing',kind:'tryout',role:'marketing',title:'AI Marketing — first assignment',
       date:'2026-11-15T00:00:00.000Z',sections:[['Audience','People managing trial renewals'],['Headline','Know what renews next.']]}],days:[]};
-  await page.evaluate(d=>localStorage.setItem('newro-learning-flow-v1',JSON.stringify(d)),fixture);
-  await page.goto(site+'#/profile',{waitUntil:'domcontentloaded'});
-  // Hash navigation alone does not reload the in-memory app state; fixture needs a page reload.
+  // Seed storage and set the route atomically: hashchange would otherwise persist
+  // the prior in-memory empty profile over the fixture before the reload.
+  await page.evaluate(d=>{
+    localStorage.setItem('newro-learning-flow-v1',JSON.stringify(d));
+    history.replaceState(null,'','#/profile');
+  },fixture);
   await page.reload({waitUntil:'domcontentloaded'});
   const diagnostic=await page.evaluate(()=>({hash:location.hash,profile:window.NEWROFlow?.getState()?.profile,hasProfile:!!document.querySelector('#nf-profile-form'),hasOnboarding:!!document.querySelector('#nf-onboard-form'),view:document.querySelector('#app')?.textContent?.slice(0,100),hasMobile:!!window.NEWROMobile}));
   console.log('PROFILE DIAGNOSTIC',JSON.stringify(diagnostic));
