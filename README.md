@@ -20,6 +20,13 @@ python3 -m http.server 8000 --directory docs
 
 Go to http://localhost:8000.
 
+## Experience update — November 2026
+
+- Original desktop cursor-swarm animation builds the NEWRO landing page on first view. Controls: Replay and Skip. Supports reduced-motion preferences. Inspired by the concept of [Swarm Rebuild](https://github.com/DhvanilPatel/swarm-cursors); no source code or visual assets from that unlicensed repository are included.
+- On phones, NEWRO opens immediately in an app-like layout with a bottom navigation dock, large touch targets, a compact interactive preview and the same two working role simulations.
+- Mobile web app manifest, offline page cache and safe-area support enable installing from the browser where supported.
+- Primary deploy source is `docs/`; workflow validates JS syntax and publishes it to GitHub Pages on changes to `main`.
+
 ## What works
 
 - Landing page, both simulation routes, decision controls, explanations, back/next navigation and interactive review.

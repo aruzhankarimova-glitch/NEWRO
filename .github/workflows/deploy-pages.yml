@@ -27,6 +27,21 @@ jobs:
           test -s docs/index.html
           grep -qi '<html' docs/index.html
           grep -qi '<script' docs/index.html
+      - name: Smoke-test static app
+        run: |
+          node --check docs/assets/newro-experience.js
+          node <<'NODE'
+          const fs = require('fs');
+          const assert = require('assert');
+          const html = fs.readFileSync('docs/index.html', 'utf8');
+          assert(html.includes('NEWROHome'), 'NEWRO landing adapter missing');
+          assert(html.includes('newro-experience.css'), 'Design stylesheet missing');
+          assert(html.includes('newro-experience.js'), 'Experience script missing');
+          const inline = Array.from(html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)).map(m => m[1]);
+          inline.forEach(src => new Function(src));
+          ['docs/index.html', 'docs/assets/newro-experience.js', 'docs/assets/newro-experience.css', 'docs/manifest.webmanifest', 'docs/sw.js'].forEach(f => assert(fs.statSync(f).size > 0, f + ' is empty'));
+          console.log('NEWRO markup and JavaScript syntax validated');
+          NODE
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Upload static site
