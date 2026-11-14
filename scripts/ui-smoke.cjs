@@ -53,7 +53,7 @@ async function run() {
         await page.getByText('Meet your client, Harbor').waitFor();
         await page.getByRole('button', { name: 'Exit to careers (progress is saved)' }).click();
         await page.getByRole('button', { name: 'Browse careers' }).click();
-        assert(await page.getByRole('button', { name: 'Resume', exact: true }).count() >= 1, 'resume action');
+        assert(await page.locator('.cs-resume [data-resume]').count() === 1, 'saved session resume action');
       }
       if (device.name === 'desktop') {
         await page.locator('.cs-role').nth(1).click();
