@@ -1,0 +1,91 @@
+/* NEWRO / Premium interaction finish
+   Restrained depth and clear product feedback, not decorative animation overload. */
+:root{--nm-violet:#6253ed;--nm-glow:rgba(123,98,247,.13);--nm-edge:#e8e5f4}
+.cs-shell .nm-page-progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:100;transform-origin:left center;transform:scaleX(0);pointer-events:none;background:linear-gradient(90deg,#6655ea,#58ca9a);box-shadow:0 1px 4px #7166a633}
+.cs-shell .cs-top{position:sticky!important;top:0;z-index:70;border-bottom-color:#e9e7f2;background:rgba(255,255,255,.94)}
+.cs-shell .cs-toplinks a[aria-current="location"]{color:#5a4bd5}
+.cs-shell .cs-toplinks a{position:relative;text-underline-offset:5px}
+.cs-shell .cs-toplinks a::after{content:"";display:block;height:2px;position:absolute;bottom:1px;left:0;right:0;transform:scaleX(0);transform-origin:center;background:#6655ee;transition:transform .24s cubic-bezier(.2,.85,.2,1)}
+.cs-shell .cs-toplinks a:hover::after,.cs-shell .cs-toplinks a[aria-current="location"]::after{transform:scaleX(1)}
+.cs-shell .cs-hero{min-height:min(740px,calc(100dvh - 90px))}
+.cs-shell .cs-stage{--nm-x:50%;--nm-y:50%;--nm-tilt-x:0deg;--nm-tilt-y:0deg;isolation:isolate;border:1px solid #dad4f0!important;transition:border-color .25s,box-shadow .35s;background:#eae6fb!important;box-shadow:inset 0 1px 0 #fff8!important}
+.cs-shell .cs-stage::before{content:"";display:block!important;position:absolute;inset:0;background:radial-gradient(circle at var(--nm-x) var(--nm-y),rgba(255,255,255,.68),transparent 52%);opacity:.8;pointer-events:none}
+.cs-shell .cs-stage::after{display:none!important}
+.cs-shell .cs-stage .cs-card-device{transform:perspective(950px) rotateX(var(--nm-tilt-x)) rotateY(var(--nm-tilt-y)) rotate(-2deg);transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s;border:5px solid #fff}
+.cs-shell .cs-card-device:hover{box-shadow:0 19px 46px #3f347b2a}
+.cs-shell .cs-stage-top{z-index:4}
+.cs-shell .cs-role{transition:transform .28s cubic-bezier(.2,.85,.2,1),border-color .22s,box-shadow .28s!important}
+.cs-shell .cs-role:hover{transform:translateY(-5px);box-shadow:0 16px 42px #26234f12!important;border-color:#aaa3ea}
+.cs-shell .cs-role-visual{--nm-x:50%;--nm-y:50%;--nm-tilt-x:0deg;--nm-tilt-y:0deg;isolation:isolate}
+.cs-shell .cs-role-visual::after{content:"";display:block!important;position:absolute;inset:0;pointer-events:none;z-index:2;background:radial-gradient(circle at var(--nm-x) var(--nm-y),#ffffff71,transparent 62%);opacity:0;transition:opacity .25s}
+.cs-shell .cs-role:hover .cs-role-visual::after{opacity:1}
+.cs-shell .cs-role-visual img.nf-landing-art{transform:perspective(850px) rotateX(var(--nm-tilt-x)) rotateY(var(--nm-tilt-y)) scale(1.018);transition:transform .35s cubic-bezier(.2,.85,.2,1);will-change:auto}
+.cs-shell .cs-role-play{transition:background .18s,transform .2s}
+.cs-shell .cs-role:hover .cs-role-play{background:#15a755;transform:translateX(2px)}
+.cs-shell .cs-role:focus-visible{outline:3px solid #6455ed;outline-offset:4px}
+.cs-shell .cs-hero-buttons .nl-bigcta{position:relative;overflow:hidden}
+.cs-shell .cs-hero-buttons .nl-bigcta::before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 15%,#ffffff38 50%,transparent 85%);transform:translateX(-130%);pointer-events:none}
+.cs-shell .cs-hero-buttons .nl-bigcta:hover::before{transform:translateX(130%);transition:transform .56s ease-out}
+.cs-shell .cs-steps{border-top:1px solid #eeedf7}
+.cs-shell .cs-step-number{box-shadow:0 0 0 1px #d6d1f9 inset}
+.cs-shell .cs-phone-status{gap:6px}
+.cs-shell .cs-phone-head{font-size:10px;letter-spacing:.065em}
+.cs-shell .cs-phone-title{font-size:23px}
+.cs-shell .cs-phone-task{line-height:1.38;font-size:12px}
+.cs-shell .cs-phone-illus{height:90px}
+.cs-shell .nm-quick-choices{border:0;margin:0;padding:0;display:grid;gap:6px}
+.cs-shell .nm-quick-choice{display:flex;align-items:center;gap:8px;text-align:left;border:1.2px solid #e2e1ed;background:#fff;border-radius:9px;color:#44435b;min-height:34px;padding:7px 9px;font-size:11px;font-weight:680;line-height:1.25;transition:border-color .16s,background-color .16s}
+.cs-shell .nm-quick-choice::before{content:"";display:block;flex:none;width:11px;height:11px;border:1.6px solid #a4a3bc;border-radius:50%}
+.cs-shell .nm-quick-choice:hover,.cs-shell .nm-quick-choice:focus-visible{border-color:#8574ec;background:#f8f6ff}
+.cs-shell .nm-quick-choice[aria-pressed="true"]{background:#f0edff;border-color:#6656ee;color:#493ab0}
+.cs-shell .nm-quick-choice[aria-pressed="true"]::before{background:#6758ec;box-shadow:inset 0 0 0 2.5px white;border-color:#6758ec}
+.cs-shell .nm-quick-feedback{font-size:10px;line-height:1.35;margin:8px 0 0;color:#57586b;font-weight:700;min-height:0}
+.cs-shell .nm-quick-feedback[data-result="right"]{color:#147e46}
+.cs-shell .nm-quick-feedback[data-result="try-again"]{color:#835729}
+.cs-shell .nm-quick-feedback[hidden]{display:none}
+.cs-shell .cs-phone-cta{margin-top:10px;min-height:32px}
+.cs-shell .cs-card-device{padding-bottom:14px}
+.nf-app .nf-save,.cs-shell .cs-sign{display:none!important}
+.nf-app .nf-topinner::after,.cs-shell .cs-topin::after{content:none!important}
+.nf-app .nf-banner h2,.nf-app .nf-heading h1{font-kerning:normal}
+.nf-app .nf-milestone:focus-visible,.nf-app .nf-track button:focus-visible{outline:3px solid #6d5def;outline-offset:3px}
+.nf-app .nf-milestone{transition:border-color .18s,box-shadow .18s,transform .18s}
+.nf-app .nf-milestone:hover{transform:translateX(3px);box-shadow:0 5px 20px #2e216311!important}
+.nf-app .nf-track{transition:border-color .25s,box-shadow .28s,transform .25s}
+.nf-app .nf-track:hover{transform:translateY(-3px);border-color:#bbb3f2;box-shadow:0 14px 30px #3f327213!important}
+.nf-app .nf-day.done small{animation:nm-step-in .35s cubic-bezier(.2,.85,.2,1) both}
+@keyframes nm-step-in{from{opacity:.4;transform:scale(.75)}to{opacity:1;transform:scale(1)}}
+.cs-player .choice{transition:transform .18s,border-color .18s,background-color .18s!important}
+.cs-player .choice:hover{transform:translateX(2px)}
+.cs-player .choice[aria-pressed="true"]{transform:translateX(3px)}
+.cs-player .cs-course-meta{border-bottom:1px solid #efedf6;padding-bottom:16px}
+.cs-player .playerMain>.step{display:none!important}
+.cs-player .cs-celebrate{border-color:#e8e4f8}
+@media(max-width:1050px){
+.cs-shell .cs-hero{min-height:unset}
+.cs-shell .cs-stage .cs-card-device{transform:rotate(-2deg)}
+}
+@media(max-width:760px){
+.cs-shell .cs-topin{min-height:63px}
+.cs-shell .cs-title{font-size:clamp(44px,10.7vw,67px)}
+.cs-shell .cs-stage{height:400px!important;min-height:400px!important}
+.cs-shell .cs-card-device{margin-top:51px;min-height:316px;width:min(245px,69vw);padding:12px}
+.cs-shell .cs-phone-title{font-size:17px;line-height:1.14;margin-bottom:7px}
+.cs-shell .cs-phone-head{font-size:9px;margin-bottom:6px}
+.cs-shell .cs-phone-illus{height:58px}
+.cs-shell .cs-phone-task{font-size:10px;margin:7px 0}
+.cs-shell .nm-quick-choices{gap:5px}
+.cs-shell .nm-quick-choice{font-size:10px;min-height:31px;padding:6px}
+.cs-shell .nm-quick-feedback{font-size:9px;line-height:1.28;margin-top:6px}
+.cs-shell .cs-phone-cta{font-size:10px;margin-top:8px;padding:8px;min-height:30px}
+.cs-shell .cs-phone-status{font-size:9px}
+.cs-shell .cs-stage .cs-card-device{transform:rotate(-2deg)}
+.cs-shell .cs-role:hover,.nf-app .nf-track:hover,.nf-app .nf-milestone:hover{transform:none}
+.cs-shell .cs-role-visual img.nf-landing-art{transform:none}
+.cs-shell .cs-top{top:0}
+}
+@media(prefers-reduced-motion:reduce){
+.cs-shell .cs-stage,.cs-shell .cs-role,.cs-shell .cs-role-visual img.nf-landing-art,.cs-shell .nm-quick-choice,.nf-app .nf-track,.nf-app .nf-milestone{transition:none!important;transform:none!important}
+.cs-shell .cs-hero-buttons .nl-bigcta::before{display:none!important}
+.nf-app .nf-day.done small{animation:none!important}
+}
