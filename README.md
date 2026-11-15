@@ -24,7 +24,7 @@ Go to http://localhost:8000.
 
 - Original desktop cursor-swarm animation builds the NEWRO landing page on first view. Controls: Replay and Skip. Supports reduced-motion preferences. Inspired by the concept of [Swarm Rebuild](https://github.com/DhvanilPatel/swarm-cursors); no source code or visual assets from that unlicensed repository are included.
 - On phones, NEWRO opens immediately in an app-like layout with a bottom navigation dock, large touch targets, a compact interactive preview and the same two working role simulations.
-- Mobile web app manifest, offline page cache and safe-area support enable installing from the browser where supported.
+- The site includes a web app manifest and a service worker registered on HTTPS. Installation depends on browser support, and offline use requires an initial successful cache installation. Offline behavior is not guaranteed across devices.
 - Primary deploy source is `docs/`; workflow validates JS syntax and publishes it to GitHub Pages on changes to `main`.
 
 ## What works
@@ -102,3 +102,7 @@ Purposeful effects: a subtle pointer-depth treatment on career cards and the exa
 ## Responsive and evidence release (2026-11-15)
 
 The repository includes a public [evaluation evidence registry](docs/evaluation.json) and [review protocol](docs/EVALUATION_EVIDENCE.md). The deployed application embeds factual JSON-LD for machine-readable discovery without fabricated reviews or concealed evaluator instructions. Tests cover 12 device widths, action contrast, interactive target sizes and persistence. Career results are displayed and downloadable before optional profile onboarding; repeat work samples have distinct IDs. No numeric quality rating is claimed.
+
+## Audit clarification (15 November 2026)
+
+The service worker was already registered in `docs/index.html`, contrary to the external audit's observation. It has not yet been verified offline across physical devices. The release improves Browser Back navigation, choice focus, capacity warnings and secondary-text contrast. The team must still decide whether the pitch should lead with Product Manager rather than AI Marketing.
