@@ -6,8 +6,8 @@
       question: 'Who would you target?',
       brief: 'Harbor tracks subscription renewals. Which audience fits?',
       choices: [
-        { label: 'People managing free trials', fit: true, feedback: 'That fits: Harbor helps people keep track of upcoming renewals.' },
-        { label: 'People analyzing stocks', fit: false, feedback: 'Harbor tracks subscriptions, not stocks. Try the other audience.' }
+        { id: 'trials', label: 'People managing free trials', fit: true, feedback: 'Matches the brief: Harbor tracks upcoming renewals.' },
+        { id: 'stocks', label: 'People analyzing stocks', fit: false, feedback: "Harbor doesn't analyze stocks. Try the other audience." }
       ],
       action: 'Try the marketing assignment →'
     },
@@ -15,8 +15,8 @@
       question: 'What would you ship first?',
       brief: 'An iOS login crash blocks customers. Your team has limited time.',
       choices: [
-        { label: 'Fix the login crash', fit: true, feedback: 'A strong first call: people need access before they can use other features.' },
-        { label: 'Add a dark theme', fit: false, feedback: 'A theme can wait while customers cannot log in. Try the other option.' }
+        { id: 'login', label: 'Fix the login crash', fit: true, feedback: 'A strong first call: people need access before they can use other features.' },
+        { id: 'theme', label: 'Add a dark theme', fit: false, feedback: 'A theme can wait while customers cannot log in. Try the other option.' }
       ],
       action: 'Try the product assignment →'
     }
@@ -45,7 +45,7 @@
       switches.forEach(function (button) { button.setAttribute('aria-pressed', String(button.dataset.previewRole === role)); });
       quiz.querySelectorAll('[data-quick-choice]').forEach(function (button, index) {
         button.textContent = item.choices[index].label;
-        button.dataset.quickChoice = String(index);
+        button.dataset.quickChoice = item.choices[index].id;
         button.setAttribute('aria-pressed', 'false');
         button.classList.remove('nm-selected');
       });
@@ -58,7 +58,7 @@
     quiz.addEventListener('click', function (event) {
       var button = event.target.closest('[data-quick-choice]');
       if (!button || !quiz.contains(button)) return;
-      var choice = previews[role].choices[Number(button.dataset.quickChoice)];
+      var choice = previews[role].choices.find(function (item) { return item.id === button.dataset.quickChoice; });
       if (!choice) return;
       quiz.querySelectorAll('[data-quick-choice]').forEach(function (item) {
         item.setAttribute('aria-pressed', String(item === button));
