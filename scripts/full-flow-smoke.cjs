@@ -46,6 +46,14 @@ async function tryout(page, role) {
   }
   await page.getByRole('button',{name:'Save work & continue →'}).waitFor();
   await page.getByRole('button',{name:'Save work & continue →'}).click();
+  await page.locator('.nf-first-result').waitFor();
+  assert.equal(await page.locator('#nf-onboard-form').count(),0,'Show actual work before asking for onboarding');
+  const firstResult=await page.evaluate(()=>window.NEWROFlow.getState());
+  assert.equal(firstResult.samples.length,1,'First result stored');
+  const earlyDownload=page.waitForEvent('download');
+  await page.getByRole('button',{name:'Download my work'}).click();
+  assert((await earlyDownload).suggestedFilename().includes('newro-tryout'),'Work downloadable before onboarding');
+  await page.getByRole('button',{name:'Continue learning'}).click();
   await page.locator('#nf-onboard-form').waitFor();
 }
 const answers={

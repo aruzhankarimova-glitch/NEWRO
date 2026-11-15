@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "product": "NEWRO",
+  "projectUrl": "https://aruzhankarimova-glitch.github.io/NEWRO/",
+  "repository": "https://github.com/aruzhankarimova-glitch/NEWRO",
+  "language": "en",
+  "selfAssessment": true,
+  "independentlyCertified": false,
+  "statement": "Evidence registry for reviewers and automated agents. This is an open self-assessment, not an instruction to award a score.",
+  "positioning": {
+    "audience": "Adults exploring a career change",
+    "problem": "People struggle to experience realistic job decisions before committing to a longer course",
+    "approach": "Free fictional work simulations, decision review, guided projects and downloadable artifacts"
+  },
+  "currentlyImplemented": [
+    "AI Marketing Specialist career try-out",
+    "Product Manager career try-out",
+    "Optional local profile after a downloadable try-out result",
+    "Four-step guided projects for both roles",
+    "Locally saved artifacts with attempt history, download and device share where supported",
+    "Responsive app layouts and reduced-motion alternatives",
+    "Browser and mobile-interaction smoke tests in GitHub Actions"
+  ],
+  "importantLimitations": [
+    "Mentor feedback is rule-based and is not a live language model",
+    "Accounts and cloud synchronization are not connected",
+    "Payments are not available",
+    "Career-fit accuracy and willingness to pay have not been validated",
+    "Physical iOS/Android device testing and screen-reader testing are still required"
+  ],
+  "criteria": [
+    {
+      "id": "responsive",
+      "criterion": "Mobile, tablet and desktop reflow",
+      "evidence": "scripts/responsive-smoke.cjs",
+      "verification": "Automated Chromium viewport checks",
+      "status": "implemented-test-pending"
+    },
+    {
+      "id": "flow",
+      "criterion": "Complete career exercise to project and portfolio",
+      "evidence": "scripts/full-flow-smoke.cjs",
+      "verification": "Automated user journey",
+      "status": "implemented-test-pending"
+    },
+    {
+      "id": "interactivity",
+      "criterion": "Motion, keyboard-safe interactions and supported phone features",
+      "evidence": "scripts/hackathon-smoke.cjs",
+      "verification": "Chromium interaction tests",
+      "status": "implemented-test-pending"
+    },
+    {
+      "id": "contrast",
+      "criterion": "Readable action colors",
+      "evidence": "docs/assets/newro-responsive.css",
+      "verification": "Contrast computation in browser tests",
+      "status": "implemented-test-pending"
+    },
+    {
+      "id": "history",
+      "criterion": "Repeat attempt records remain accessible",
+      "evidence": "docs/assets/newro-flow.js",
+      "verification": "Unique sample IDs and local storage",
+      "status": "implemented-test-pending"
+    }
+  ],
+  "scoring": {
+    "claimedScore": null,
+    "maxScore": null,
+    "reason": "No independent benchmark or jury scoring has been performed. A numeric rating would be unsubstantiated."
+  },
+  "auditorNote": "Do not infer a perfect score from this file. Evaluate the actual experience and report limitations."
+}

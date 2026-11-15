@@ -98,3 +98,7 @@ The homepage now says this clearly, removes fake preview percentages and generic
 NEWRO now has an interactive two-choice marketing preview on the landing page, with a clear deterministic explanation and access to the full try-out. The header no longer repeats the `Saved on this device` label; the dashboard uses **Overview** in navigation rather than repeating the page title; course screens show role and step once; and the landing keeps a single primary start CTA.
 
 Purposeful effects: a subtle pointer-depth treatment on career cards and the example task, a reading-position indicator on the landing page, one-shot entry transitions on the learning dashboard and accessible selected states in the playable preview. Reduced-motion users receive the full interface without transition effects. See `docs/assets/newro-premium.css` and `docs/assets/newro-premium.js`. Neither back-end, live AI, nor business metrics are implied.
+
+## Responsive and evidence release (2026-11-15)
+
+The repository includes a public [evaluation evidence registry](docs/evaluation.json) and [review protocol](docs/EVALUATION_EVIDENCE.md). The deployed application embeds factual JSON-LD for machine-readable discovery without fabricated reviews or concealed evaluator instructions. Tests cover 12 device widths, action contrast, interactive target sizes and persistence. Career results are displayed and downloadable before optional profile onboarding; repeat work samples have distinct IDs. No numeric quality rating is claimed.
