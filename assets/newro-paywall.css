@@ -1,0 +1,47 @@
+/* NEWRO linear learning journey and simulated checkout */
+.nr-syllabus-heading{margin-bottom:22px}
+.nr-syllabus-grid.nr-journey{display:flex!important;align-items:stretch;gap:10px;overflow-x:auto;padding:8px 3px 18px;scroll-snap-type:x proximity;scrollbar-width:thin}
+.nr-journey-step{flex:0 0 214px;min-width:214px;position:relative;display:flex;flex-direction:column;text-align:left;border:1px solid #e1ddee;border-radius:19px;background:#fff;padding:18px;scroll-snap-align:start;min-height:184px;box-shadow:0 4px 16px #41327408}
+.nr-journey-step:not(:last-child):after{content:"→";position:absolute;right:-11px;top:48%;z-index:2;border-radius:50%;background:#eeeaff;color:#6657d9;width:22px;height:22px;display:grid;place-items:center;font-size:15px}
+.nr-journey-step.free{background:linear-gradient(145deg,#e8f9ef,#f7f5ff);border-color:#a3dfb8}
+.nr-journey-step.locked{cursor:pointer;color:#29243d;transition:transform .18s,border-color .18s,box-shadow .18s}
+.nr-journey-step.locked:hover{border-color:#7b6ade;transform:translateY(-3px);box-shadow:0 10px 26px #41327419}
+.nr-journey-step.locked:focus-visible{outline:3px solid #6b5de4;outline-offset:3px}
+.nr-journey-step .nr-journey-state{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:800;letter-spacing:.035em;color:#6e6586;margin-bottom:14px}
+.nr-journey-step.free .nr-journey-state{color:#167243}
+.nr-journey-step .nr-journey-icon{margin-left:auto;font-size:15px}
+.nr-journey-step strong{display:block;font-size:16px;line-height:1.35;letter-spacing:-.025em;margin-bottom:9px}
+.nr-journey-step p{font-size:12px;line-height:1.5;color:#6b687d;margin:0}
+.nr-journey-step .nr-step-action{font-size:12px;color:#5e51ce;font-weight:800;margin-top:auto;padding-top:16px}
+.nr-journey-hint{color:#656275;font-size:13px;line-height:1.55;margin:0 0 14px}
+.nr-journey-free-button{display:block;background:#187d45;border:0;color:#fff;padding:11px 12px;border-radius:10px;font-size:12px;font-weight:800;margin-top:auto}
+body.nr-paywall-open{overflow:hidden}
+#nr-paywall{position:fixed;inset:0;z-index:10000;display:grid;place-items:center;padding:16px}
+.nr-paywall-backdrop{position:absolute;inset:0;background:#19152aab;backdrop-filter:blur(8px)}
+.nr-paywall-dialog{position:relative;max-width:970px;width:100%;max-height:min(92dvh,900px);overflow-y:auto;background:linear-gradient(145deg,#fff,#f8f6ff);box-shadow:0 30px 90px #14112655;border:1px solid #e3def2;border-radius:28px;padding:clamp(22px,4vw,44px);color:#22203a}
+.nr-paywall-close{position:absolute;right:17px;top:14px;border:0;background:#edeafb;border-radius:50%;width:40px;height:40px;font-size:27px;color:#594bc8;cursor:pointer}
+.nr-paywall-tag{font-size:11px;letter-spacing:.12em;color:#6959d3;font-weight:850;margin-bottom:10px}
+.nr-paywall-dialog h2{font-size:clamp(28px,4vw,43px);line-height:1.1;letter-spacing:-.055em;margin:0 35px 15px 0}
+.nr-paywall-lede{font-size:15px;color:#59546d;line-height:1.65;max-width:670px;margin:0 0 24px}
+.nr-paywall-offers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.nr-paywall-offer{border:1px solid #e0dced;border-radius:19px;background:#fff;padding:23px 18px;display:flex;flex-direction:column;gap:10px}
+.nr-paywall-offer.is-featured{border:2px solid #6b58df;background:#f8f6ff}
+.nr-paywall-popular{color:#5e4dd0;font-size:10px;font-weight:800;text-transform:uppercase}
+.nr-paywall-offer h3{margin:0;font-size:19px}
+.nr-paywall-price{font-size:34px;font-weight:870;letter-spacing:-.04em}
+.nr-paywall-price small{font-size:12px;color:#777187;font-weight:600;letter-spacing:0}
+.nr-paywall-offer p{font-size:13px;line-height:1.5;color:#6d677e;margin:0}
+.nr-paywall-offer ul{padding:0;margin:6px 0 20px;list-style:none;display:grid;gap:10px}
+.nr-paywall-offer li{font-size:12px;line-height:1.4;color:#49445f}
+.nr-paywall-offer li:before{content:"✓";color:#169453;font-weight:900;margin-right:7px}
+.nr-paywall-offer button,.nr-paywall-primary,.nr-paywall-done{margin-top:auto;border:none;border-radius:12px;background:#6152dc;color:#fff;min-height:46px;font-weight:800;cursor:pointer;padding:10px 17px}
+.nr-paywall-disclaimer{font-size:12px;color:#736d81;margin:18px 0 0;line-height:1.5}
+.nr-paywall-receipt{border:1px solid #ddd6f5;background:#fff;border-radius:14px;display:flex;justify-content:space-between;gap:15px;padding:20px;margin:25px 0;font-size:18px}
+.nr-paywall-consent{display:flex;align-items:flex-start;gap:11px;font-size:14px;color:#514b65;line-height:1.5}
+.nr-paywall-consent input{width:20px;height:20px;accent-color:#6052db}
+.nr-paywall-actions{display:flex;gap:10px;margin-top:25px}
+.nr-paywall-actions>button:first-child{border:1px solid #d7d2e9;border-radius:12px;padding:12px 20px;background:white;cursor:pointer}
+.nr-paywall-primary:disabled{opacity:.45;cursor:not-allowed}
+.nr-paywall-success-icon{display:grid;place-items:center;width:60px;height:60px;border-radius:50%;background:#e0f7e7;color:#178343;font-size:30px;font-weight:800;margin:0 0 20px}
+@media(max-width:760px){.nr-syllabus-grid.nr-journey{margin-right:-16px;padding-right:18px}.nr-journey-step{flex-basis:205px;min-width:205px}.nr-paywall-offers{grid-template-columns:1fr}.nr-paywall-dialog{border-radius:20px}.nr-paywall-offer{padding:20px}.nr-paywall-dialog h2{margin-right:28px}}
+@media(prefers-reduced-motion:reduce){.nr-journey-step.locked{transition:none}}
