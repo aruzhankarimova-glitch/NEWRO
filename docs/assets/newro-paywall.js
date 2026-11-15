@@ -1,25 +1,2 @@
-/* NEWRO demo checkout. No card details, money movement or paid access are involved. */
-(function(){"use strict";
-var selected=null,origin=null;
-var offers=[
- {id:"monthly",name:"Explorer",price:"$19",period:"/ month",description:"Explore learning paths at your pace",points:["Premium learning path preview","Practice scenarios","Portfolio exercises"]},
- {id:"bundle",name:"Career Sprint",price:"$39",period:"/ 3 shifts",description:"Go deeper into one career",points:["Three connected practice shifts","Feedback on key decisions","Replay important scenarios"]},
- {id:"annual",name:"Unlimited",price:"$99",period:"/ year",description:"More time to practice",points:["All premium learning paths (planned)","Practice across roles","Progress and portfolio"]}
-];
-function escapeHtml(v){return String(v||"").replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
-function dialog(content){var d=document.getElementById("nr-paywall");if(!d){d=document.createElement("div");d.id="nr-paywall";document.body.appendChild(d)}d.innerHTML='<div class="nr-paywall-backdrop" data-nr-close></div><section class="nr-paywall-dialog" role="dialog" aria-modal="true" aria-label="NEWRO pricing"><button type="button" class="nr-paywall-close" data-nr-close aria-label="Close pricing">×</button>'+content+'</section>';document.body.classList.add("nr-paywall-open");(d.querySelector("button")||d).focus()}
-function close(){var d=document.getElementById("nr-paywall");if(d)d.remove();document.body.classList.remove("nr-paywall-open");if(origin&&origin.isConnected)origin.focus()}
-function plans(moduleName){selected=null;dialog('<div class="nr-paywall-tag">NEWRO / PREMIUM PREVIEW</div><h2>Ready for the next chapter?</h2><p class="nr-paywall-lede">You have explored the free part. <strong>'+escapeHtml(moduleName)+'</strong> is locked in this prototype. Choose a plan to experience a simulated checkout.</p><div class="nr-paywall-offers">'+offers.map(function(o){return '<article class="nr-paywall-offer '+(o.id==="bundle"?"is-featured":"")+'">'+(o.id==="bundle"?'<span class="nr-paywall-popular">Suggested for your first career</span>':'')+'<h3>'+o.name+'</h3><div class="nr-paywall-price">'+o.price+' <small>'+o.period+'</small></div><p>'+o.description+'</p><ul>'+o.points.map(function(p){return '<li>'+p+'</li>'}).join("")+'</ul><button type="button" data-nr-plan="'+o.id+'">Choose '+o.name+'</button></article>'}).join("")+'</div><p class="nr-paywall-disclaimer">Demo only · Prices are hypotheses, not a live offer. No payment is processed. Locked lessons are not published yet.</p>')}
-function checkout(id){selected=offers.find(function(x){return x.id===id});if(!selected)return;dialog('<div class="nr-paywall-tag">STEP 2 OF 2 / SIMULATED CHECKOUT</div><h2>Review your plan</h2><div class="nr-paywall-receipt"><span>'+escapeHtml(selected.name)+'</span><strong>'+selected.price+' '+selected.period+'</strong></div><p class="nr-paywall-lede">This is an interactive purchase simulation. No credit card or personal data is required.</p><label class="nr-paywall-consent"><input type="checkbox" id="nr-demo-consent"> I understand this is a demo, and no access will be activated.</label><div class="nr-paywall-actions"><button type="button" data-nr-back>Change plan</button><button type="button" class="nr-paywall-primary" data-nr-confirm disabled>Simulate purchase</button></div>')}
-function complete(){dialog('<div class="nr-paywall-success-icon">✓</div><h2>Demo purchase completed</h2><p class="nr-paywall-lede">You selected <strong>'+escapeHtml(selected.name)+'</strong>. No charge was made and no subscription was created.</p><p>Full premium lessons remain locked until they are released. This flow demonstrates how the NEWRO purchase experience could work.</p><button type="button" class="nr-paywall-done" data-nr-close>Back to NEWRO</button>')}
-document.addEventListener("click",function(e){var target=e.target.closest("[data-nr-module],[data-nr-plan],[data-nr-close],[data-nr-back],[data-nr-confirm]");if(!target)return;
- if(target.hasAttribute("data-nr-module")){e.preventDefault();origin=target;plans(target.getAttribute("data-nr-module")||"Premium learning");}
- else if(target.hasAttribute("data-nr-plan")){checkout(target.getAttribute("data-nr-plan"))}
- else if(target.hasAttribute("data-nr-close")){close()}
- else if(target.hasAttribute("data-nr-back")){plans("Premium learning")}
- else if(target.hasAttribute("data-nr-confirm")){if(!target.disabled)complete()}
-});
-document.addEventListener("change",function(e){if(e.target.id==="nr-demo-consent"){var b=document.querySelector("[data-nr-confirm]");if(b)b.disabled=!e.target.checked}});
-document.addEventListener("keydown",function(e){if(e.key==="Escape"&&document.getElementById("nr-paywall"))close()});
-window.NEWROPaywall={open:plans,close:close};
-})();
+/* Compatibility entry point for links to practice topics. */
+(function(){'use strict';window.NEWROPaywall={open:function(){if(window.NEWROFlow)window.NEWROFlow.goto('paths')},close:function(){}};})();

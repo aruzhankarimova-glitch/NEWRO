@@ -44,22 +44,10 @@ function render(role,esc,button,completed){
  const freeDescription=pm?"Make a release decision, receive feedback and save a work sample.":"Make campaign decisions in your first career simulation.";
  const freeAction=pm?"free-pm-lesson":"free-marketing-tryout";
  const freeLabel=pm?(completed?"Replay free lesson →":"Start free lesson →"):"Start free try-out →";
- const journey='<div class="nr-syllabus-grid nr-journey" aria-label="Learning path: free introduction followed by locked modules">'+
- '<div class="nr-journey-step free"><span class="nr-journey-state">'+(completed?"✓ COMPLETED":"● FREE START")+'</span><strong>'+freeTitle+'</strong><p>'+freeDescription+'</p>'+button(freeLabel,freeAction,"nr-journey-free-button")+'</div>'+
- t.modules.map(function(m,i){
- return '<button type="button" class="nr-journey-step locked" data-nr-module="'+esc(m[1])+'" aria-label="'+esc(m[1])+': premium preview, see plans">'+
- '<span class="nr-journey-state">'+(i+1<10?"0"+(i+1):i+1)+' / PREMIUM <span class="nr-journey-icon" aria-hidden="true">🔒</span></span>'+
- '<strong>'+esc(m[1])+'</strong><p>'+esc(m[2])+'</p><span class="nr-step-action">View plans →</span></button>';
- }).join("")+'</div>';
- return '<section class="nr-syllabus nf-section" aria-labelledby="'+id+'">'+
- '<header class="nr-syllabus-heading"><div><span class="nf-label">'+(pm?"AI PRODUCT MANAGER":"AI MARKETER")+' / LEARNING PATH</span>'+
- '<h2 id="'+id+'">Your next career steps</h2><p>'+t.subtitle+'</p>'+
- '<p>One free introduction. The remaining lessons are planned and not yet available.</p></div>'+
- '<span class="nr-syllabus-status">'+(completed?"Free part completed":"Free part available")+'</span></header>'+
- '<p class="nr-journey-hint">'+(completed?"You have finished the free lesson. The next stages are locked.":"Start with the free part. The next steps are locked.")+' Select any locked step to explore subscription options. Scroll sideways to see the full path.</p>'+
- journey+
- '<details class="nr-shared-core"><summary>What you will learn · AI skills foundations</summary><ul>'+core.map(function(x){return "<li>"+esc(x)+"</li>"}).join("")+'</ul></details>'+
- '<p class="nr-program-notice">Premium stages are a product preview, not published lessons. Plans and checkout are demonstration only.</p></section>';
+ const journey='<div class="nr-syllabus-grid nr-journey" aria-label="Practice topics">'+
+ '<div class="nr-journey-step free"><span class="nr-journey-state">START HERE</span><strong>'+freeTitle+'</strong><p>'+freeDescription+'</p>'+button(freeLabel,freeAction,"nr-journey-free-button")+'</div>'+
+ t.modules.map(function(m,i){return '<button type="button" class="nr-journey-step practice" data-practice-role="'+role+'" data-practice-index="'+i+'"><span class="nr-journey-state">'+String(i+1).padStart(2,"0")+' / PRACTICE</span><strong>'+esc(m[1])+'</strong><p>'+esc(m[2])+'</p><span class="nr-step-action">Open exercise →</span></button>';}).join("")+'</div>';
+ return '<section class="nr-syllabus nf-section" aria-labelledby="'+id+'"><header class="nr-syllabus-heading"><div><span class="nf-label">'+(pm?"AI PRODUCT MANAGER":"AI MARKETER")+' / PRACTICE</span><h2 id="'+id+'">Choose your next exercise</h2><p>'+t.subtitle+'</p></div><span class="nr-syllabus-status">Practice at your pace</span></header><p class="nr-journey-hint">Choose a topic, write your response and save it to your portfolio. Scroll sideways to see all topics.</p>'+journey+'<details class="nr-shared-core"><summary>AI skills foundations</summary><ul>'+core.map(function(x){return "<li>"+esc(x)+"</li>";}).join("")+'</ul></details></section>';
 }
 document.addEventListener("click",function(event){var target=event.target.closest('[data-flow-action="free-marketing-tryout"]');if(!target)return;event.preventDefault();if(window.NEWROFlow){history.replaceState(null,"",location.pathname+location.search);window.NEWRO.start("marketing");}});
 window.NEWROCurriculum={render:render,tracks:tracks,core:core,source:"Newro Business Cup research, revised 2026-11-15"};

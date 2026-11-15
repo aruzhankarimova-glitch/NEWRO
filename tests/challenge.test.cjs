@@ -61,7 +61,7 @@ test('share falls back to a selectable clean link when sharing is unavailable',a
 test('reference landing retains working career links and honest product availability',()=>{
   const fs=require('node:fs');
   const source=fs.readFileSync('assets/newro-landing-reference.js','utf8');
-  for(const phrase of ['WHAT YOU CAN DO','Frequently asked questions','planned','data-flow-go']) assert.ok(source.includes(phrase),phrase);
+  for(const phrase of ['WHAT YOU CAN DO','Frequently asked questions','practice topic','data-flow-go']) assert.ok(source.includes(phrase),phrase);
   assert.ok(!source.includes('Someone using AI will'));
 });
 
