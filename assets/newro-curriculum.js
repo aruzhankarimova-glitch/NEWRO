@@ -20,7 +20,7 @@ const tracks={
  marketing:{
   title:"AI Marketer",
   subtitle:"Develop a research-to-reporting marketing workflow with AI.",
-  status:"Full course coming soon",
+  status:"Free try-out available",
   modules:[
    ["MKT-M00","Workflow diagnostic","Audit your current marketing work and useful AI support opportunities.","Marketing workflow map","Captures actual workflow, not just prompt lists."],
    ["MKT-M01","Research & audience","Explore ICP, segments, competitors and jobs to be done.","Research pack","Verifies sources and insights."],
@@ -37,20 +37,29 @@ const core=["LLM capabilities, limits, context and trustworthy sources",
  "Privacy, copyright and human review",
  "Choosing an AI tool for a specific task",
  "Presenting the process, result and evidence for your portfolio"];
-function render(role, esc, button, completed){
+function render(role,esc,button,completed){
  const t=tracks[role]||tracks.pm,pm=role==="pm";
  const id="nr-syllabus-"+role;
- const lesson=pm?'<div class="nr-free-entry"><span class="nf-label">FREE LESSON</span><div><h3>Prioritize a Friday release</h3><p>Learn three criteria, make a decision, review the outcome and save your decision card.</p></div>'+button(completed?"Replay free lesson →":"Start free lesson →","free-pm-lesson","nf-btn nf-primary")+'</div>':'<div class="nr-course-notice">The AI Marketer course is planned. Its learning modules cannot be opened yet. The separate free try-out is already available.</div>';
+ const freeTitle=pm?"Friday release · starter lesson":"AI Marketing · free try-out";
+ const freeDescription=pm?"Make a release decision, receive feedback and save a work sample.":"Make campaign decisions in your first career simulation.";
+ const freeAction=pm?"free-pm-lesson":"free-marketing-tryout";
+ const freeLabel=pm?(completed?"Replay free lesson →":"Start free lesson →"):"Start free try-out →";
+ const journey='<div class="nr-syllabus-grid nr-journey" aria-label="Learning path: free introduction followed by locked modules">'+
+ '<div class="nr-journey-step free"><span class="nr-journey-state">'+(completed?"✓ COMPLETED":"● FREE START")+'</span><strong>'+freeTitle+'</strong><p>'+freeDescription+'</p>'+button(freeLabel,freeAction,"nr-journey-free-button")+'</div>'+
+ t.modules.map(function(m,i){
+ return '<button type="button" class="nr-journey-step locked" data-nr-module="'+esc(m[1])+'" aria-label="'+esc(m[1])+': premium preview, see plans">'+
+ '<span class="nr-journey-state">'+(i+1<10?"0"+(i+1):i+1)+' / PREMIUM <span class="nr-journey-icon" aria-hidden="true">🔒</span></span>'+
+ '<strong>'+esc(m[1])+'</strong><p>'+esc(m[2])+'</p><span class="nr-step-action">View plans →</span></button>';
+ }).join("")+'</div>';
  return '<section class="nr-syllabus nf-section" aria-labelledby="'+id+'">'+
- '<header class="nr-syllabus-heading"><div><span class="nf-label">'+(pm?"AI PRODUCT MANAGER":"AI MARKETER")+' / PROGRAM</span>'+
- '<h2 id="'+id+'">'+t.title+' learning path</h2><p>'+t.subtitle+'</p><p>Six-week specialization with a starting skills diagnostic. Modules below are a preview, not live lessons.</p></div>'+
- '<span class="nr-syllabus-status">'+t.status+'</span></header>'+lesson+
- '<div class="nr-syllabus-grid">'+t.modules.map(function(m,i){
-  return '<details class="nr-syllabus-module" '+(i===0?'open':'')+'><summary><span class="nr-module-num">'+m[0]+'</span><span class="nr-module-name">'+esc(m[1])+'</span><span class="nr-module-state">Coming soon</span></summary>'+
-  '<div class="nr-module-description"><p>'+esc(m[2])+'</p><dl><dt>What you will create</dt><dd>'+esc(m[3])+'</dd><dt>How it will be assessed</dt><dd>'+esc(m[4])+'</dd></dl></div></details>';
- }).join("")+'</div>'+
- '<details class="nr-shared-core"><summary>AI Skills Core · shared foundations</summary><ul>'+core.map(function(s){return '<li>'+esc(s)+'</li>';}).join("")+'</ul></details>'+
- '<p class="nr-program-notice">The full program is not yet open. Completing a try-out does not mean completing these modules.</p></section>';
+ '<header class="nr-syllabus-heading"><div><span class="nf-label">'+(pm?"AI PRODUCT MANAGER":"AI MARKETER")+' / LEARNING PATH</span>'+
+ '<h2 id="'+id+'">Your next career steps</h2><p>'+t.subtitle+'</p>'+
+ '<p>One free introduction. Continue through the locked premium journey when more lessons become available.</p></div>'+
+ '<span class="nr-syllabus-status">'+(completed?"Free part completed":"Free part available")+'</span></header>'+
+ '<p class="nr-journey-hint">'+(completed?"You have finished the free lesson. The next stages are locked.":"Start with the free part. The next steps are locked.")+' Select any locked step to explore subscription options. Scroll sideways to see the full path.</p>'+
+ journey+
+ '<details class="nr-shared-core"><summary>What you will learn · AI skills foundations</summary><ul>'+core.map(function(x){return "<li>"+esc(x)+"</li>"}).join("")+'</ul></details>'+
+ '<p class="nr-program-notice">Premium stages are a product preview, not published lessons. Plans and checkout are demonstration only.</p></section>';
 }
 window.NEWROCurriculum={render:render,tracks:tracks,core:core,source:"Newro Business Cup research, revised 2026-11-15"};
 })();
