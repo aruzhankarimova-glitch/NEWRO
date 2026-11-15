@@ -62,7 +62,7 @@ function home(meta,root){
         '</button>' +
         '<button class="cs-role" data-build="career-two" type="button" onclick="NEWRO.start(\'pm\')">' +
           '<div class="cs-role-visual"><span class="cs-role-badge">FREE EXERCISE</span><div class="cs-role-graphic"><span class="cs-role-symbol">▤</span></div></div>' +
-          '<div class="cs-role-body"><span class="cs-role-small">TRACK 02 · PRIORITIZATION</span><h3>Product<br>Manager</h3><p>Choose what ships with 24 engineering hours and explain what waits.</p><div class="cs-role-footer"><span class="cs-role-tag">◷ Short exercise</span><span class="cs-role-play">Start task ↗</span></div></div>' +
+          '<div class="cs-role-body"><span class="cs-role-small">TRACK 02 · PRIORITIZATION</span><h3>AI Product<br>Manager</h3><p>Choose what ships with 24 engineering hours and explain what waits.</p><div class="cs-role-footer"><span class="cs-role-tag">◷ Short exercise</span><span class="cs-role-play">Start task ↗</span></div></div>' +
         '</button>' +
       '</div>' +
     '</div></section>' +
