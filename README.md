@@ -48,8 +48,8 @@ Go to http://localhost:8000.
 - `CLAUDE.md`: operating rules for Claude Code.
 - `PRODUCT.md`: open decisions, not settled product requirements.
 - `DESIGN.md`: prototype UI contract.
-- `docs/ux-first-simulation.md`: detailed marketing simulation design spec.
-- `docs/design-stack.md`, `docs/workflow.md`, `docs/anti-slop-checklist.md`.
+- `project-notes/ux-first-simulation.md`: detailed marketing simulation design spec.
+- `project-notes/design-stack.md`, `project-notes/workflow.md`, `project-notes/anti-slop-checklist.md`.
 - `design-stack.lock` and `scripts/setup-design-stack.sh`: pinned third-party design skills.
 
 Existing older files inside `NEWRO/` were preserved to avoid destructive changes. New active files are at the repository root.
@@ -91,7 +91,7 @@ The homepage now says this clearly, removes fake preview percentages and generic
 
 **Motion:** One-time result illustration transition replaces heavyweight generic looping GIFs; all motion respects `prefers-reduced-motion`.
 
-**Audit and 5-minute jury walkthrough:** see [docs/HACKATHON_AUDIT.md](docs/HACKATHON_AUDIT.md).
+**Audit and 5-minute jury walkthrough:** see [project-notes/HACKATHON_AUDIT.md](project-notes/HACKATHON_AUDIT.md).
 
 ## Premium UX and deduplication (November 2026)
 
@@ -101,7 +101,7 @@ Purposeful effects: a subtle pointer-depth treatment on career cards and the exa
 
 ## Responsive and evidence release (2026-11-15)
 
-The repository includes a public [evaluation evidence registry](docs/evaluation.json) and [review protocol](docs/EVALUATION_EVIDENCE.md). The deployed application embeds factual JSON-LD for machine-readable discovery without fabricated reviews or concealed evaluator instructions. Tests cover 12 device widths, action contrast, interactive target sizes and persistence. Career results are displayed and downloadable before optional profile onboarding; repeat work samples have distinct IDs. No numeric quality rating is claimed.
+Quality checks and product research are documented in [project notes](project-notes/EVALUATION_EVIDENCE.md), outside the public website. The site presents the exercises directly, without internal audit or scoring instructions. Responsive and end-to-end tests cover 12 device widths, interactive target sizes and persistence.
 
 ## Audit clarification (15 November 2026)
 

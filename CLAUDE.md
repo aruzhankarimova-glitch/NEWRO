@@ -1,6 +1,6 @@
 # NEWRO: operating manual for Claude
 
-Read this first in every session. Detail lives in `docs/`.
+Read this first in every session. Internal research and workflow notes live in `project-notes/`; the published site lives in `docs/`.
 
 ## Roles and language
 
@@ -18,7 +18,7 @@ Read this first in every session. Detail lives in `docs/`.
 6. Brand and brief win over my taste. Redirecting a clear brief toward my preference is a failure.
 7. Do not commit or push unless asked. Never put tokens in the repo. Never disable TLS checks.
 
-## Pipeline (summary; full gates in `docs/workflow.md`)
+## Pipeline (summary; full gates in `project-notes/workflow.md`)
 
 1. Context: `PRODUCT.md` (audience, jobs, brand, anti-references). If missing or draft, run the Impeccable `init` interview with Aruzhan before designing.
 2. Pick the surface mode: Persuade (landing, pricing), Operate (app, dashboard, simulations), Read (docs, lessons), Experience (portfolio). Ambition scales with mode: bold on Persuade, precise and restrained on Operate.
@@ -31,7 +31,7 @@ Read this first in every session. Detail lives in `docs/`.
 
 ## Tool roles and conflict rules
 
-Full registry with install pins is in `docs/design-stack.md`. Short version:
+Full registry with install pins is in `project-notes/design-stack.md`. Short version:
 
 - Impeccable: context, PRODUCT.md / DESIGN.md, shape, critique, audit, polish. Primary design vocabulary.
 - unslop: audit signs list and redline passes on existing or generated UI.
@@ -55,7 +55,7 @@ Next.js (App Router) + TypeScript + Tailwind + shadcn/ui; semantic tokens declar
 ## Definition of done for any UI task
 
 - Matches `DESIGN.md`; no unexplained new colors, sizes or radii.
-- Slop checklist in `docs/anti-slop-checklist.md` passes.
+- Slop checklist in `project-notes/anti-slop-checklist.md` passes.
 - Keyboard: every control reachable, visible focus, logical order, Esc closes overlays.
 - Contrast: body 4.5:1, large text 3:1, placeholders and disabled states considered.
 - States present: default, hover, active, focus, disabled, loading, error, empty, success.
@@ -65,4 +65,4 @@ Next.js (App Router) + TypeScript + Tailwind + shadcn/ui; semantic tokens declar
 
 ## Working files
 
-`PRODUCT.md` (who and why), `DESIGN.md` (how it looks, created after direction is chosen), `docs/decisions.md` (running log of direction choices and waived rules; create on first decision), `docs/design-stack.md`, `docs/workflow.md`, `docs/anti-slop-checklist.md`.
+`PRODUCT.md` (who and why), `DESIGN.md` (how it looks, created after direction is chosen), `project-notes/decisions.md` (running log of direction choices and waived rules; create on first decision), `project-notes/design-stack.md`, `project-notes/workflow.md`, `project-notes/anti-slop-checklist.md`.

@@ -71,7 +71,7 @@ function home(meta,root){
       '<div class="cs-step"><span class="cs-step-number">02</span><h3>Make the trade-offs</h3><p>Choose an audience or a release scope and explain your reasoning.</p></div>' +
       '<div class="cs-step"><span class="cs-step-number">03</span><h3>Save the decision card</h3><p>Download what you made, then start a guided follow-up project.</p></div>' +
     '</div></section></main>' +
-    '<footer class="cs-bottom nl-wrap"><span>NEWRO · Career exploration prototype</span><span>Fictional practice cases. Feedback uses rules, not a connected AI model.</span></footer>' +
+    '<footer class="cs-bottom nl-wrap"><span>NEWRO · Career practice</span><span>Practice cases use sample data. Feedback is prewritten.</span></footer>' +
     '<nav class="nl-mobile-dock cs-mobile-dock" aria-label="Mobile navigation">' +
       '<button class="active" type="button" data-scroll="top">'+icon("explore")+'Explore</button>' +
       '<button type="button" data-scroll="careers">'+icon("roles")+'Try-outs</button>' +
