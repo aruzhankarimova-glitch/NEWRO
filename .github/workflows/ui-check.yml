@@ -40,6 +40,7 @@ jobs:
           node scripts/premium-smoke.cjs
           node scripts/responsive-smoke.cjs
           node scripts/audit-regression.cjs
+          node scripts/frontend-copy-smoke.cjs
       - name: Upload QA screenshots
         uses: actions/upload-artifact@v4
         if: always()
