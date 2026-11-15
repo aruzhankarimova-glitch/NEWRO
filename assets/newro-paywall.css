@@ -45,3 +45,7 @@ body.nr-paywall-open{overflow:hidden}
 .nr-paywall-success-icon{display:grid;place-items:center;width:60px;height:60px;border-radius:50%;background:#e0f7e7;color:#178343;font-size:30px;font-weight:800;margin:0 0 20px}
 @media(max-width:760px){.nr-syllabus-grid.nr-journey{margin-right:-16px;padding-right:18px}.nr-journey-step{flex-basis:205px;min-width:205px}.nr-paywall-offers{grid-template-columns:1fr}.nr-paywall-dialog{border-radius:20px}.nr-paywall-offer{padding:20px}.nr-paywall-dialog h2{margin-right:28px}}
 @media(prefers-reduced-motion:reduce){.nr-journey-step.locked{transition:none}}
+
+/* New visual asset in the course-to-portfolio bridge */
+.nf-landing-bridge .nr-career-loop{width:min(270px,100%);height:auto;object-fit:contain;border-radius:18px;display:block;margin:18px auto 0}
+@media(max-width:760px){.nf-landing-bridge .nr-career-loop{width:min(240px,90%)}}
