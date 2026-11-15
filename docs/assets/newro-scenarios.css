@@ -1,0 +1,52 @@
+/* NEWRO interactive practice illustrations, responsive and accessible. */
+.nr-product-scene{display:block;margin:16px 0 23px;max-width:100%;border:1px solid #e1dcf3;border-radius:20px;overflow:hidden;background:#f6f2ff;box-shadow:0 8px 25px rgba(62,49,120,.06)}
+.nr-product-scene-art{line-height:0;width:100%;aspect-ratio:760/240;max-height:244px;overflow:hidden}
+.nr-product-scene-art svg{width:100%;height:100%;display:block;object-fit:cover}
+.nr-product-scene figcaption{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 17px 13px;background:#fff;color:#5e5a71;font-size:12px;line-height:1.5}
+.nr-product-scene figcaption b{font-size:11px;letter-spacing:.055em;color:#6254c0;white-space:nowrap}
+.nr-product-scene figcaption span{max-width:70%}
+.nr-creative-picker,.nr-test-results{margin:22px 0 21px;border:1px solid #e2dfed;background:#fbfaff;border-radius:22px;padding:clamp(14px,2.8vw,24px)}
+.nr-creative-heading{margin:0 0 17px}
+.nr-creative-overline{display:block;letter-spacing:.1em;font-size:10px;font-weight:850;color:#6251c8;margin-bottom:5px}
+.nr-creative-heading h2{font-size:clamp(20px,2.6vw,26px);font-weight:850;letter-spacing:-.035em;margin:0 0 7px;color:#242138}
+.nr-creative-heading p{font-size:13px;line-height:1.65;color:#686476;max-width:680px;margin:0}
+.nr-ad-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.nr-ad-card{border:2px solid #e5e1f1;border-radius:17px;background:white;text-align:left;display:flex;flex-direction:column;padding:0;overflow:hidden;min-width:0;color:#272239;transition:border-color .18s,box-shadow .18s,transform .18s}
+.nr-ad-card:hover{border-color:#a69be8;transform:translateY(-2px);box-shadow:0 9px 28px rgba(85,67,165,.12)}
+.nr-ad-card.is-selected{border-color:#6151d6;background:#f8f7ff;box-shadow:0 0 0 2px rgba(97,81,214,.13)}
+.nr-ad-card:focus-visible{outline:3px solid #6453e5;outline-offset:3px}
+.nr-ad-art{display:block;width:100%;aspect-ratio:360/235;background:#f1eafb;overflow:hidden;line-height:0}
+.nr-ad-art svg{width:100%;height:100%;display:block}
+.nr-ad-copy{display:flex;flex-direction:column;align-items:flex-start;flex:1;gap:7px;padding:13px 14px 14px}
+.nr-ad-index{font-size:9px;letter-spacing:.04em;color:#777088;font-weight:850;line-height:1.35}
+.nr-ad-copy strong{font-size:15px;line-height:1.25;letter-spacing:-.02em;color:#26203a}
+.nr-ad-copy small{font-size:12px;line-height:1.5;color:#6f6a80}
+.nr-ad-select{display:inline-flex;align-items:center;margin-top:auto;padding:8px 10px;border-radius:10px;background:#f0edfc;color:#5b4ac7;font-size:11px;font-weight:850}
+.nr-ad-card.is-selected .nr-ad-select{background:#e0f7e9;color:#157b49}
+.nr-ad-tip{font-size:12px;line-height:1.55;color:#554e72;margin:14px 0 0}
+.nr-test-results{margin:0 0 17px}
+.nr-test-table{border:1px solid #e3deee;background:#fff;border-radius:13px;overflow:hidden}
+.nr-test-row{display:grid;grid-template-columns:minmax(0,1.65fr) 60px minmax(72px,.7fr);gap:10px;align-items:center;padding:12px 13px;font-size:12px;color:#393347;border-top:1px solid #efecf5}
+.nr-test-row:first-child{border-top:0}
+.nr-test-row.is-picked{background:#f1edff}
+.nr-test-head{background:#f5f3fa;color:#686079;font-size:10px;font-weight:850;letter-spacing:.045em}
+.nr-test-row [role=cell]:last-child{display:flex;gap:6px;align-items:center}
+.nr-test-bar{display:block;flex:1;height:5px;background:#e8e1f6;border-radius:5px;overflow:hidden}
+.nr-test-bar i{display:block;height:100%;background:#715bd7;border-radius:5px}
+.nr-picked-tag{margin-left:6px;font-size:9px;color:#5d4bbd;letter-spacing:.03em}
+.nr-test-explain{font-size:13px;line-height:1.55;margin:14px 0 0;color:#544b66}
+@media(max-width:720px){
+ .nr-product-scene{margin:12px 0 18px;border-radius:16px}
+ .nr-product-scene-art{aspect-ratio:760/270}
+ .nr-product-scene-art svg{height:100%}
+ .nr-product-scene figcaption{display:block;padding:10px 12px}
+ .nr-product-scene figcaption b{display:block;margin-bottom:3px}
+ .nr-product-scene figcaption span{display:block;max-width:100%}
+ .nr-creative-picker,.nr-test-results{padding:14px 12px;border-radius:16px;margin:16px 0}
+ .nr-ad-grid{display:flex;gap:11px;overflow-x:auto;scroll-snap-type:x mandatory;padding:3px 3px 14px;scrollbar-width:thin;overscroll-behavior-inline:contain}
+ .nr-ad-card{flex:0 0 min(260px,78%);scroll-snap-align:center}
+ .nr-ad-art{max-height:174px}
+ .nr-test-row{grid-template-columns:minmax(0,1.4fr) 45px minmax(72px,.65fr);font-size:11px;padding:10px 9px;gap:6px}
+ .nr-picked-tag{display:block;margin-left:0;margin-top:3px}
+}
+@media(prefers-reduced-motion:reduce){.nr-ad-card{transition:none}}
