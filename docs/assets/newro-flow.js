@@ -5,7 +5,7 @@
 "use strict";
 var STORAGE="newro-learning-flow-v1",SIM_KEY="newro-career-tryout-v1";
 var root=document.getElementById("app");
-var names={marketing:"AI Marketing Specialist",pm:"Product Manager"};
+var names={marketing:"AI Marketing Specialist",pm:"AI Product Manager"};
 var images={marketing:"./assets/illustrations/marketing-illustration.svg",pm:"./assets/illustrations/product-illustration.svg",mentor:"./assets/illustrations/mentor-illustration.svg"};
 var defs={
  marketing:{
@@ -29,6 +29,7 @@ var defs={
   ]
  }
 };
+function curriculumPreview(role){return window.NEWROCurriculum?window.NEWROCurriculum.render(role,esc,button,st.samples.some(function(entry){return entry.kind==="lesson"&&entry.role===role;})):"";}
 function esc(x){return String(x==null?"":x).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
 function paragraphs(x){return esc(x||"").replace(/\n/g,"<br>");}
 function safeRole(x){return x==="pm"?"pm":"marketing";}
@@ -103,34 +104,36 @@ function dash(){
   ['Guided project','Create a deeper sample with practical prompts.',p.complete?'Completed':st.done[role]?(p.step?'In progress':'Available'):'After try-out','project']
  ];
  var cards=milestones.map(function(m,i){return '<button class="nf-milestone '+((i===0&&st.done[role])||(i===1&&p.complete)?'done':'')+'" data-flow-action="'+m[3]+'" data-role="'+role+'"><span class="nf-step-circle">'+((i===0&&st.done[role])||(i===1&&p.complete)?'✓':i+1)+'</span><span><b>'+m[0]+'</b><small>'+m[1]+'</small></span><span class="nf-step-status">'+m[2]+'</span></button>';}).join("");
- var body=mood+'<div class="nf-overview"><section class="nf-whitecard"><div class="nf-same"><div><h2>Your weekly rhythm</h2><p>Only your actual activity is shown.</p></div><span class="nf-counter">'+weekly+' / 7 days</span></div><div class="nf-days">'+dayHtml+'</div><p class="nf-small">Your plan: '+esc(st.profile.time||"10–15 minutes per day")+'. Move at your own pace.</p></section><section class="nf-whitecard nf-stat"><div><p class="nf-label">CURRENT CAREER</p><h2>'+names[role]+'</h2><p>'+next+'</p></div><div class="nf-ring" style="--progress:'+Math.round(total/2*100)+'%"><b>'+total+'/2</b><span>milestones</span></div></section></div><section class="nf-section"><div class="nf-section-head"><h2>Your path</h2>'+button("Switch career ↗","browse","nf-linkbtn")+'</div><div class="nf-path">'+cards+'</div><p class="nf-small nf-path-note">Completed work is saved under '+button("My portfolio →","portfolio","nf-linkbtn")+'</p></section><section class="nf-section"><div class="nf-section-head"><h2>My recent work</h2>'+button("View portfolio ↗","portfolio","nf-linkbtn")+'</div><div class="nf-workgrid">'+(st.samples.length?st.samples.slice().reverse().slice(0,2).map(sampleCard).join(""):'<div class="nf-empty"><img src="'+images.mentor+'" alt="" loading="lazy"><b>No work samples saved yet.</b><p>Complete a career try-out to save a real decision card.</p></div>')+'</div></section>';
+ var body=mood+'<div class="nf-overview"><section class="nf-whitecard"><div class="nf-same"><div><h2>Your weekly rhythm</h2><p>Only your actual activity is shown.</p></div><span class="nf-counter">'+weekly+' / 7 days</span></div><div class="nf-days">'+dayHtml+'</div><p class="nf-small">Your plan: '+esc(st.profile.time||"10–15 minutes per day")+'. Move at your own pace.</p></section><section class="nf-whitecard nf-stat"><div><p class="nf-label">CURRENT CAREER</p><h2>'+names[role]+'</h2><p>'+next+'</p></div><div class="nf-ring" style="--progress:'+Math.round(total/2*100)+'%"><b>'+total+'/2</b><span>milestones</span></div></section></div><section class="nf-section"><div class="nf-section-head"><h2>Your path</h2>'+button("Switch career ↗","browse","nf-linkbtn")+'</div><div class="nf-path">'+cards+'</div><p class="nf-small nf-path-note">Completed work is saved under '+button("My portfolio →","portfolio","nf-linkbtn")+'</p></section>'+curriculumPreview(role)+'<section class="nf-section"><div class="nf-section-head"><h2>My recent work</h2>'+button("View portfolio ↗","portfolio","nf-linkbtn")+'</div><div class="nf-workgrid">'+(st.samples.length?st.samples.slice().reverse().slice(0,2).map(sampleCard).join(""):'<div class="nf-empty"><img src="'+images.mentor+'" alt="" loading="lazy"><b>No work samples saved yet.</b><p>Complete a career try-out to save a real decision card.</p></div>')+'</div></section>';
  layout("My learning","Your practice track: "+names[role]+".",body,"dashboard");
 }
 function sampleCard(s){
- return '<article class="nf-sample"><span class="nf-sample-art">'+art(s.role)+'</span><div class="nf-sample-body"><span class="nf-label">'+(s.kind==="tryout"?"CAREER TRY-OUT":"GUIDED PROJECT")+' · '+niceDate(s.date)+'</span><h3>'+esc(s.title)+'</h3><p>'+names[s.role]+'</p>'+button("Open work sample →","sample","nf-linkbtn",'data-id="'+esc(s.id)+'"')+'</div></article>';
+ return '<article class="nf-sample"><span class="nf-sample-art">'+art(s.role)+'</span><div class="nf-sample-body"><span class="nf-label">'+(s.kind==="tryout"?"CAREER TRY-OUT":s.kind==="lesson"?"FREE LESSON":"GUIDED PROJECT")+' · '+niceDate(s.date)+'</span><h3>'+esc(s.title)+'</h3><p>'+names[s.role]+'</p>'+button("Open work sample →","sample","nf-linkbtn",'data-id="'+esc(s.id)+'"')+button(s.featured?"Remove from portfolio":"Add to portfolio","toggle-feature","nf-btn nf-secondary nr-feature-button",'data-id="'+esc(s.id)+'"')+'</div></article>';
 }
 function paths(){
  var cards=Object.keys(names).map(function(role){
   var d=defs[role],n=stepsDone(role),pct=n/2*100;
   return '<article class="nf-track"><div class="nf-track-art nf-track-'+role+'">'+art(role)+'</div><div class="nf-track-copy"><div class="nf-same"><span class="nf-label">CAREER EXPLORATION</span><span class="nf-pill">'+n+'/2 milestones</span></div><h2>'+names[role]+'</h2><p>'+esc(d.description)+'</p><div class="nf-trackbar"><i style="width:'+pct+'%"></i></div><div class="nf-actions">'+button(st.done[role]?"Replay try-out":"Start free try-out","tryout","nf-btn nf-secondary",'data-role="'+role+'"')+button(st.done[role]?(st.projects[role].complete?"Review project":"Guided project"):"See learning plan","project","nf-btn nf-primary",'data-role="'+role+'"')+'</div></div></article>';
  }).join("");
- layout("Explore career paths","Try the role first. Then build a guided work sample.",'<div class="nf-trackgrid">'+cards+'</div><section class="nf-notice"><img src="'+images.mentor+'" alt="" loading="lazy"><div><b>Start with a try-out. Continue with a project.</b><p>Try either role for free. Continue with a guided project and keep the work you create.</p></div></section>',"paths");
+ layout("Explore career paths","Try the role first. Then build a guided work sample.",'<div class="nf-trackgrid">'+cards+'</div>'+curriculumPreview("pm")+curriculumPreview("marketing")+'<section class="nf-notice"><img src="'+images.mentor+'" alt="" loading="lazy"><div><b>Start with a try-out. Continue with a project.</b><p>Try either role for free. Continue with a guided project and keep the work you create.</p></div></section>',"paths");
 }
 function portfolio(){
- var done=st.samples.slice().reverse();
- var body='<section class="nf-portfolio-banner"><div><span class="nf-label">YOUR WORK / SAVED LOCALLY</span><h2>Your completed work.</h2><p>These work samples are saved locally in your browser. Export them to keep a copy.</p></div><img src="'+images.mentor+'" alt="" loading="lazy"></section><div class="nf-section-head"><h2>'+done.length+' work sample'+(done.length===1?"":"s")+'</h2>'+button("Export all data","export","nf-linkbtn")+'</div><div class="nf-workgrid">'+(done.length?done.map(sampleCard).join(""):'<div class="nf-empty"><img src="'+images.marketing+'" alt="" loading="lazy"><h3>Nothing saved yet.</h3><p>Try a career to create your first artifact.</p>'+button("Explore careers","browse","nf-btn nf-primary")+'</div>')+'</div>';
- layout("My portfolio","Work samples from your career exercises and projects.",body,"portfolio");
+ var all=st.samples.slice().reverse(),featured=all.filter(function(s){return s.featured===true;}),practice=all.filter(function(s){return s.featured!==true;});
+ var body='<section class="nf-portfolio-banner"><div><span class="nf-label">YOUR WORK / YOUR CHOICE</span><h2>Choose what represents you.</h2><p>Every attempt stays in practice history. Feature only the work you want to showcase.</p></div><img src="'+images.mentor+'" alt="" loading="lazy"></section>'+
+ '<section class="nf-section"><div class="nf-section-head"><h2>Featured portfolio · '+featured.length+'</h2>'+button("Export all data","export","nf-linkbtn")+'</div><div class="nf-workgrid">'+(featured.length?featured.map(sampleCard).join(""):'<div class="nf-empty nr-curation-empty"><h3>Nothing featured yet.</h3><p>Use <b>Add to portfolio</b> on any saved work sample.</p></div>')+'</div></section>'+
+ '<section class="nf-section"><div class="nf-section-head"><h2>Practice history · '+practice.length+'</h2><span class="nf-small">Stored on this device</span></div><div class="nf-workgrid">'+(practice.length?practice.map(sampleCard).join(""):'<div class="nf-empty"><h3>No unfeatured attempts.</h3><p>When you save work, it will appear here first.</p></div>')+'</div></section>';
+ layout("My work","Keep every practice attempt. Share only your strongest work.",body,"portfolio");
 }
 function profile(){
  if(!st.profile){onboarding(st.preferred);return;}
  var name=esc(st.profile.name||""),goal=esc(st.profile.goal||"exploring");
  var opts=[["change","Explore a new career"],["transition","Change profession"],["confidence","Build practical skills"]];
- var body='<div class="nf-form-grid"><section class="nf-whitecard"><h2>Learning preferences</h2><form id="nf-profile-form"><label for="nf-name">Name</label><input id="nf-name" name="name" maxlength="40" value="'+name+'" placeholder="Your first name"><label for="nf-goal">Why are you exploring?</label><select id="nf-goal" name="goal">'+opts.map(function(v){return '<option value="'+v[0]+'" '+(goal===v[0]?'selected':'')+'>'+v[1]+'</option>';}).join("")+'</select><label for="nf-time">Learning rhythm</label><select id="nf-time" name="time">'+["10 minutes a day","20 minutes a day","3 times a week"].map(function(v){return '<option value="'+v+'" '+(st.profile.time===v?'selected':'')+'>'+v+'</option>';}).join("")+'</select><label for="nf-career">Current career</label><select id="nf-career" name="role"><option value="marketing" '+(st.preferred==="marketing"?"selected":"")+'>AI Marketing Specialist</option><option value="pm" '+(st.preferred==="pm"?"selected":"")+'>Product Manager</option></select><button class="nf-btn nf-primary" type="submit">Save preferences</button><p class="nf-small" role="status" id="nf-profile-status"></p></form></section><aside class="nf-whitecard nf-privacy"><img src="'+images.mentor+'" alt="" loading="lazy"><h3>Progress is saved in this browser.</h3><p>Your work is stored in this browser, not an online account. Download a copy before clearing browser data.</p>'+button("Download my data","export","nf-btn nf-secondary")+button("Reset local progress","reset","nf-linkbtn")+'</aside></div>';
+ var body='<div class="nf-form-grid"><section class="nf-whitecard"><h2>Learning preferences</h2><form id="nf-profile-form"><label for="nf-name">Name</label><input id="nf-name" name="name" maxlength="40" value="'+name+'" placeholder="Your first name"><label for="nf-goal">Why are you exploring?</label><select id="nf-goal" name="goal">'+opts.map(function(v){return '<option value="'+v[0]+'" '+(goal===v[0]?'selected':'')+'>'+v[1]+'</option>';}).join("")+'</select><label for="nf-time">Learning rhythm</label><select id="nf-time" name="time">'+["10 minutes a day","20 minutes a day","3 times a week"].map(function(v){return '<option value="'+v+'" '+(st.profile.time===v?'selected':'')+'>'+v+'</option>';}).join("")+'</select><label for="nf-career">Current career</label><select id="nf-career" name="role"><option value="marketing" '+(st.preferred==="marketing"?"selected":"")+'>AI Marketing Specialist</option><option value="pm" '+(st.preferred==="pm"?"selected":"")+'>AI Product Manager</option></select><button class="nf-btn nf-primary" type="submit">Save preferences</button><p class="nf-small" role="status" id="nf-profile-status"></p></form></section><aside class="nf-whitecard nf-privacy"><img src="'+images.mentor+'" alt="" loading="lazy"><h3>Progress is saved in this browser.</h3><p>Your work is stored in this browser, not an online account. Download a copy before clearing browser data.</p>'+button("Download my data","export","nf-btn nf-secondary")+button("Reset local progress","reset","nf-linkbtn")+'</aside></div>';
  layout("My profile","A few settings to shape your learning. No account required.",body,"profile");
 }
 function onboarding(role){
  st.preferred=safeRole(role||st.preferred);save();
- var body='<div class="nf-onboard"><div class="nf-onboard-art"><img src="'+images.mentor+'" alt="Friendly illustrated NEWRO learning guide"></div><section class="nf-onboard-form"><span class="nf-label">YOUR SPACE · ONE-TIME SETUP</span><h2>Set up your learning space.</h2><p>A little context helps organize your learning. Everything stays in this browser.</p><form id="nf-onboard-form"><label for="nf-on-name">What should we call you? <span>optional</span></label><input name="name" id="nf-on-name" maxlength="40" placeholder="Your first name" autocomplete="given-name"><label for="nf-on-role">Start with a career</label><select name="role" id="nf-on-role"><option value="marketing" '+(st.preferred==="marketing"?"selected":"")+'>AI Marketing Specialist</option><option value="pm" '+(st.preferred==="pm"?"selected":"")+'>Product Manager</option></select><label for="nf-on-goal">What brought you here?</label><select name="goal" id="nf-on-goal"><option value="change">Explore a new career</option><option value="transition">Make a career change</option><option value="confidence">Build hands-on skills</option></select><label for="nf-on-time">A realistic rhythm</label><select name="time" id="nf-on-time"><option>10 minutes a day</option><option>20 minutes a day</option><option>3 times a week</option></select><button class="nf-btn nf-primary" type="submit">Create my learning space →</button><p class="nf-small">This creates a local profile, not an online account.</p></form></section></div>';
+ var body='<div class="nf-onboard"><div class="nf-onboard-art"><img src="'+images.mentor+'" alt="Friendly illustrated NEWRO learning guide"></div><section class="nf-onboard-form"><span class="nf-label">YOUR SPACE · ONE-TIME SETUP</span><h2>Set up your learning space.</h2><p>A little context helps organize your learning. Everything stays in this browser.</p><form id="nf-onboard-form"><label for="nf-on-name">What should we call you? <span>optional</span></label><input name="name" id="nf-on-name" maxlength="40" placeholder="Your first name" autocomplete="given-name"><label for="nf-on-role">Start with a career</label><select name="role" id="nf-on-role"><option value="marketing" '+(st.preferred==="marketing"?"selected":"")+'>AI Marketing Specialist</option><option value="pm" '+(st.preferred==="pm"?"selected":"")+'>AI Product Manager</option></select><label for="nf-on-goal">What brought you here?</label><select name="goal" id="nf-on-goal"><option value="change">Explore a new career</option><option value="transition">Make a career change</option><option value="confidence">Build hands-on skills</option></select><label for="nf-on-time">A realistic rhythm</label><select name="time" id="nf-on-time"><option>10 minutes a day</option><option>20 minutes a day</option><option>3 times a week</option></select><button class="nf-btn nf-primary" type="submit">Create my learning space →</button><p class="nf-small">This creates a local profile, not an online account.</p></form></section></div>';
  layout("Welcome to NEWRO","One small step before you continue.",body,"dashboard");
 }
 function projectView(role){
@@ -178,19 +181,19 @@ function projectNext(nextAction){
  p.step=step+1;save();projectView(role);
 }
 function upsert(s){
- if(!st.samples.some(function(item){return item.id===s.id;}))st.samples.push(s);
+ if(!st.samples.some(function(item){return item.id===s.id;})){s.featured=s.featured===true;st.samples.push(s);}
  save();
 }
 function projectFinished(role){
  var p=st.projects[role],name=names[role];
- var body='<section class="nf-celebrate"><img src="'+images.mentor+'" alt="" loading="lazy"><span class="nf-label">PROJECT COMPLETE</span><h2>Project added to your portfolio.</h2><p>Your '+esc(name)+' work sample is now in your portfolio. Review your answers and download your work sample.</p><div class="nf-actions">'+button("Open my portfolio","portfolio","nf-btn nf-primary")+button("Start another project","project-restart","nf-btn nf-secondary",'data-role="'+role+'"')+button("Explore another role","browse","nf-linkbtn")+'</div></section><section class="nf-section"><h2>Your project</h2>'+defs[role].steps.map(function(t){return '<div class="nf-workrow"><b>'+esc(t.title)+'</b><p>'+paragraphs(p.answers[t.key]||"")+'</p></div>';}).join("")+'</section>';
+ var body='<section class="nf-celebrate"><img src="'+images.mentor+'" alt="" loading="lazy"><span class="nf-label">PROJECT COMPLETE</span><h2>Project saved to your work library.</h2><p>Your '+esc(name)+' work sample is now in practice history. Review your answers and download your work sample.</p><div class="nf-actions">'+button("Open my portfolio","portfolio","nf-btn nf-primary")+button("Start another project","project-restart","nf-btn nf-secondary",'data-role="'+role+'"')+button("Explore another role","browse","nf-linkbtn")+'</div></section><section class="nf-section"><h2>Your project</h2>'+defs[role].steps.map(function(t){return '<div class="nf-workrow"><b>'+esc(t.title)+'</b><p>'+paragraphs(p.answers[t.key]||"")+'</p></div>';}).join("")+'</section>';
  layout("Project complete","Your artifact is saved on this device.",body,"portfolio");
 }
 function detail(id){
  var sample=st.samples.find(function(s){return s.id===id;});
  if(!sample){portfolio();return;}
  var rows=(sample.sections||[]).map(function(p){return '<div class="nf-workrow"><h3>'+esc(p[0])+'</h3><p>'+paragraphs(p[1])+'</p></div>';}).join("");
- var body='<div class="nf-detail-banner">'+art(sample.role)+'<div><span class="nf-label">'+(sample.kind==="project"?"GUIDED PROJECT":"CAREER TRY-OUT")+'</span><h2>'+esc(sample.title)+'</h2><p>'+names[sample.role]+' · '+niceDate(sample.date)+'</p><div class="nf-actions">'+button("Download work sample","download-sample","nf-btn nf-primary",'data-id="'+esc(sample.id)+'"')+button("Copy text","copy-sample","nf-btn nf-secondary",'data-id="'+esc(sample.id)+'"')+button("Share","share-sample","nf-btn nf-secondary",'data-id="'+esc(sample.id)+'"')+'</div><p id="nf-copy-status" class="nf-small" role="status"></p></div></div><div class="nf-doc">'+rows+'</div><p class="nf-small">Practice scenario, not professional certification or a real client deliverable.</p>';
+ var body='<div class="nf-detail-banner">'+art(sample.role)+'<div><span class="nf-label">'+(sample.kind==="project"?"GUIDED PROJECT":sample.kind==="lesson"?"FREE LESSON":"CAREER TRY-OUT")+'</span><h2>'+esc(sample.title)+'</h2><p>'+names[sample.role]+' · '+niceDate(sample.date)+'</p><div class="nf-actions">'+button("Download work sample","download-sample","nf-btn nf-primary",'data-id="'+esc(sample.id)+'"')+button("Copy text","copy-sample","nf-btn nf-secondary",'data-id="'+esc(sample.id)+'"')+button("Share","share-sample","nf-btn nf-secondary",'data-id="'+esc(sample.id)+'"')+'</div><p id="nf-copy-status" class="nf-small" role="status"></p>'+button(sample.featured?"Remove from portfolio":"Add to portfolio","toggle-feature","nf-btn nf-secondary nr-feature-button",'data-id="'+esc(sample.id)+'"')+'</div></div><div class="nf-doc">'+rows+'</div><p class="nf-small">Practice scenario, not professional certification or a real client deliverable.</p>';
  layout("Work sample","Review what you produced and export it for your records.",body,"portfolio");
 }
 function resultView(id){
@@ -199,7 +202,7 @@ function resultView(id){
  var answers=(sample.sections||[]).map(function(entry){
    return '<div class="nf-workrow"><h3>'+esc(entry[0])+'</h3><p>'+paragraphs(entry[1])+'</p></div>';
  }).join("");
- var body='<section class="nf-celebrate nf-first-result"><img src="'+images[sample.role]+'" alt="" loading="lazy"><span class="nf-label">TRY-OUT COMPLETE</span><h2>Your work sample is ready.</h2><p>You completed the '+esc(names[sample.role])+' practice assignment. Review your work before deciding whether to continue.</p><div class="nf-actions">'+button("Download my work","download-sample","nf-btn nf-primary",'data-id="'+esc(sample.id)+'"')+button("Continue learning","continue-after-result","nf-btn nf-secondary",'data-role="'+sample.role+'"')+'</div><p class="nf-small">Creating a local learning profile is optional. Your result can be downloaded now.</p></section><section class="nf-section nf-result-answers"><h2>Your decisions</h2>'+answers+'</section>';
+ var body='<section class="nf-celebrate nf-first-result"><img src="'+images[sample.role]+'" alt="" loading="lazy"><span class="nf-label">TRY-OUT COMPLETE</span><h2>Your work sample is ready.</h2><p>You completed the '+esc(names[sample.role])+' practice assignment. Review your work before deciding whether to continue.</p><div class="nf-actions">'+button("Download my work","download-sample","nf-btn nf-primary",'data-id="'+esc(sample.id)+'"')+button("Continue learning","continue-after-result","nf-btn nf-secondary",'data-role="'+sample.role+'"')+'</div>'+button(sample.featured?"Remove from portfolio":"Add to portfolio","toggle-feature","nf-btn nf-secondary nr-feature-button",'data-id="'+esc(sample.id)+'"')+'<p class="nf-small">Your result is in practice history. Feature it only if you want to.</p></section><section class="nf-section nf-result-answers"><h2>Your decisions</h2>'+answers+'</section>';
  layout("Your first result","Work sample · "+esc(names[sample.role]),body,"portfolio");
 }
 function finishTryout(role,sim){
@@ -284,6 +287,15 @@ document.addEventListener("click",function(event){
   case "continue-after-result":{st.preferred=safeRole(role);save();if(st.profile)go("dashboard");else go("onboarding",role);break;}
   case "project-next":projectNext("next");break;case "project-back":projectNext("back");break;case "project-review":projectNext("review");break;
   case "sample":go("sample",btn.dataset.id);break;
+  case "toggle-feature":{
+    var item=st.samples.find(function(s){return s.id===btn.dataset.id;});
+    if(item){item.featured=!item.featured;save();
+       if(location.hash.indexOf("#/sample/")===0)go("sample",item.id);
+       else if(location.hash.indexOf("#/result/")===0)go("result",item.id);
+       else go("portfolio");
+    }
+    break;
+  }
   case "download-sample":{var sample=st.samples.find(function(s){return s.id===btn.dataset.id;});if(sample)download("newro-"+sample.id+".txt",sampleText(sample));break;}
   case "share-sample":{var item=st.samples.find(function(s){return s.id===btn.dataset.id;});if(item&&window.NEWROMobile)window.NEWROMobile.shareSample(item);break;}
   case "copy-sample":{var sample=st.samples.find(function(s){return s.id===btn.dataset.id;});if(sample&&navigator.clipboard){navigator.clipboard.writeText(sampleText(sample)).then(function(){var el=document.getElementById("nf-copy-status");if(el)el.textContent="Copied!";}).catch(function(){var el=document.getElementById("nf-copy-status");if(el)el.textContent="Copy not available. Use Download instead.";});}break;}
@@ -329,6 +341,14 @@ window.NEWROFlow={
  enhanceResult:enhanceResult,
  augmentLanding:augmentLanding,
  project:projectView,
+ savePmLesson:function(choice,reason){
+ if(["safe","new","all"].indexOf(choice)<0||typeof reason!=="string"||reason.trim().length<20)return null;
+ var choices={safe:"Fix iOS login + reminders (12h)",new:"Household sharing only (20h)",all:"All features (32h)"};
+ var sample={id:newSampleId("lesson","pm"),kind:"lesson",role:"pm",featured:false,
+ title:"Friday release · free PM lesson",date:new Date().toISOString(),
+ sections:[["Release choice",choices[choice]],["Reasoning",reason.trim().slice(0,1000)],["Review criteria","Customer value, delivery risk and 24-hour capacity"]]};
+ upsert(sample);markToday();return sample.id;
+ },
  getState:function(){return JSON.parse(JSON.stringify(st));}
 };
 })();

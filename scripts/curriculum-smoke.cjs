@@ -1,0 +1,52 @@
+const {chromium}=require("playwright");
+const assert=require("node:assert/strict");
+const fs=require("node:fs");
+fs.mkdirSync("test-results",{recursive:true});
+const site="http://127.0.0.1:4173/";
+async function test(browser,width){
+ const context=await browser.newContext({viewport:{width,height:width<=430?844:900},reducedMotion:"reduce",acceptDownloads:true});
+ const page=await context.newPage(),errors=[];
+ page.on("pageerror",e=>errors.push(e.message));
+ try{
+  await page.goto(site+"#/paths",{waitUntil:"domcontentloaded"});
+  await page.locator(".nr-syllabus").first().waitFor();
+  assert.equal(await page.locator(".nr-syllabus").count(),2,"Both specializations have a course preview");
+  assert.equal(await page.locator(".nr-syllabus-module").count(),14,"7 modules per specialization");
+  assert.match(await page.locator(".nr-syllabus").first().innerText(),/AI Product Manager/);
+  assert.match(await page.locator(".nr-syllabus").last().innerText(),/Full course coming soon/);
+  assert.equal(await page.locator(".nr-module-state").count(),14);
+  assert.equal(await page.locator(".nr-syllabus-module button").count(),0,"Unpublished modules do not impersonate working lessons");
+  await page.getByRole("button",{name:"Start free lesson →"}).click();
+  await page.locator("#nr-pm-free-form").waitFor();
+  assert.match(await page.locator(".nr-pm-lesson").innerText(),/24 engineering hours/);
+  const choices=page.locator('input[name="release"]');
+  assert.equal(await choices.count(),3);
+  await choices.first().check();
+  await page.locator("#nr-pm-explain").fill("The login problem prevents customers from using Harbor. I would fix it first and ship reminders within the available engineering hours.");
+  await page.getByRole("button",{name:"Review my decision →"}).click();
+  await page.locator(".nr-pm-review").waitFor();
+  assert.match(await page.locator(".nr-rubric").innerText(),/Customer value/);
+  await page.getByRole("button",{name:"Save decision card"}).click();
+  await page.locator(".nf-detail-banner").waitFor();
+  const state=await page.evaluate(()=>window.NEWROFlow.getState());
+  assert.equal(state.samples.length,1);
+  assert.equal(state.samples[0].kind,"lesson");
+  assert.equal(state.samples[0].featured,false,"New lesson should not auto-publish to featured portfolio");
+  await page.getByRole("button",{name:"Add to portfolio"}).click();
+  await page.getByRole("button",{name:"Remove from portfolio"}).waitFor();
+  await page.evaluate(()=>window.NEWROFlow.goto("portfolio"));
+  await page.locator(".nf-sample").first().waitFor();
+  let featured=await page.evaluate(()=>window.NEWROFlow.getState().samples[0].featured);
+  assert.equal(featured,true);
+  const portfolio=await page.locator(".nf-app").innerText();
+  assert.match(portfolio,/Featured portfolio · 1/);
+  await page.reload({waitUntil:"domcontentloaded"});
+  assert.equal((await page.evaluate(()=>window.NEWROFlow.getState())).samples[0].featured,true,"Curated portfolio persists after reload");
+  const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth);
+  assert(overflow<=2,"Horizontal overflow "+width+"px = "+overflow);
+  if([390,1440].includes(width))await page.screenshot({path:"test-results/newro-curriculum-"+width+".png",fullPage:true});
+  assert.deepEqual(errors,[],"No JS errors during lesson flow");
+  console.log("PASS source curriculum, free PM lesson, portfolio curation",width);
+ }finally{await context.close()}
+}
+(async()=>{const b=await chromium.launch({headless:true});try{for(const width of [360,390,768,1440])await test(b,width)}finally{await b.close()}})().catch(e=>{console.error(e.stack||e);process.exit(1)});

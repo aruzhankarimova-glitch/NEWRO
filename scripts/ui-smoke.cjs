@@ -58,7 +58,7 @@ async function run() {
       }
       if (device.name === 'desktop') {
         await page.locator('.cs-role').nth(1).click();
-        await page.getByText('Your first day as a Product Manager').waitFor();
+        await page.getByText('Your first day as an AI Product Manager').waitFor();
         await page.getByRole('button', { name: 'Open the release brief' }).click();
         await page.getByRole('button', { name: 'Choose what ships' }).click();
         await page.getByRole('button', { name: /Fix the iOS login crash/ }).click();

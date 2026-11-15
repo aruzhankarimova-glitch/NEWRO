@@ -106,3 +106,9 @@ Quality checks and product research are documented in [project notes](project-no
 ## Audit clarification (15 November 2026)
 
 The service worker was already registered in `docs/index.html`, contrary to the external audit's observation. It has not yet been verified offline across physical devices. The release improves Browser Back navigation, choice focus, capacity warnings and secondary-text contrast. The team must still decide whether the pitch should lead with Product Manager rather than AI Marketing.
+
+## Courses and portfolio (November 2026)
+
+The program preview follows the NEWRO Business Cup research (revised 15 November 2026, sections 13–19): PM-M00–PM-M06, MKT-M00–MKT-M06 and CORE-01 topics. It transparently lists planned deliverables and criteria rather than presenting unfinished modules as live lessons. A real PM starter lesson teaches customer impact, delivery risk and team capacity, then can save an optional decision card.
+
+Every completed attempt enters private practice history. Users explicitly choose which artifacts to feature in their portfolio. No payment, completed six-week course, accredited certificate or live AI feedback is implied.

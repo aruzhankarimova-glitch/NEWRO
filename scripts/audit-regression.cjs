@@ -14,7 +14,7 @@ const assert = require('node:assert/strict');
   await page.locator('#next').click();
   assert.equal(new URL(page.url()).hash,'#/tryout/pm/1','Next step writes history');
   await page.goBack();
-  await page.getByRole('heading',{name:'Your first day as a Product Manager'}).waitFor();
+  await page.getByRole('heading',{name:'Your first day as an AI Product Manager'}).waitFor();
   assert.equal(new URL(page.url()).hash,'#/tryout/pm/0','Browser back returns to previous step');
   await page.goForward();
   await page.getByRole('heading',{name:'The Friday release'}).waitFor();
