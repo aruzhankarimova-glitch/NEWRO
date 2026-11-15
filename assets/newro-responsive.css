@@ -153,3 +153,16 @@
  .cs-shell .cs-stage .cs-card-device{transform:none!important}
  .cs-shell .cs-role,.cs-shell .cs-stage,.nf-app .nf-track{transition:none!important}
 }
+
+/* Independent audit fixes: visible focus, secondary contrast and reading size. */
+.newro-sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+.newro-skip-link{position:fixed;z-index:900;top:8px;left:8px;transform:translateY(-180%);background:#fff;color:#4936aa;padding:13px 16px;border-radius:9px;font:700 14px system-ui,sans-serif;box-shadow:0 4px 18px #17132130}
+.newro-skip-link:focus{transform:translateY(0)}
+.cs-player .cs-course-meta-text small,.cs-player .cs-course-meta-text span,.cs-shell .cs-role-tag,.cs-shell .cs-role-small,.cs-shell .cs-chip,.cs-shell .cs-stage-top,
+.nf-app .nf-pill,.nf-app .nf-counter,.nf-app .nf-day span,.nf-app .nf-ring span,.nf-app .nf-step-status,.nf-app .nf-save,.nf-app .nf-milestone small,
+.nf-app label span,.nf-app .nf-small,.nf-app .nf-mentorbox small,.nf-app .nf-sample-body p{color:#505665!important}
+.cs-player .cs-stage-pill,.cs-player .green,.nf-app .nf-day.done small{color:#106339!important}
+.cs-player .cs-course-meta-text small,.cs-shell .cs-role-tag,.nf-app .nf-step-status,.nf-app .nf-label,.nf-app .nf-counter,.nf-app .nf-mentorbox small{font-size:12px!important}
+.cs-player .footerInner>.note{font-size:12px!important;color:#505665!important}
+.nf-app .nf-linkbtn,.nf-app .nf-top-link{min-height:44px;display:inline-flex;align-items:center}
+.cs-player .cs-path-head small{font-size:12px;color:#5444a2!important}
