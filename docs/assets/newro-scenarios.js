@@ -106,7 +106,7 @@ function creativePicker(chosen){
  return '<button type="button" class="nr-ad-card '+(active?'is-selected':'')+'" data-choice-group="creative" data-choice-id="'+item[0]+'" aria-pressed="'+active+'" onclick="NEWRO.choose(\'creative\',\''+item[0]+'\')">'+
  '<div class="nr-ad-art">'+adArt(item[0])+'</div><div class="nr-ad-copy"><span class="nr-ad-index">OPTION '+item[1]+' · '+e(x.format)+'</span><strong>'+e(item[2])+'</strong><small>'+e(x.note)+'</small>'+
  '<span class="nr-ad-select">'+(active?'✓ Selected':'Select concept ↗')+'</span></div></button>';
- }).join('')+'</div>'+
+ }).join('')+'</div><p class="nr-ad-scrollhint">← Swipe to compare all three concepts →</p>'+
  '<p class="nr-ad-tip" role="status">'+(chosen?"Selected: "+e(ads[chosen]?.name||"")+". Explain your choice in the next step.":"Choose one visual direction to continue. There is no single guaranteed winning creative.")+'</p></section>';
 }
 function simulatedReview(selected){
