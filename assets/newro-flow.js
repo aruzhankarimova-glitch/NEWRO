@@ -6,7 +6,7 @@
 var STORAGE="newro-learning-flow-v1",SIM_KEY="newro-career-tryout-v1";
 var root=document.getElementById("app");
 var names={marketing:"AI Marketing Specialist",pm:"AI Product Manager"};
-var images={marketing:"./assets/illustrations/marketing-illustration.svg",pm:"./assets/illustrations/product-illustration.svg",mentor:"./assets/illustrations/mentor-illustration.svg"};
+var images={marketing:"./assets/newro-marketing.webp",pm:"./assets/newro-product-manager.webp",mentor:"./assets/illustrations/mentor-illustration.svg"};
 var defs={
  marketing:{
   title:"Build your first campaign",client:"Harbor · subscription reminder app",time:"15–25 min",
@@ -225,7 +225,7 @@ function augmentLanding(root){
  if(!root)return;
  var ar=root.querySelectorAll(".cs-role-visual");
  for(var i=0;i<ar.length;i++){
-  var img=document.createElement("img");img.src=images[i===0?"marketing":"pm"];img.alt="";img.loading="lazy";img.className="nf-landing-art";
+  var img=document.createElement("img");img.src=i===0?"./assets/newro-marketing-card.webp":images.pm;img.alt="";img.loading="lazy";img.className="nf-landing-art";img.onerror=(function(fallback){return function(){this.onerror=null;this.src=fallback;};})(i===0?"./assets/illustrations/marketing-illustration.svg":"./assets/illustrations/product-illustration.svg");
   var old=ar[i].querySelector(".cs-role-graphic");if(old)old.replaceWith(img);else ar[i].appendChild(img);
  }
  var hero=root.querySelector(".cs-phone-illus");
@@ -238,7 +238,7 @@ function augmentLanding(root){
  var role=root.querySelector("#careers");
  if(role){
   var section=document.createElement("section");section.className="nf-landing-bridge";section.innerHTML='<div><span class="nf-label">WHAT HAPPENS AFTER THE TRY-OUT?</span><h2>Build a complete brief.</h2><p>Finish a short try-out, move into a guided project, then save the work in your portfolio.</p>'+button("Open my learning space ↗","dashboard","nf-btn nf-secondary")+'</div><img src="'+images.mentor+'" alt="" loading="lazy">';
-  role.after(section);
+  role.after(section);\n  var media=document.createElement("img");media.src="./assets/newro-career-loop.gif";media.alt="Animated NEWRO career simulation on a phone";media.loading="lazy";media.className="nr-career-loop";media.onerror=function(){this.remove()};section.appendChild(media);
  }
 }
 function enhanceResult(role){
