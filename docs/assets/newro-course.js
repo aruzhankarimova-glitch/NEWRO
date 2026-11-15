@@ -27,32 +27,30 @@ function home(meta,root){
       '<div class="cs-hero-text">' +
         '<p class="cs-eyebrow" data-build="eyebrow"><span class="cs-eyebrow-dot"></span>FOR CAREER CHANGERS IN THE AGE OF AI</p>' +
         '<h1 class="cs-title" data-build="heading">Upgrade your career by <em>trying the real work first.</em></h1>' +
-        '<p class="cs-lede" data-build="description">Try the role. Learn from your decisions. Leave with work for your portfolio — starting with a free career simulation.</p>' +
+        '<p class="cs-lede" data-build="description">Try the role. Learn from your decisions. Leave with work for your portfolio — starting with a free 10-minute simulation.</p>' +
         '<div class="cs-hero-buttons" data-build="actions"><button class="nl-bigcta" type="button" data-scroll="careers">Start free simulation<span class="cs-button-arrow">↗</span></button><button class="cs-linkbtn" type="button" data-scroll="how">How it works ↘</button></div>' +
-        '<div class="cs-chips" data-build="proof"><span class="cs-chip">No payment</span><span class="cs-chip">Keep your work sample</span></div>' +
+        '<div class="cs-chips" data-build="proof"><span class="cs-chip">About 10 minutes · No signup · Keep your work</span></div>' +
         '<div class="nc-invite"><button type="button" data-share-challenge>↗ Invite a friend to try</button><span data-share-status role="status" aria-live="polite"></span><label data-share-fallback hidden>Share this link<input data-share-link readonly aria-label="Shareable NEWRO link"></label></div>' +
         (saved?'<div class="cs-resume" data-build="saved"><div><b>Welcome back</b><small>'+text(role)+' · your progress is saved</small></div><button type="button" data-resume>Resume →</button></div>':'') +
       '</div>' +
       '<div class="nl-stage cs-stage" data-build="stage">' +
         '' +
-        '<div class="cs-stage-top"><span class="cs-stage-live">INTERACTIVE PREVIEW</span><button class="cs-replay" type="button" data-replay>↺ Replay</button></div>' +
+        '<div class="cs-stage-top"><span class="cs-stage-live">SIMULATION · AI PRODUCT MANAGER</span><span class="nr-friday-badge">Friday release</span></div>' +
         '<div class="cs-card-device">' +
 
-          '<p class="cs-phone-head" data-build="board-eyebrow">PICK A ROLE · MAKE A CALL</p>' +
+          '<p class="cs-phone-head" data-build="board-eyebrow">TRY A DECISION</p>' +
           '<div class="nc-role-switch" role="group" aria-label="Choose a career preview"><button type="button" data-preview-role="marketing" aria-pressed="false">Marketing</button><button type="button" data-preview-role="pm" aria-pressed="true">Product</button></div>' +
           '<h2 class="cs-phone-title" data-build="board-heading">Who would you target?</h2>' +
           '<div class="cs-phone-illus" aria-hidden="true"><span class="cs-illus-blob"></span><span class="cs-illus-person"><span class="cs-illus-head"></span><span class="cs-illus-body"></span></span><span class="cs-illus-card">✳</span></div>' +
-          '<p class="cs-phone-task" data-build="board-copy">Harbor tracks subscription renewals. Which audience fits?</p>' +
+          '<p class="cs-phone-task" data-build="board-copy">12 / 24 hours chosen</p><div class="nr-capacity-track" role="progressbar" aria-label="Engineering hours selected" aria-valuemin="0" aria-valuemax="24" aria-valuenow="12"><span></span></div>' +
           '<div class="nm-quick-choices" data-build="board-card" role="group" aria-label="Try the marketing decision">' +
             '<button type="button" class="nm-quick-choice" data-quick-choice="trials" aria-pressed="false">People managing free trials</button>' +
-            '<button type="button" class="nm-quick-choice" data-quick-choice="stocks" aria-pressed="false">People analyzing stocks</button>' +
+            '<button type="button" class="nm-quick-choice" data-quick-choice="stocks" aria-pressed="false">People analyzing stocks</button><button type="button" class="nm-quick-choice" data-quick-choice="household" aria-pressed="false">Shared household plans · 16 h</button>' +
           '</div>' +
-          '<p class="nm-quick-feedback" aria-live="polite" role="status" hidden></p>' +
+          '<p class="nm-quick-feedback" aria-live="polite" role="status"></p>' +
           '<button class="cs-phone-cta" type="button" onclick="NEWRO.start(\'marketing\')" aria-label="Open the full AI marketing assignment">Start the full task →</button>' +
         '</div>' +
-        '' +
-        '' +
-        '' +
+        '<div class="nr-hero-roles"><button type="button" onclick="NEWRO.start(\'pm\')"><b>AI Product Manager →</b><span>Choose what ships with limited time and real trade-offs.</span></button><button type="button" onclick="NEWRO.start(\'marketing\')"><b>AI Marketing Specialist →</b><span>Find an audience, direct an AI teammate, plan a test.</span></button></div>' +
       '</div>' +
     '</section></div>' +
     '<section class="cs-role-section" id="careers"><div class="nl-wrap">' +
@@ -91,14 +89,12 @@ function home(meta,root){
     });
   });
   shell.querySelectorAll("[data-resume]").forEach(function(btn){btn.addEventListener("click",function(){if(window.NEWRO)window.NEWRO.resume();});});
-  shell.querySelectorAll("[data-replay]").forEach(function(btn){btn.addEventListener("click",function(){if(window.NEWROSwarm)window.NEWROSwarm.start(shell,true);});});
-  // Show the short build only on a fresh session. Returning learners see the UI immediately.
-  var hasSeen=false;
-  try{hasSeen=sessionStorage.getItem("newro-swarm-once")==="1";}catch(e){}
-  if(window.NEWROSwarm && !saved && !hasSeen && !window.matchMedia("(prefers-reduced-motion: reduce)").matches){
-    try{sessionStorage.setItem("newro-swarm-once","1");}catch(e){}
-    window.NEWROSwarm.start(shell,false);
+  // A non-blocking brand loading accent; content remains usable immediately.
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    var loading=document.createElement("div");loading.className="nr-page-load";loading.setAttribute("aria-hidden","true");loading.innerHTML='<span class="nr-load-chip"><i></i> PREPARING YOUR EXPERIENCE</span>';
+    shell.prepend(loading);loading.addEventListener("animationend",function(){loading.remove();},{once:true});
   }
+
 }
 var tracks={
  marketing:[

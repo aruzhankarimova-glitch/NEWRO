@@ -20,13 +20,7 @@ async function run() {
       const page = await ctx.newPage();
       page.on('pageerror', error => errors.push(device.name + ': ' + error.message));
       await page.goto(site, { waitUntil: 'domcontentloaded' });
-      if (device.name === 'desktop') {
-        // Capture animation before waiting for content lower on the page.
-        await page.locator('.nl-sw-controls').waitFor({ timeout: 5000 });
-        await page.screenshot({ path: 'test-results/newro-desktop-swarm.png', fullPage: false });
-        await page.locator('.nl-sw-skip').click();
-        assert.equal(await page.locator('.cs-title').evaluate(el => getComputedStyle(el).opacity), '1', 'skip instantly reveals hero');
-      }
+      assert.equal(await page.locator('.nl-sw-cursor').count(), 0, 'No animated cursors');
       await page.locator('.cs-title').waitFor();
       await page.locator('.cs-role').first().waitFor();
       assert.equal(await page.locator('.cs-role').count(), 2, device.name + ': role cards');
@@ -72,22 +66,12 @@ async function run() {
       }
       await ctx.close();
     }
-    // Motion must also run on phones: verify multiple cursors, replay and skip.
+    // The new loading accent must never block touch or create cursor overlays.
     const animated = await browser.newContext({ viewport: { width: 390, height: 844 }, reducedMotion: 'no-preference' });
-    contexts.push(animated);
     const phone = await animated.newPage();
     phone.on('pageerror', error => errors.push('mobile-animation: ' + error.message));
     await phone.goto(site, { waitUntil: 'domcontentloaded' });
-    await phone.locator('.nl-sw-controls').waitFor({ timeout: 8000 });
-    assert(await phone.locator('.nl-sw-cursor').count() >= 3, 'three or more animated mobile cursors');
-    await phone.waitForFunction(() => document.querySelectorAll('.nl-sw-cursor[data-working="true"]').length >= 2, null, { timeout: 3000 });
-    await phone.waitForTimeout(450);
-    await phone.screenshot({ path: 'test-results/newro-mobile-swarm.png', fullPage: false });
-    await phone.locator('.nl-sw-skip').click();
-    assert(await phone.locator('.nl-sw-controls').count() === 0, 'mobile skip ends construction');
-    await phone.locator('.cs-replay').click();
-    await phone.locator('.nl-sw-controls').waitFor({ timeout: 5000 });
-    await phone.locator('.nl-sw-skip').click();
+    assert.equal(await phone.locator('.nl-sw-cursor').count(),0,'No cursor animation');
     await phone.locator('.cs-role').first().click();
     await phone.getByText('Your first day in AI marketing.').waitFor();
     await animated.close();

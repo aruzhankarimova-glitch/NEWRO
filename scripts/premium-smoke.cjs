@@ -10,10 +10,6 @@ async function open(browser,device) {
  const errors=[];
  page.on("pageerror",e=>errors.push(e.message));
  await page.goto(site,{waitUntil:"domcontentloaded"});
- if(!device.reduced){
-  await page.locator(".nl-sw-controls").waitFor({timeout:8000});
-  await page.locator(".nl-sw-skip").click();
- }
  await page.locator(".nm-quick-choices").waitFor();
  return {ctx,page,errors};
 }
@@ -31,12 +27,12 @@ async function main(){
     assert.equal(await page.getByText("Saved on this device",{exact:true}).count(),0,"No redundant storage indicator");
     assert.equal(await page.locator(".cs-top .cs-join").count(),0,"Only one primary landing CTA");
     assert.equal(await page.locator(".nl-bigcta").count(),1,"One hero start action");
-    assert.equal(await page.locator(".nm-quick-choice").count(),2,"Playable preview");
+    assert.equal(await page.locator(".nm-quick-choice:visible").count(),3,"Playable preview");
     assert.equal(await page.locator(".nm-page-progress").count(),1,"Page progress");
     if(d.width<=760){
       assert.equal(await page.locator(".cs-topin").evaluate(x=>getComputedStyle(x,"::after").content),"none","No duplicate pseudo-label");
     }
-    assert.match(await page.locator(".cs-phone-title").innerText(), /ship first/i, "Product preview appears first");
+    assert.match(await page.locator(".cs-phone-title").innerText(), /ships Friday/i, "Product preview appears first");
     await page.locator('[data-preview-role="marketing"]').click();
     await page.locator('[data-quick-choice="stocks"]').click();
     const answer=page.locator(".nm-quick-feedback");

@@ -5,9 +5,9 @@ const challenge=require('../assets/newro-challenge.js');
 test('both role previews have distinct, contextual choices and feedback',()=>{
   for(const role of ['marketing','pm']){
     const item=challenge.previews[role];
-    assert.equal(item.choices.length,2);
-    assert.equal(item.choices.filter(x=>x.fit).length,1);
-    for(const choice of item.choices) assert.ok(choice.label && choice.feedback);
+    assert.equal(item.choices.length,role==='pm'?3:2);
+    for(const choice of item.choices) assert.ok(choice.label);
+    if(role==='marketing') assert.ok(item.choices.every(choice=>choice.feedback));
   }
   assert.notEqual(challenge.previews.pm.question,challenge.previews.marketing.question);
 });
@@ -26,13 +26,13 @@ test('role switching resets the decision and opens the selected assignment',()=>
   const map={'.nm-quick-choices':quiz,'.nm-quick-feedback':feedback,'.cs-phone-title':question,'.cs-phone-task':brief,'.cs-phone-cta':next};
   const shell={querySelector:s=>map[s]||null,querySelectorAll:()=>switches};
   challenge.mount(shell);
-  assert.match(question.textContent,/ship first/);
+  assert.match(question.textContent,/ships Friday/);
   assert.equal(quiz.attrs['aria-label'],'Try the product decision');
   handlers.get(switches[1])();
-  assert.match(question.textContent,/ship first/);
+  assert.match(question.textContent,/ships Friday/);
   assert.equal(switches[1].attrs['aria-pressed'],'true');
   const target={closest:()=>opts[0]}; handlers.get(quiz)({target});
-  assert.match(feedback.textContent,/people need access/);
+  assert.match(feedback.textContent,/customer impact/);
   assert.equal(feedback.hidden,false);
   handlers.get(switches[0])();
   assert.equal(quiz.attrs['aria-label'],'Try the marketing decision');
@@ -61,6 +61,12 @@ test('share falls back to a selectable clean link when sharing is unavailable',a
 test('reference landing retains working career links and honest product availability',()=>{
   const fs=require('node:fs');
   const source=fs.readFileSync('assets/newro-landing-reference.js','utf8');
-  for(const phrase of ['WHY TRY NEWRO','Frequently asked questions','planned','data-flow-go']) assert.ok(source.includes(phrase),phrase);
-  assert.ok(!source.includes('Someone using AI will'));
+  for(const phrase of ['WHY CAREER CHANGERS CHOOSE NEWRO','Frequently asked questions','planned','data-flow-go']) assert.ok(source.includes(phrase),phrase);
+  assert.ok(source.includes('Someone using AI will'));
+});
+
+test('the product preview counts selected work against the 24-hour release budget',()=>{
+  assert.equal(challenge.totalHours(['login','reminders']),12);
+  assert.equal(challenge.totalHours(['login','reminders','household']),28);
+  assert.equal(challenge.totalHours([]),0);
 });

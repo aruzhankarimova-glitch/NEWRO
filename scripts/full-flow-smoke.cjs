@@ -84,13 +84,7 @@ async function runCase(browser,role,device) {
   try{
     await page.goto(URL,{waitUntil:'domcontentloaded'});
     await page.locator('.cs-role').first().waitFor();
-    for (const image of await page.locator('.nf-landing-art').all()) {
-      await image.scrollIntoViewIfNeeded();
-      await image.evaluate(el => el.decode().catch(() => {}));
-    }
-    const imgs=await page.locator('.nf-landing-art').evaluateAll(nodes=>nodes.map(img=>({loaded:img.complete&&img.naturalWidth>0,src:img.getAttribute('src')})));
-    assert.equal(imgs.length,2,'Landing role illustrations');
-    assert(imgs.every(x=>x.loaded),'Role images load');
+    assert.equal(await page.locator('.nr-track-action').count(),2,'Both track actions render');
     await page.screenshot({path:'test-results/newro-full-home-'+device.name+'.png',fullPage:true});
     await tryout(page,role);
     await page.locator('#nf-on-name').fill(role==='marketing'?'Alex':'Jordan');

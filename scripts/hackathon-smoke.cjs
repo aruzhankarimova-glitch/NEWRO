@@ -6,32 +6,13 @@ async function run() {
  const browser = await chromium.launch({headless:true});
  const errors=[];
  try {
-  // Cursor construction starts automatically only once and exits DOWN, not onto the CTA.
+  // The loading effect must not block interaction or create cursor overlays.
   const intro=await browser.newContext({viewport:{width:390,height:844},hasTouch:true,isMobile:true,reducedMotion:'no-preference'});
-  const welcome=await intro.newPage();
-  welcome.on('pageerror',e=>errors.push(e.message));
+  const welcome=await intro.newPage();welcome.on('pageerror',e=>errors.push(e.message));
   await welcome.goto(site,{waitUntil:'domcontentloaded'});
-  await welcome.locator('.nl-sw-cursor').first().waitFor({timeout:6000});
-  assert(await welcome.locator('.nl-sw-cursor').count()>=3,'3 cursors on phones');
-  const wentDown=await welcome.evaluate(() => new Promise(resolve=>{
-    let seen=false,steps=0;
-    const id=setInterval(()=>{
-      document.querySelectorAll('.nl-sw-cursor').forEach(node=>{
-        if(node.getBoundingClientRect().top>window.innerHeight+8)seen=true;
-      });
-      if(seen||steps++>400||!document.querySelector('.nl-sw-overlay')){
-        clearInterval(id);resolve(seen);
-      }
-    },20);
-  }));
-  assert(wentDown,'Builder cursors visibly exit past bottom edge');
-  await welcome.locator('.nl-sw-controls').waitFor({state:'detached',timeout:5000});
-  await welcome.reload({waitUntil:'domcontentloaded'});
-  assert.equal(await welcome.locator('.nl-sw-overlay').count(),0,'Do not replay auto-animation within same session');
-  await welcome.locator('.cs-replay').click();
-  await welcome.locator('.nl-sw-cursor').first().waitFor();
-  await welcome.locator('.nl-sw-skip').click();
-  assert.equal(await welcome.locator('.nl-sw-overlay').count(),0,'Skip removes overlay');
+  assert.equal(await welcome.locator('.nl-sw-cursor').count(),0,'No cursor animation');
+  await welcome.locator('[data-preview-role="marketing"]').click();
+  assert.match(await welcome.locator('.cs-phone-title').innerText(),/target/i);
   await intro.close();
 
   // Actual mobile taps trigger OPTIONAL short vibration, not on load.
@@ -102,7 +83,7 @@ async function run() {
   await unsupported.close();
   await phone.close();
   assert.deepEqual(errors,[],'No JS runtime errors');
-  console.log('PASS hackathon QA: cursor exit down, no replay, touch haptics, preference off, native share, unsupported browser and no fake progress');
+  console.log('PASS hackathon QA: no cursor animation, touch haptics, preference off, native share, unsupported browser and no fake progress');
  } finally {await browser.close();}
 }
 run().catch(e=>{console.error(e.stack||e);process.exit(1);});
