@@ -31,6 +31,8 @@ async function tryout(page, role) {
     await choose(page,'Landing-page signup rate');
     await page.locator('.nr-ad-card[data-choice-id="story"]').click();
     assert.equal(await page.locator('.nr-ad-card[aria-pressed="true"]').count(),1,'Exactly one creative is selected');
+    const selectedCreativeVisible=await page.locator('.nr-ad-card[aria-pressed="true"]').evaluate(el=>{const r=el.getBoundingClientRect(),p=el.closest('.nr-ad-grid').getBoundingClientRect();return r.left>=p.left-4&&r.right<=p.right+4;});
+    assert(selectedCreativeVisible,'Chosen creative remains fully in the visible gallery after rerender');
     await page.screenshot({path:'test-results/newro-marketing-creative-choice.png',fullPage:true});
     await next(page);
     await page.locator('.nr-test-results').waitFor();
