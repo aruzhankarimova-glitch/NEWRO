@@ -238,7 +238,8 @@ function augmentLanding(root){
  var role=root.querySelector("#careers");
  if(role){
   var section=document.createElement("section");section.className="nf-landing-bridge";section.innerHTML='<div><span class="nf-label">WHAT HAPPENS AFTER THE TRY-OUT?</span><h2>Build a complete brief.</h2><p>Finish a short try-out, move into a guided project, then save the work in your portfolio.</p>'+button("Open my learning space ↗","dashboard","nf-btn nf-secondary")+'</div><img src="'+images.mentor+'" alt="" loading="lazy">';
-  role.after(section);\n  var media=document.createElement("img");media.src="./assets/newro-career-loop.gif";media.alt="Animated NEWRO career simulation on a phone";media.loading="lazy";media.className="nr-career-loop";media.onerror=function(){this.remove()};section.appendChild(media);
+  role.after(section);
+  var media=document.createElement("img");media.src="./assets/newro-career-loop.gif";media.alt="Animated NEWRO career simulation on a phone";media.loading="lazy";media.className="nr-career-loop";media.onerror=function(){this.remove()};section.appendChild(media);
  }
 }
 function enhanceResult(role){
