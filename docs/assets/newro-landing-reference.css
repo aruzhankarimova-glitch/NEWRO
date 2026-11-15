@@ -36,3 +36,28 @@
 @media(max-width:760px){.cs-shell .cs-hero{padding-top:35px!important;padding-bottom:55px;gap:28px}.cs-shell .cs-title{font-size:clamp(40px,10vw,56px)}.cs-shell .cs-lede{font-size:18px}.cs-shell .cs-stage{padding:56px 20px 20px!important}.cs-shell .cs-card-device{width:100%!important}.nr-reference>div{padding-top:64px!important;padding-bottom:64px!important}.nr-reference [style*="grid-template-columns: repeat(auto-fit"]{grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))!important}.nr-context-inner{padding:64px 20px}.nr-context-grid article{padding:20px}.nr-context-grid b{font-size:36px}}
 @media(max-width:650px){.nr-features > div > div[style*="grid-template-columns"]{grid-template-columns:1fr!important}}
 @media(max-width:400px){.nr-context-grid{grid-template-columns:1fr}.nr-reference [style*="padding: 36px"]{padding:25px!important}.nr-reference [style*="padding: 56px 40px"]{padding:32px 24px!important}}
+/* Restore the source landing's track cards and keep calls to action touch-friendly. */
+.nr-tracks .nr-track-pm{order:0}.nr-tracks .nr-track-marketing{order:1}
+.cs-shell .nr-reference .nr-track-action{display:inline-flex!important;align-items:center;justify-content:center;width:auto!important;min-height:48px!important;min-width:0!important;margin-top:16px;padding:14px 22px!important;border:0!important;border-radius:12px!important;background:#6154f5!important;color:#fff!important;font-size:15px!important;font-weight:700!important;box-shadow:none!important;text-align:center;transform:none}
+.nr-planned-note{padding:14px 18px;border-radius:12px;background:#f2f2ff;color:#393383;font-size:14px;line-height:1.5}
+.nr-original-context .nr-context-note{margin:24px 0 0;color:#c9cbd8;font-size:13px;line-height:1.5}
+.nr-header-cta{padding:12px 20px;border-radius:12px;background:#21bb63;color:#171921;text-decoration:none;font-weight:700;font-size:15px}
+.nr-friday-badge{padding:5px 10px;border-radius:999px;background:#f2f2ff;color:#6154f5;font-size:12px;letter-spacing:0}
+.nr-capacity-track{height:8px;background:#e9e7ff;border-radius:99px;overflow:hidden;margin:0 0 16px}
+.nr-capacity-track[hidden]{display:none}.nr-capacity-track span{display:block;height:100%;width:50%;background:#6154f5;border-radius:99px;transition:width .3s ease,background-color .2s}.nr-capacity-track.nr-over span{background:#b72a29}
+.cs-shell .nm-quick-choice[hidden]{display:none!important}
+.cs-shell .nm-quick-choice{min-height:48px;font-size:15px;padding:12px 14px;border-radius:14px}
+.cs-shell .nm-quick-feedback{font-size:14px;line-height:1.5;background:#fafbff;border-radius:14px;padding:14px;color:#484d5c!important}
+.cs-shell .cs-phone-title{font-size:20px;line-height:1.25}.cs-shell .cs-phone-task{font-size:14px;font-weight:700;color:#171921}
+.nr-page-load{position:fixed;z-index:3000;top:0;left:0;height:4px;width:100%;pointer-events:none;transform-origin:left;background:linear-gradient(90deg,#21bb63,#6154f5,#21bb63);animation:nr-load 1s cubic-bezier(.22,.8,.27,1) both}
+@keyframes nr-load{0%{transform:scaleX(0);opacity:1}65%{transform:scaleX(.8);opacity:1}90%{transform:scaleX(1);opacity:1}100%{transform:scaleX(1);opacity:0}}
+@media(hover:hover) and (pointer:fine){.nr-reference a,.nr-header-cta,.nr-track-action,.nm-quick-choice{transition:transform .2s ease,box-shadow .2s ease,background-color .2s ease}.nr-reference a:hover,.nr-header-cta:hover{transform:translateY(-2px)}.nr-reference .nr-track-action:hover{box-shadow:0 8px 22px #6154f544!important}}
+@media(hover:none){.nr-reference a:active,.nr-track-action:active,.nm-quick-choice:active{transform:scale(.985)!important}}
+@media(max-width:760px){.nr-header-cta{display:none}.nr-original-context > div{padding:64px 20px!important}}
+@media(prefers-reduced-motion:reduce){.nr-page-load{display:none}.nr-capacity-track span{transition:none}}
+.nr-hero-roles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:16px}
+.nr-hero-roles button{border:1px solid #e6e8f0;background:#fff;border-radius:15px;padding:16px;text-align:left;color:#171921;min-height:95px;transition:border-color .2s,transform .2s,box-shadow .2s}
+.nr-hero-roles b,.nr-hero-roles span{display:block}.nr-hero-roles b{font-size:14px}.nr-hero-roles span{font-size:13px;line-height:1.45;color:#5f6473;margin-top:6px}
+@media(hover:hover) and (pointer:fine){.nr-hero-roles button:hover{border-color:#6154f5;transform:translateY(-3px);box-shadow:0 12px 24px #6154f51c}}
+@media(max-width:400px){.nr-hero-roles{grid-template-columns:1fr}.nr-hero-roles button{min-height:76px}}
+@media(prefers-reduced-motion:reduce){.nr-hero-roles button{transition:none}}

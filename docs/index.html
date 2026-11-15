@@ -73,6 +73,9 @@ window.NEWRO={
  write:function(field,value){var name=field==='pmreason'?'reason':field;data[data.role][name]=value;save();var button=document.getElementById('next');if(button)button.disabled=!can()},
  copy:function(){var status=document.getElementById('status');if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(exportText()).then(function(){if(status)status.textContent='Copied to clipboard.'}).catch(function(){if(status)status.textContent='Copy unavailable. Please use Download.'})}else if(status)status.textContent='Clipboard unavailable. Please use Download.'},
  download:function(){var blob=new Blob([exportText()],{type:'text/plain;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='newro-'+data.role+'-work-sample.txt';document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url)},1000)}
-};render();
+};
+var initialTryout=location.hash.match(/^#\/tryout\/(marketing|pm)\/(\d+)$/);
+if(initialTryout){data.role=initialTryout[1];data.step=Math.min(Number(initialTryout[2]),data.role==='marketing'?10:6);render();}
+else{home();}
 })();
 </script><script>if('serviceWorker' in navigator && location.protocol==='https:'){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js').catch(function(){})})}</script></body></html>
