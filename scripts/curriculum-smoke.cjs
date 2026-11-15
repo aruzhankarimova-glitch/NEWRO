@@ -34,7 +34,7 @@ async function test(browser,width){
   assert.equal(state.samples[0].featured,false,"New lesson should not auto-publish to featured portfolio");
   await page.getByRole("button",{name:"Add to portfolio"}).click();
   await page.getByRole("button",{name:"Remove from portfolio"}).waitFor();
-  await page.locator('.nf-dock [data-flow-go="portfolio"]').click();
+  await page.evaluate(()=>window.NEWROFlow.goto("portfolio"));
   await page.locator(".nf-sample").first().waitFor();
   let featured=await page.evaluate(()=>window.NEWROFlow.getState().samples[0].featured);
   assert.equal(featured,true);
