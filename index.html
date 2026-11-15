@@ -14,7 +14,7 @@ function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){retur
 function coach(s){return '<aside class="mentor"><div class="avatar" aria-hidden="true">N</div><div><b>Practice coach</b><p>'+s+'</p></div></aside>'}
 function announceChoice(group,id){
  var selected=document.querySelector('[data-choice-group="'+group+'"][data-choice-id="'+id+'"]');
- if(selected)selected.focus({preventScroll:true});
+ if(selected){var reel=selected.closest('.nr-ad-grid');if(reel&&reel.scrollWidth>reel.clientWidth){var cardRect=selected.getBoundingClientRect(),reelRect=reel.getBoundingClientRect();reel.scrollLeft+=cardRect.left-reelRect.left-(reel.clientWidth-selected.clientWidth)/2;}selected.focus({preventScroll:true});}
  var region=document.getElementById('newro-announcer');
  var guidance=document.querySelector('.playerMain .mentor p');
  var warning=document.querySelector('.playerMain .meter p.red');
