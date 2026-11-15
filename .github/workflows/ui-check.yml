@@ -46,6 +46,7 @@ jobs:
           exit 1
       - name: Verify user flows and capture screenshots
         run: |
+          node scripts/landing-reference-smoke.cjs
           node scripts/ui-smoke.cjs
           node scripts/full-flow-smoke.cjs
           node scripts/hackathon-smoke.cjs
