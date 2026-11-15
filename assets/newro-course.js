@@ -101,7 +101,7 @@ function home(meta,root){
 var tracks={
  marketing:[
   "Your first day","Meet the client","Customer signals","Choose an audience","Make a promise",
-  "Direct the AI","Edit the draft","Plan an experiment","Mentor challenge","Skill reflection","Your work sample"
+  "Direct the AI","Edit the draft","Choose a creative & test","Mentor challenge","Skill reflection","Your work sample"
  ],
  pm:[
   "Your first day","Friday brief","Choose your release","Review trade-offs",
