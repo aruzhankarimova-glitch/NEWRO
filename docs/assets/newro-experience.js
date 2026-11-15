@@ -48,7 +48,7 @@
     root.innerHTML =
       '<div id="nl-shell" class="nl-shell">' +
         '<header id="top" class="nl-header"><div class="nl-wrap nl-nav">' +
-          '<a class="nl-brand" href="#top" data-build="brand" aria-label="NEWRO — top of page"><span class="nl-brand-icon">n</span>newro<span class="nl-brand-dot">.</span></a>' +
+          '<a class="nl-brand" href="#top" data-build="brand" aria-label="NEWRO: top of page"><span class="nl-brand-icon">n</span>newro<span class="nl-brand-dot">.</span></a>' +
           '<nav class="nl-links" aria-label="Main navigation"><a href="#careers">Explore careers</a><a href="#how">How it works</a>' +
           (hasProgress ? '<button class="nl-smallbtn" type="button" onclick="NEWRO.resume()">Resume session ↗</button>' : '') +
           '</nav><div class="nl-navright"><button class="nl-smallbtn" type="button" data-replay aria-label="Replay construction animation">↺ Replay</button><button class="nl-join" onclick="NEWRO.start(\'marketing\')">Start a free try-out ↗</button></div>' +

@@ -217,7 +217,7 @@ function finishTryout(role,sim){
   sections=[["Selected backlog items",(p.selection||[]).join(", ")||"Not selected"],["Held items",all.filter(function(i){return (p.selection||[]).indexOf(i)<0;}).join(", ")],["Reasoning",p.reason||"Not recorded"]];
  }
  st.done[role]=true;st.preferred=role;markToday();
- var result={id:newSampleId("tryout",role),kind:"tryout",role:role,title:names[role]+" — first assignment",sections:sections,date:new Date().toISOString()};
+ var result={id:newSampleId("tryout",role),kind:"tryout",role:role,title:names[role]+": first assignment",sections:sections,date:new Date().toISOString()};
  upsert(result);
  go("result",result.id);
 }

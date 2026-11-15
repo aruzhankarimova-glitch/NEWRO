@@ -26,7 +26,7 @@ async function run() {
   page.on('pageerror',e=>errors.push(e.message));
   await page.goto(site,{waitUntil:'domcontentloaded'});
   assert.equal((await page.evaluate(()=>window.__pulses)).length,0,'No vibration before interaction');
-  assert.match(await page.locator('.cs-title').innerText(),/Upgrade your career by trying the real work first/i,'Reference landing headline present');
+  assert.match(await page.locator('.cs-title').innerText(),/Try the work before choosing a career/i,'Reference landing headline present');
   assert.equal((await page.locator('.cs-stage').innerText()).includes('32%'),false,'No fake progress');
   await page.locator('.cs-role').first().click();
   assert((await page.evaluate(()=>window.__pulses)).length>=1,'Vibration on intentional tap');

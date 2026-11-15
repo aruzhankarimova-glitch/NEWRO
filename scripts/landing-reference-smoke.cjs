@@ -18,6 +18,8 @@ const assert = require('node:assert/strict');
    await page.goto('http://127.0.0.1:4173/',{waitUntil:'domcontentloaded'});
    await page.locator('#careers.nr-tracks').waitFor();
    assert.equal(await page.locator('.nr-reference').count(),7,'All reference sections render');
+   assert.equal((await page.locator('body').innerText()).includes('—'),false,'Landing contains no em dashes');
+   assert.equal((await page.locator('body').innerText()).includes('Someone using AI will'),false,'Landing avoids unsupported job predictions');
    assert.match(await page.locator('.cs-phone-title').innerText(),/ships Friday/i);
    assert.match(await page.locator('.cs-phone-task').innerText(),/12 \/ 24/);
    await page.locator('[data-quick-choice="household"]').click();
