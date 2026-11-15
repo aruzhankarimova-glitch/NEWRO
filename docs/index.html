@@ -17,7 +17,7 @@ function announceChoice(group,id){
  if(selected)selected.focus({preventScroll:true});
  var region=document.getElementById('newro-announcer');
  var guidance=document.querySelector('.playerMain .mentor p');
- var warning=document.querySelector('.playerMain .meter .red');
+ var warning=document.querySelector('.playerMain .meter p.red');
  if(region)region.textContent=(warning?warning.textContent+' ':'')+(guidance?guidance.textContent:'Selection updated. Continue or revise your choice.');
 }
 function option(group,id,name,desc,chosen){var active=chosen===id;return '<button class="choice" type="button" data-choice-group="'+esc(group)+'" data-choice-id="'+esc(id)+'" aria-pressed="'+active+'" onclick="NEWRO.choose(\''+group+'\',\''+id+'\')"><span class="dot">'+(active?'✓':'')+'</span><span><strong>'+esc(name)+'</strong>'+(desc?'<small>'+esc(desc)+'</small>':'')+'</span></button>'}
