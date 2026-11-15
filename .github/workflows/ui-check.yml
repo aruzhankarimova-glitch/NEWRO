@@ -17,6 +17,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Install optional NEWRO visual asset archive
+        run: |
+          if [ -f NEWRO_visual_assets_upload.zip ]; then
+            unzip -o NEWRO_visual_assets_upload.zip 'assets/*' -d docs
+            for asset in newro-career-loop.gif newro-marketing-card.webp newro-marketing.webp newro-product-manager.webp; do
+              test -s "docs/assets/$asset"
+            done
+          else
+            echo "Visual asset archive not present; keeping bundled SVG fallbacks"
+          fi
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
