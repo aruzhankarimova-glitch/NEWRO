@@ -98,19 +98,22 @@ async function runCase(browser,role,device) {
     assert.equal(state.samples.filter(x=>x.kind==='tryout').length,1,'Try-out saved to portfolio');
     await page.screenshot({path:'test-results/newro-dashboard-'+device.name+'.png',fullPage:true});
     await page.locator('.nf-milestone[data-flow-action=project]').click();
-    await page.locator('#nr-paywall [role=dialog]').waitFor();
-    assert.match(await page.locator('#nr-paywall').innerText(), /Ready for the next chapter/, 'Guided project is gated');
-    await page.locator('[data-nr-close]').last().click();
+    await page.locator('#nf-project-answer').waitFor();
+    for (const answer of answers[role]) {
+      await page.locator('#nf-project-answer').fill(answer);
+      await page.locator('[data-flow-action="project-next"]').click();
+    }
+    await page.getByText('Project saved to your work library.').waitFor();
     await page.evaluate(()=>window.NEWROFlow.goto('portfolio'));
     await page.locator('.nf-sample').first().waitFor();
-    assert.equal(await page.locator('.nf-sample').count(),1,'Free try-out retained in portfolio');
+    assert.equal(await page.locator('.nf-sample').count(),2,'Try-out and guided project retained in portfolio');
     await page.locator('.nf-sample').first().getByRole('button',{name:/Open work sample/}).click();
     const item=page.locator('.nf-detail-banner');
     await item.waitFor();
     const downloadPromise=page.waitForEvent('download');
     await page.locator('[data-flow-action=download-sample]').click();
     const download=await downloadPromise;
-    assert(download.suggestedFilename().includes('newro-tryout'),'Download is a real free artifact');
+    assert(download.suggestedFilename().includes('newro-project'),'Guided project downloads as a real artifact');
     await page.reload({waitUntil:'domcontentloaded'});
     await page.locator('.nf-detail-banner').waitFor();
     await page.locator(device.name==='mobile'?'.nf-dock .nf-navitem[data-flow-go=profile]':'.nf-navdesk .nf-navitem[data-flow-go=profile]').click();
@@ -120,8 +123,8 @@ async function runCase(browser,role,device) {
     await page.locator('.nf-banner').waitFor();
     const saved=await page.evaluate(()=>window.NEWROFlow.getState());
     assert.equal(saved.profile.name,'Test Learner');
-    assert.equal(saved.projects[role].complete,false,'Guided project stays locked');
-    assert.equal(saved.samples.length,1);
+    assert.equal(saved.projects[role].complete,true,'Guided project completed');
+    assert.equal(saved.samples.length,2);
     const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth);
     assert(overflow<=2,'No horizontal overflow: '+overflow);
     assert.deepEqual(errors,[],'No JavaScript exceptions');

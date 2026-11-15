@@ -19,7 +19,7 @@ function home(meta,root){
   '<div id="nl-shell" class="nl-shell cs-shell">' +
     '<div class="nm-page-progress" aria-hidden="true"></div>' +
     '<header id="top" class="cs-top"><div class="cs-topin">' +
-      '<a class="nl-brand" href="#top" data-build="brand"><span class="nl-brand-icon">n</span>newro<span class="nl-brand-dot">.</span></a>' +
+      '<a class="nl-brand" href="#top" data-build="brand"><img class="nr-logo" src="./assets/newro-logo.svg" width="138" height="36" alt="NEWRO"></a>' +
       '<nav class="cs-toplinks" aria-label="Site navigation"><a href="#careers">Explore roles</a><a href="#how">How it works</a></nav>' +
       '' +
     '</div></header>' +

@@ -75,7 +75,7 @@ function icon(name){
 function navItem(page,label,iconName,active){return '<button class="nf-navitem '+(active===page?'is-active':'')+'" type="button" data-flow-go="'+page+'" aria-current="'+(active===page?'page':'false')+'">'+icon(iconName)+label+'</button>';}
 function layout(title,subtitle,content,active){
  if(window.NEWROSwarm)window.NEWROSwarm.stop();
- root.innerHTML='<div class="nf-app"><header class="nf-top"><div class="nf-topinner"><button class="nf-brand" data-flow-go="home" aria-label="NEWRO Home"><span>n</span> newro.</button><nav class="nf-navdesk" aria-label="Learning navigation">'+navItem("dashboard","Overview","home",active)+navItem("paths","Career paths","paths",active)+navItem("portfolio","Portfolio","portfolio",active)+navItem("profile","Profile","profile",active)+'</nav></div></header><main class="nf-main"><div class="nf-heading"><div><h1 tabindex="-1" id="nf-title">'+title+'</h1><p>'+subtitle+'</p></div></div>'+content+'</main><nav class="nf-dock" aria-label="Mobile learning navigation">'+navItem("dashboard","Home","home",active)+navItem("paths","Explore","paths",active)+navItem("portfolio","My work","portfolio",active)+navItem("profile","Profile","profile",active)+'</nav></div>';
+ root.innerHTML='<div class="nf-app"><header class="nf-top"><div class="nf-topinner"><button class="nf-brand" data-flow-go="home" aria-label="NEWRO Home"><img class="nr-logo" src="./assets/newro-logo.svg" width="138" height="36" alt="NEWRO"></button><nav class="nf-navdesk" aria-label="Learning navigation">'+navItem("dashboard","Overview","home",active)+navItem("paths","Career paths","paths",active)+navItem("portfolio","Portfolio","portfolio",active)+navItem("profile","Profile","profile",active)+'</nav></div></header><main class="nf-main"><div class="nf-heading"><div><h1 tabindex="-1" id="nf-title">'+title+'</h1><p>'+subtitle+'</p></div></div>'+content+'</main><nav class="nf-dock" aria-label="Mobile learning navigation">'+navItem("dashboard","Home","home",active)+navItem("paths","Explore","paths",active)+navItem("portfolio","My work","portfolio",active)+navItem("profile","Profile","profile",active)+'</nav></div>';
  if(window.NEWROMobile)window.NEWROMobile.enhanceLayout(active);
  if(window.NEWROPremium)window.NEWROPremium.flowView(active);
  window.scrollTo(0,0);
@@ -94,14 +94,14 @@ function dash(){
  var weekday=new Date().getDay(),monday=(weekday+6)%7;
  var dates=Array.from({length:7},function(_,i){var d=new Date();d.setDate(d.getDate()-monday+i);return {key:d.toLocaleDateString("en-CA"),day:d.toLocaleDateString("en-US",{weekday:"short"}).slice(0,2),date:d.getDate()};});
  var weekly=dates.reduce(function(n,d){return n+(st.days.indexOf(d.key)>=0?1:0);},0);
- var next=st.done[role]?(p.complete?"Your next step: build on your work":"Free part completed · premium stages are locked"):"Your next step: a career try-out";
- var nextLabel=st.done[role]?(p.complete?"Explore another career":"View premium options"):"Start free career try-out";
+ var next=st.done[role]?(p.complete?"Your next step: build on your work":"Continue with your guided project"):"Your next step: a career try-out";
+ var nextLabel=st.done[role]?(p.complete?"Explore another career":"Continue project"):"Start free career try-out";
  var nextAction=st.done[role]?(p.complete?'browse':'project'):'tryout';
  var mood='<section class="nf-banner"><div class="nf-banner-copy"><span class="nf-label">YOUR NEXT ASSIGNMENT</span><h2>Hey, '+esc(name)+'.<br><em>Continue where you left off.</em></h2>'+button(nextLabel,nextAction,"nf-btn nf-lime",'data-role="'+role+'"')+'</div><div class="nf-banner-art">'+art(role)+'</div></section>';
  var dayHtml=dates.map(function(d){return '<div class="nf-day '+(st.days.indexOf(d.key)>=0?'done':'')+'"><span>'+d.day+'</span><b>'+d.date+'</b><small>'+(st.days.indexOf(d.key)>=0?'✓':'·')+'</small></div>';}).join("");
  var milestones=[
   ['Try the role','Take a short realistic assignment.',st.done[role]?'Completed':'Start here','tryout'],
-  ['Guided project','Create a deeper sample with practical prompts.',p.complete?'Completed':'🔒 Locked · View plans','project']
+  ['Guided project','Create a deeper sample with practical prompts.',p.complete?'Completed':'Start project','project']
  ];
  var cards=milestones.map(function(m,i){return '<button class="nf-milestone '+((i===0&&st.done[role])||(i===1&&p.complete)?'done':'')+'" data-flow-action="'+m[3]+'" data-role="'+role+'"><span class="nf-step-circle">'+((i===0&&st.done[role])||(i===1&&p.complete)?'✓':i+1)+'</span><span><b>'+m[0]+'</b><small>'+m[1]+'</small></span><span class="nf-step-status">'+m[2]+'</span></button>';}).join("");
  var body=mood+'<div class="nf-overview"><section class="nf-whitecard"><div class="nf-same"><div><h2>Your weekly rhythm</h2><p>Only your actual activity is shown.</p></div><span class="nf-counter">'+weekly+' / 7 days</span></div><div class="nf-days">'+dayHtml+'</div><p class="nf-small">Your plan: '+esc(st.profile.time||"10–15 minutes per day")+'. Move at your own pace.</p></section><section class="nf-whitecard nf-stat"><div><p class="nf-label">CURRENT CAREER</p><h2>'+names[role]+'</h2><p>'+next+'</p></div><div class="nf-ring" style="--progress:'+Math.round(total/2*100)+'%"><b>'+total+'/2</b><span>milestones</span></div></section></div><section class="nf-section"><div class="nf-section-head"><h2>Your path</h2>'+button("Switch career ↗","browse","nf-linkbtn")+'</div><div class="nf-path">'+cards+'</div><p class="nf-small nf-path-note">Completed work is saved under '+button("My portfolio →","portfolio","nf-linkbtn")+'</p></section>'+curriculumPreview(role)+'<section class="nf-section"><div class="nf-section-head"><h2>My recent work</h2>'+button("View portfolio ↗","portfolio","nf-linkbtn")+'</div><div class="nf-workgrid">'+(st.samples.length?st.samples.slice().reverse().slice(0,2).map(sampleCard).join(""):'<div class="nf-empty"><img src="'+images.mentor+'" alt="" loading="lazy"><b>No work samples saved yet.</b><p>Complete a career try-out to save a real decision card.</p></div>')+'</div></section>';
@@ -113,9 +113,9 @@ function sampleCard(s){
 function paths(){
  var cards=Object.keys(names).map(function(role){
   var d=defs[role],n=stepsDone(role),pct=n/2*100;
-  return '<article class="nf-track"><div class="nf-track-art nf-track-'+role+'">'+art(role)+'</div><div class="nf-track-copy"><div class="nf-same"><span class="nf-label">CAREER EXPLORATION</span><span class="nf-pill">'+n+'/2 milestones</span></div><h2>'+names[role]+'</h2><p>'+esc(d.description)+'</p><div class="nf-trackbar"><i style="width:'+pct+'%"></i></div><div class="nf-actions">'+button(st.done[role]?"Replay try-out":"Start free try-out","tryout","nf-btn nf-secondary",'data-role="'+role+'"')+button(st.done[role]?(st.projects[role].complete?"Review project":"🔒 View plans"):"See learning plan","project","nf-btn nf-primary",'data-role="'+role+'"')+'</div></div></article>';
+  return '<article class="nf-track"><div class="nf-track-art nf-track-'+role+'">'+art(role)+'</div><div class="nf-track-copy"><div class="nf-same"><span class="nf-label">CAREER EXPLORATION</span><span class="nf-pill">'+n+'/2 milestones</span></div><h2>'+names[role]+'</h2><p>'+esc(d.description)+'</p><div class="nf-trackbar"><i style="width:'+pct+'%"></i></div><div class="nf-actions">'+button(st.done[role]?"Replay try-out":"Start free try-out","tryout","nf-btn nf-secondary",'data-role="'+role+'"')+button(st.done[role]?(st.projects[role].complete?"Review project":"Continue project"):"See learning plan","project","nf-btn nf-primary",'data-role="'+role+'"')+'</div></div></article>';
  }).join("");
- layout("Explore career paths","Try a role and save your work sample.",'<div class="nf-trackgrid">'+cards+'</div>'+curriculumPreview("pm")+curriculumPreview("marketing")+'<section class="nf-notice"><img src="'+images.mentor+'" alt="" loading="lazy"><div><b>Start with a free try-out.</b><p>Try either role for free and keep the work you create. Guided projects are not yet available.</p></div></section>',"paths");
+ layout("Explore career paths","Try a role and save your work sample.",'<div class="nf-trackgrid">'+cards+'</div>'+curriculumPreview("pm")+curriculumPreview("marketing")+'<section class="nf-notice"><img src="'+images.mentor+'" alt="" loading="lazy"><div><b>Start with a free try-out.</b><p>Try either role for free and keep the work you create. Continue with a guided project to develop your work.</p></div></section>',"paths");
 }
 function portfolio(){
  var all=st.samples.slice().reverse(),featured=all.filter(function(s){return s.featured===true;}),practice=all.filter(function(s){return s.featured!==true;});
@@ -237,7 +237,7 @@ function augmentLanding(root){
  if(dock){var buttons=dock.querySelectorAll("button");if(buttons[2]){buttons[2].disabled=false;buttons[2].removeAttribute("data-resume");buttons[2].removeAttribute("aria-label");buttons[2].innerHTML=icon("home")+"My learning";buttons[2].dataset.flowGo="dashboard";}}
  var role=root.querySelector("#careers");
  if(role){
-  var section=document.createElement("section");section.className="nf-landing-bridge";section.innerHTML='<div><span class="nf-label">WHAT HAPPENS AFTER THE TRY-OUT?</span><h2>Build a complete brief.</h2><p>Finish a free try-out and save your work. Guided projects are a preview and are not yet available.</p>'+button("Open my learning space ↗","dashboard","nf-btn nf-secondary")+'</div><img src="'+images.mentor+'" alt="" loading="lazy">';
+  var section=document.createElement("section");section.className="nf-landing-bridge";section.innerHTML='<div><span class="nf-label">WHAT HAPPENS AFTER THE TRY-OUT?</span><h2>Build a complete brief.</h2><p>Finish a free try-out and save your work. Continue with a guided project to develop your work.</p>'+button("Open my learning space ↗","dashboard","nf-btn nf-secondary")+'</div><img src="'+images.mentor+'" alt="" loading="lazy">';
   role.after(section);
   var media=document.createElement("img");media.src="./assets/newro-career-loop.gif";media.alt="Animated NEWRO career simulation on a phone";media.loading="lazy";media.className="nr-career-loop";media.onerror=function(){this.remove()};section.appendChild(media);
  }
@@ -247,7 +247,7 @@ function enhanceResult(role){
  if(!main)return;
  var submit=document.getElementById("next");
  if(submit)submit.textContent="Save work & continue →";
- var hint=document.createElement("div");hint.className="nf-result-hint";hint.innerHTML='<img src="'+images.mentor+'" alt=""><div><b>What comes after this?</b><p>Save this sample on your device. Guided projects are not yet available.</p></div>';
+ var hint=document.createElement("div");hint.className="nf-result-hint";hint.innerHTML='<img src="'+images.mentor+'" alt=""><div><b>What comes after this?</b><p>Save this sample on your device. Continue with a guided project to develop your work.</p></div>';
  main.appendChild(hint);
 }
 function exportData(){download("newro-learning-data.json",JSON.stringify(st,null,2),"application/json;charset=utf-8");}
@@ -263,7 +263,7 @@ function go(page,arg,skipHash){
   case "portfolio":portfolio();break;
   case "profile":profile();break;
   case "onboarding":onboarding(arg);break;
-  case "project":if(st.projects[safeRole(arg||st.preferred)].complete){projectView(arg||st.preferred);}else{dash();if(window.NEWROPaywall)window.NEWROPaywall.open("Guided project");}break;
+  case "project":projectView(arg||st.preferred);break;
   case "sample":detail(arg);break;
   case "result":resultView(arg);break;
   case "project-finished":projectFinished(arg||st.preferred);break;
@@ -283,8 +283,8 @@ document.addEventListener("click",function(event){
   case "dashboard":go("dashboard");break;case "portfolio":go("portfolio");break;case "browse":go("paths");break;case "profile":go("profile");break;case "reset":go("reset");break;
   case "reset-confirmed":{localStorage.removeItem(STORAGE);localStorage.removeItem(SIM_KEY);location.replace(location.pathname+location.search);break;}
   case "tryout":st.preferred=safeRole(role);save();history.replaceState(null,"",location.pathname+location.search);window.NEWRO.start(st.preferred);break;
-  case "project":if(st.projects[safeRole(role)].complete)go("project",role);else if(window.NEWROPaywall)window.NEWROPaywall.open("Guided project");break;
-  case "project-restart":{if(window.NEWROPaywall)window.NEWROPaywall.open("Guided project");break;}
+  case "project":go("project",role);break;
+  case "project-restart":{st.projects[safeRole(role)]={step:0,answers:{},complete:false,review:""};save();go("project",role);break;}
   case "continue-after-result":{st.preferred=safeRole(role);save();if(st.profile)go("dashboard");else go("onboarding",role);break;}
   case "project-next":projectNext("next");break;case "project-back":projectNext("back");break;case "project-review":projectNext("review");break;
   case "sample":go("sample",btn.dataset.id);break;
@@ -339,6 +339,13 @@ window.NEWROHome=function(meta,target){
 };
 window.NEWROFlow={
  goto:go,
+ layout:layout,
+ savePractice:function(role,module,answer){
+  if(!module||typeof answer!=="string"||answer.trim().length<100)return null;
+  role=safeRole(role);var id="practice-"+role+"-"+module[0].toLowerCase(),existing=st.samples.find(function(x){return x.id===id});
+  var sample={id:id,kind:"practice",role:role,title:module[1],sections:[["Assignment",module[2]],["My work",answer.trim().slice(0,5000)],["Review criterion",module[4]]],date:new Date().toISOString(),featured:existing?existing.featured:false};
+  if(existing)Object.assign(existing,sample);else st.samples.push(sample);markToday();save();return id;
+ },
  finish:finishTryout,
  enhanceResult:enhanceResult,
  augmentLanding:augmentLanding,
