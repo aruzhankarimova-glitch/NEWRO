@@ -40,6 +40,7 @@
       if (!previews[value]) return;
       role = value;
       var item = previews[role];
+      quiz.setAttribute('aria-label', role === 'pm' ? 'Try the product decision' : 'Try the marketing decision');
       question.textContent = item.question;
       brief.textContent = item.brief;
       switches.forEach(function (button) { button.setAttribute('aria-pressed', String(button.dataset.previewRole === role)); });

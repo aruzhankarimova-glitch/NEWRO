@@ -27,6 +27,7 @@ test('role switching resets the decision and opens the selected assignment',()=>
   const shell={querySelector:s=>map[s]||null,querySelectorAll:()=>switches};
   challenge.mount(shell);
   assert.match(question.textContent,/ship first/);
+  assert.equal(quiz.attrs['aria-label'],'Try the product decision');
   handlers.get(switches[1])();
   assert.match(question.textContent,/ship first/);
   assert.equal(switches[1].attrs['aria-pressed'],'true');
@@ -34,6 +35,7 @@ test('role switching resets the decision and opens the selected assignment',()=>
   assert.match(feedback.textContent,/people need access/);
   assert.equal(feedback.hidden,false);
   handlers.get(switches[0])();
+  assert.equal(quiz.attrs['aria-label'],'Try the marketing decision');
   assert.equal(feedback.hidden,true);
   assert.equal(opts[0].attrs['aria-pressed'],'false');
   let started;global.NEWRO={start:r=>started=r};
