@@ -45,8 +45,13 @@ try{
   st.days=Array.isArray(restored.days)?restored.days:[];
  }
 }catch(e){}
+var storageAvailable=true;
 function save(){
- try{localStorage.setItem(STORAGE,JSON.stringify(st));}catch(e){console.warn("Progress could not be saved on this device",e);}
+ try{localStorage.setItem(STORAGE,JSON.stringify(st));storageAvailable=true;return true;}
+ catch(e){storageAvailable=false;console.warn("Progress could not be saved on this device",e);return false;}
+}
+function newSampleId(kind,role){
+ return kind+"-"+role+"-"+Date.now().toString(36)+"-"+Math.random().toString(36).slice(2,8);
 }
 function markToday(){
  var d=new Date().toLocaleDateString("en-CA");
@@ -95,11 +100,10 @@ function dash(){
  var dayHtml=dates.map(function(d){return '<div class="nf-day '+(st.days.indexOf(d.key)>=0?'done':'')+'"><span>'+d.day+'</span><b>'+d.date+'</b><small>'+(st.days.indexOf(d.key)>=0?'✓':'·')+'</small></div>';}).join("");
  var milestones=[
   ['Try the role','Take a short realistic assignment.',st.done[role]?'Completed':'Start here','tryout'],
-  ['Guided project','Create a deeper sample with practical prompts.',p.complete?'Completed':st.done[role]?(p.step?'In progress':'Available'):'After try-out','project'],
-  ['Portfolio artifact','Save, export and revisit your work.',p.complete?'Ready':'In progress','portfolio']
+  ['Guided project','Create a deeper sample with practical prompts.',p.complete?'Completed':st.done[role]?(p.step?'In progress':'Available'):'After try-out','project']
  ];
- var cards=milestones.map(function(m,i){return '<button class="nf-milestone '+((i===0&&st.done[role])||(i===1&&p.complete)||(i===2&&p.complete)?'done':'')+'" data-flow-action="'+m[3]+'" data-role="'+role+'"><span class="nf-step-circle">'+((i===0&&st.done[role])||(i===1&&p.complete)||(i===2&&p.complete)?'✓':i+1)+'</span><span><b>'+m[0]+'</b><small>'+m[1]+'</small></span><span class="nf-step-status">'+m[2]+'</span></button>';}).join("");
- var body=mood+'<div class="nf-overview"><section class="nf-whitecard"><div class="nf-same"><div><h2>Your weekly rhythm</h2><p>Only your actual activity is shown.</p></div><span class="nf-counter">'+weekly+' / 7 days</span></div><div class="nf-days">'+dayHtml+'</div><p class="nf-small">Your plan: '+esc(st.profile.time||"10–15 minutes per day")+'. No streak penalties or invented points.</p></section><section class="nf-whitecard nf-stat"><div><p class="nf-label">CURRENT CAREER</p><h2>'+names[role]+'</h2><p>'+next+'</p></div><div class="nf-ring" style="--progress:'+Math.round(total/2*100)+'%"><b>'+total+'/2</b><span>milestones</span></div></section></div><section class="nf-section"><div class="nf-section-head"><h2>Your path</h2>'+button("Switch career ↗","browse","nf-linkbtn")+'</div><div class="nf-path">'+cards+'</div></section><section class="nf-section"><div class="nf-section-head"><h2>My recent work</h2>'+button("View portfolio ↗","portfolio","nf-linkbtn")+'</div><div class="nf-workgrid">'+(st.samples.length?st.samples.slice().reverse().slice(0,2).map(sampleCard).join(""):'<div class="nf-empty"><img src="'+images.mentor+'" alt="" loading="lazy"><b>No work samples saved yet.</b><p>Complete a career try-out to save a real decision card.</p></div>')+'</div></section>';
+ var cards=milestones.map(function(m,i){return '<button class="nf-milestone '+((i===0&&st.done[role])||(i===1&&p.complete)?'done':'')+'" data-flow-action="'+m[3]+'" data-role="'+role+'"><span class="nf-step-circle">'+((i===0&&st.done[role])||(i===1&&p.complete)?'✓':i+1)+'</span><span><b>'+m[0]+'</b><small>'+m[1]+'</small></span><span class="nf-step-status">'+m[2]+'</span></button>';}).join("");
+ var body=mood+'<div class="nf-overview"><section class="nf-whitecard"><div class="nf-same"><div><h2>Your weekly rhythm</h2><p>Only your actual activity is shown.</p></div><span class="nf-counter">'+weekly+' / 7 days</span></div><div class="nf-days">'+dayHtml+'</div><p class="nf-small">Your plan: '+esc(st.profile.time||"10–15 minutes per day")+'. No streak penalties or invented points.</p></section><section class="nf-whitecard nf-stat"><div><p class="nf-label">CURRENT CAREER</p><h2>'+names[role]+'</h2><p>'+next+'</p></div><div class="nf-ring" style="--progress:'+Math.round(total/2*100)+'%"><b>'+total+'/2</b><span>milestones</span></div></section></div><section class="nf-section"><div class="nf-section-head"><h2>Your path</h2>'+button("Switch career ↗","browse","nf-linkbtn")+'</div><div class="nf-path">'+cards+'</div><p class="nf-small nf-path-note">Completed work is saved under '+button("My portfolio →","portfolio","nf-linkbtn")+'</p></section><section class="nf-section"><div class="nf-section-head"><h2>My recent work</h2>'+button("View portfolio ↗","portfolio","nf-linkbtn")+'</div><div class="nf-workgrid">'+(st.samples.length?st.samples.slice().reverse().slice(0,2).map(sampleCard).join(""):'<div class="nf-empty"><img src="'+images.mentor+'" alt="" loading="lazy"><b>No work samples saved yet.</b><p>Complete a career try-out to save a real decision card.</p></div>')+'</div></section>';
  layout("My learning","Your practice track: "+names[role]+".",body,"dashboard");
 }
 function sampleCard(s){
@@ -136,9 +140,9 @@ function projectView(role){
  st.preferred=role;save();
  if(st.projects[role].complete){projectFinished(role);return;}
  var cfg=defs[role],p=st.projects[role],step=Math.max(0,Math.min(3,p.step||0)),task=cfg.steps[step],answer=p.answers[task.key]||"";
- var fields='<label for="nf-project-answer">Your answer</label><textarea id="nf-project-answer" class="nf-answer" maxlength="2500" placeholder="'+esc(task.placeholder)+'">'+esc(answer)+'</textarea><div class="nf-same"><span class="nf-small">Saved automatically on this device</span><span class="nf-counter" id="nf-count">'+answer.trim().length+' characters</span></div>';
+ var fields='<label for="nf-project-answer">Your answer</label><textarea id="nf-project-answer" class="nf-answer" aria-describedby="nf-project-help nf-project-error" maxlength="2500" placeholder="'+esc(task.placeholder)+'">'+esc(answer)+'</textarea><div class="nf-same"><span class="nf-small" id="nf-save-state" role="status">'+(storageAvailable?'Changes saved in this browser':'Local saving unavailable. Export your work before leaving.')+'</span><span class="nf-counter" id="nf-count">'+answer.trim().length+' characters</span></div><p id="nf-project-error" role="alert" class="nf-error" hidden></p>';
  var pct=Math.round((step+1)/4*100);
- var body='<div class="nf-project-shell"><section class="nf-project-lead"><div class="nf-same"><span class="nf-label">'+esc(cfg.client)+'</span><span class="nf-pill">Step '+(step+1)+' / 4</span></div><div class="nf-meter"><i style="width:'+pct+'%"></i></div><h2>'+esc(task.title)+'</h2><p>'+esc(task.description)+'</p><div class="nf-project-illu">'+art(role)+'</div></section><section class="nf-project-form">'+fields+'<div class="nf-mentorbox"><img src="'+images.mentor+'" alt="" loading="lazy"><div><b>Mentor tip</b><p>'+esc(task.tip)+'</p><small>Guidance based on exercise rules, not a live AI response.</small></div></div><div id="nf-review">'+(p.review?'<div class="nf-feedback" role="status">'+esc(p.review)+'</div>':"")+'</div><div class="nf-project-buttons">'+button("← Back","project-back","nf-btn nf-secondary")+button("Check my draft","project-review","nf-btn nf-violet")+button(step===3?"Complete my project →":"Save & continue →","project-next","nf-btn nf-primary")+'</div><p class="nf-small">Minimum '+task.min+' characters. Your writing can be edited before completion.</p></section></div>';
+ var body='<div class="nf-project-shell"><section class="nf-project-lead"><div class="nf-same"><span class="nf-label">'+esc(cfg.client)+'</span><span class="nf-pill">Step '+(step+1)+' / 4</span></div><div class="nf-meter"><i style="width:'+pct+'%"></i></div><h2>'+esc(task.title)+'</h2><p>'+esc(task.description)+'</p><div class="nf-project-illu">'+art(role)+'</div></section><section class="nf-project-form">'+fields+'<div class="nf-mentorbox"><img src="'+images.mentor+'" alt="" loading="lazy"><div><b>Mentor tip</b><p>'+esc(task.tip)+'</p><small>Guidance based on exercise rules, not a live AI response.</small></div></div><div id="nf-review">'+(p.review?'<div class="nf-feedback" role="status">'+esc(p.review)+'</div>':"")+'</div><div class="nf-project-buttons">'+button("← Back","project-back","nf-btn nf-secondary")+button("Check my draft","project-review","nf-btn nf-violet")+button(step===3?"Complete my project →":"Save & continue →","project-next","nf-btn nf-primary")+'</div><p class="nf-small" id="nf-project-help">Minimum '+task.min+' characters. You can edit your answer before completion.</p></section></div>';
  layout(cfg.title,"A guided project in the "+names[role]+" path.",body,"paths");
 }
 function getReview(role,step,value){
@@ -164,22 +168,22 @@ function projectNext(nextAction){
    var out=document.getElementById("nf-review");if(out)out.innerHTML='<div class="nf-feedback" role="status">'+esc(p.review)+'</div>';return;
  }
  if(nextAction==="back"){if(step===0){go("dashboard");return;}p.step=Math.max(0,step-1);p.review="";save();projectView(role);return;}
- if(textValue.length<task.min){if(window.NEWROMobile)window.NEWROMobile.pulse("warning");input.focus();input.setAttribute("aria-invalid","true");var out=document.getElementById("nf-review");if(out)out.innerHTML='<div class="nf-error" role="alert">Please add at least '+task.min+' characters before continuing.</div>';return;}
+ if(textValue.length<task.min){if(window.NEWROMobile)window.NEWROMobile.pulse("warning");input.setAttribute("aria-invalid","true");var err=document.getElementById("nf-project-error");if(err){err.hidden=false;err.textContent="Please add at least "+task.min+" characters before continuing.";}input.focus();return;}
  p.review="";
  if(step===3){p.complete=true;p.finishedAt=new Date().toISOString();save();
   var parts=defs[role].steps.map(function(x){return [x.title,p.answers[x.key]||""];});
-  upsert({id:"project-"+role,kind:"project",role:role,title:defs[role].title,sections:parts,date:p.finishedAt});
+  upsert({id:newSampleId("project",role),kind:"project",role:role,title:defs[role].title,sections:parts,date:p.finishedAt});
   markToday();projectFinished(role);return;
  }
  p.step=step+1;save();projectView(role);
 }
 function upsert(s){
- st.samples=st.samples.filter(function(x){return x.id!==s.id;});
- st.samples.push(s);save();
+ if(!st.samples.some(function(item){return item.id===s.id;}))st.samples.push(s);
+ save();
 }
 function projectFinished(role){
  var p=st.projects[role],name=names[role];
- var body='<section class="nf-celebrate"><img src="'+images.mentor+'" alt="" loading="lazy"><span class="nf-label">PROJECT COMPLETE</span><h2>Project added to your portfolio.</h2><p>Your '+esc(name)+' work sample is now in your portfolio. Review your answers and download your work sample.</p><div class="nf-actions">'+button("Open my portfolio","portfolio","nf-btn nf-primary")+button("Explore another role","browse","nf-btn nf-secondary")+'</div></section><section class="nf-section"><h2>Your project</h2>'+defs[role].steps.map(function(t){return '<div class="nf-workrow"><b>'+esc(t.title)+'</b><p>'+paragraphs(p.answers[t.key]||"")+'</p></div>';}).join("")+'</section>';
+ var body='<section class="nf-celebrate"><img src="'+images.mentor+'" alt="" loading="lazy"><span class="nf-label">PROJECT COMPLETE</span><h2>Project added to your portfolio.</h2><p>Your '+esc(name)+' work sample is now in your portfolio. Review your answers and download your work sample.</p><div class="nf-actions">'+button("Open my portfolio","portfolio","nf-btn nf-primary")+button("Start another project","project-restart","nf-btn nf-secondary",'data-role="'+role+'"')+button("Explore another role","browse","nf-linkbtn")+'</div></section><section class="nf-section"><h2>Your project</h2>'+defs[role].steps.map(function(t){return '<div class="nf-workrow"><b>'+esc(t.title)+'</b><p>'+paragraphs(p.answers[t.key]||"")+'</p></div>';}).join("")+'</section>';
  layout("Project complete","Your artifact is saved on this device.",body,"portfolio");
 }
 function detail(id){
@@ -188,6 +192,15 @@ function detail(id){
  var rows=(sample.sections||[]).map(function(p){return '<div class="nf-workrow"><h3>'+esc(p[0])+'</h3><p>'+paragraphs(p[1])+'</p></div>';}).join("");
  var body='<div class="nf-detail-banner">'+art(sample.role)+'<div><span class="nf-label">'+(sample.kind==="project"?"GUIDED PROJECT":"CAREER TRY-OUT")+'</span><h2>'+esc(sample.title)+'</h2><p>'+names[sample.role]+' · '+niceDate(sample.date)+'</p><div class="nf-actions">'+button("Download work sample","download-sample","nf-btn nf-primary",'data-id="'+esc(sample.id)+'"')+button("Copy text","copy-sample","nf-btn nf-secondary",'data-id="'+esc(sample.id)+'"')+button("Share","share-sample","nf-btn nf-secondary",'data-id="'+esc(sample.id)+'"')+'</div><p id="nf-copy-status" class="nf-small" role="status"></p></div></div><div class="nf-doc">'+rows+'</div><p class="nf-small">Practice scenario, not professional certification or a real client deliverable.</p>';
  layout("Work sample","Review what you produced and export it for your records.",body,"portfolio");
+}
+function resultView(id){
+ var sample=st.samples.find(function(item){return item.id===id;});
+ if(!sample){portfolio();return;}
+ var answers=(sample.sections||[]).map(function(entry){
+   return '<div class="nf-workrow"><h3>'+esc(entry[0])+'</h3><p>'+paragraphs(entry[1])+'</p></div>';
+ }).join("");
+ var body='<section class="nf-celebrate nf-first-result"><img src="'+images[sample.role]+'" alt="" loading="lazy"><span class="nf-label">TRY-OUT COMPLETE</span><h2>Your work sample is ready.</h2><p>You made decisions in a fictional '+esc(names[sample.role])+' assignment. Review your work before deciding whether to continue.</p><div class="nf-actions">'+button("Download my work","download-sample","nf-btn nf-primary",'data-id="'+esc(sample.id)+'"')+button("Continue learning","continue-after-result","nf-btn nf-secondary",'data-role="'+sample.role+'"')+'</div><p class="nf-small">Creating a local learning profile is optional. Your result can be downloaded now.</p></section><section class="nf-section nf-result-answers"><h2>Your decisions</h2>'+answers+'</section>';
+ layout("Your first result","Work sample · "+esc(names[sample.role]),body,"portfolio");
 }
 function finishTryout(role,sim){
  role=safeRole(role);
@@ -201,9 +214,9 @@ function finishTryout(role,sim){
   sections=[["Selected backlog items",(p.selection||[]).join(", ")||"Not selected"],["Held items",all.filter(function(i){return (p.selection||[]).indexOf(i)<0;}).join(", ")],["Reasoning",p.reason||"Not recorded"]];
  }
  st.done[role]=true;st.preferred=role;markToday();
- upsert({id:"tryout-"+role,kind:"tryout",role:role,title:names[role]+" — first assignment",sections:sections,date:new Date().toISOString()});
- // Return to the learning flow rather than throwing away the completed session.
- if(st.profile){dashboard();}else onboarding(role);
+ var result={id:newSampleId("tryout",role),kind:"tryout",role:role,title:names[role]+" — first assignment",sections:sections,date:new Date().toISOString()};
+ upsert(result);
+ go("result",result.id);
 }
 function augmentLanding(root){
  if(!root)return;
@@ -248,6 +261,7 @@ function go(page,arg,skipHash){
   case "onboarding":onboarding(arg);break;
   case "project":projectView(arg||st.preferred);break;
   case "sample":detail(arg);break;
+  case "result":resultView(arg);break;
   case "project-finished":projectFinished(arg||st.preferred);break;
   case "reset":resetConfirm();break;
   default:dash();
@@ -266,6 +280,8 @@ document.addEventListener("click",function(event){
   case "reset-confirmed":{localStorage.removeItem(STORAGE);localStorage.removeItem(SIM_KEY);location.replace(location.pathname+location.search);break;}
   case "tryout":st.preferred=safeRole(role);save();history.replaceState(null,"",location.pathname+location.search);window.NEWRO.start(st.preferred);break;
   case "project":go("project",role);break;
+  case "project-restart":{st.projects[safeRole(role)]={step:0,answers:{},complete:false,review:""};save();go("project",role);break;}
+  case "continue-after-result":{st.preferred=safeRole(role);save();if(st.profile)go("dashboard");else go("onboarding",role);break;}
   case "project-next":projectNext("next");break;case "project-back":projectNext("back");break;case "project-review":projectNext("review");break;
   case "sample":go("sample",btn.dataset.id);break;
   case "download-sample":{var sample=st.samples.find(function(s){return s.id===btn.dataset.id;});if(sample)download("newro-"+sample.id+".txt",sampleText(sample));break;}
@@ -278,6 +294,10 @@ document.addEventListener("input",function(e){
  if(e.target.id!=="nf-project-answer")return;
  var p=st.projects[st.preferred],task=defs[st.preferred].steps[p.step||0];
  p.answers[task.key]=e.target.value;save();
+ var savedIndicator=document.getElementById("nf-save-state");
+ if(savedIndicator)savedIndicator.textContent=storageAvailable?"Changes saved in this browser":"Unable to save on this device. Keep a copy of your work.";
+ var invalid=document.getElementById("nf-project-error");
+ if(invalid){invalid.hidden=true;invalid.textContent="";}
  var c=document.getElementById("nf-count");if(c)c.textContent=e.target.value.trim().length+" characters";
  e.target.removeAttribute("aria-invalid");
 });
@@ -292,7 +312,7 @@ document.addEventListener("submit",function(e){
  else dash();
 });
 function restoreLocation(){
- var route=location.hash.match(/^#\/(dashboard|paths|portfolio|profile|project|sample|onboarding|project-finished)(?:\/([a-z0-9-]+))?$/);
+ var route=location.hash.match(/^#\/(dashboard|paths|portfolio|profile|project|sample|result|onboarding|project-finished)(?:\/([a-z0-9-]+))?$/);
  if(route)go(route[1],route[2]?decodeURIComponent(route[2]):null,true);
 }
 window.addEventListener("hashchange",restoreLocation);
