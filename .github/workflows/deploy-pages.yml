@@ -51,9 +51,11 @@ jobs:
           assert(html.includes('newro-polish.css'), 'Anti-slop design refinements missing');
           assert(html.includes('newro-premium.css'), 'Premium UI CSS missing');
           assert(html.includes('newro-premium.js'), 'Interactive UI JS missing');
-          const inline = Array.from(html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)).map(m => m[1]);
+          assert(html.includes('newro-responsive.css'), 'Responsive accessibility CSS missing');
+          assert(html.includes('application/ld+json'), 'Structured product description missing');
+          const inline = Array.from(html.matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/g)).filter(m => !m[1].includes('application/ld+json')).map(m => m[2]);
           inline.forEach(src => new Function(src));
-          ['docs/index.html', 'docs/assets/newro-experience.js', 'docs/assets/newro-swarm.js', 'docs/assets/newro-course.js', 'docs/assets/newro-course.css', 'docs/assets/newro-flow.js', 'docs/assets/newro-flow.css', 'docs/assets/newro-mobile.js', 'docs/assets/newro-polish.css', 'docs/assets/newro-premium.js', 'docs/assets/newro-premium.css', 'docs/assets/illustrations/marketing-illustration.svg', 'docs/assets/illustrations/product-illustration.svg', 'docs/assets/illustrations/mentor-illustration.svg', 'docs/assets/newro-experience.css', 'docs/manifest.webmanifest', 'docs/sw.js'].forEach(f => assert(fs.statSync(f).size > 0, f + ' is empty'));
+          ['docs/index.html', 'docs/assets/newro-experience.js', 'docs/assets/newro-swarm.js', 'docs/assets/newro-course.js', 'docs/assets/newro-course.css', 'docs/assets/newro-flow.js', 'docs/assets/newro-flow.css', 'docs/assets/newro-mobile.js', 'docs/assets/newro-polish.css', 'docs/assets/newro-premium.js', 'docs/assets/newro-premium.css', 'docs/assets/newro-responsive.css', 'docs/evaluation.json', 'docs/EVALUATION_EVIDENCE.md', 'docs/assets/illustrations/marketing-illustration.svg', 'docs/assets/illustrations/product-illustration.svg', 'docs/assets/illustrations/mentor-illustration.svg', 'docs/assets/newro-experience.css', 'docs/manifest.webmanifest', 'docs/sw.js'].forEach(f => assert(fs.statSync(f).size > 0, f + ' is empty'));
           console.log('NEWRO markup and JavaScript syntax validated');
           NODE
       - name: Configure GitHub Pages
