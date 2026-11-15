@@ -210,7 +210,7 @@ function finishTryout(role,sim){
  var sections=[];
  if(role==="marketing"){
   var m=sim.marketing||{};
-  sections=[["Audience",({trials:"People managing trial renewals",investors:"Individual investors",students:"Students seeking discounts"})[m.audience]||"Not selected"],["Headline",m.headline||"Not recorded"],["Experiment",[(m.channel||"No channel"),(m.metric||"No metric")].join(" · ")],["Reasoning",m.reason||"Not recorded"]];
+  sections=[["Audience",({trials:"People managing trial renewals",investors:"Individual investors",students:"Students seeking discounts"})[m.audience]||"Not selected"],["Headline",m.headline||"Not recorded"],["Creative",window.NEWROScenes?window.NEWROScenes.creativeName(m.creative):(m.creative||"Not recorded")],["Experiment",[(m.channel||"No channel"),(m.metric||"No metric")].join(" · ")],["Reasoning",m.reason||"Not recorded"]];
  }else{
   var p=sim.pm||{};
   var all=["login","reminders","onboarding","household","dark","csv","referral"];
