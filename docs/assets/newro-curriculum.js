@@ -61,5 +61,6 @@ function render(role,esc,button,completed){
  '<details class="nr-shared-core"><summary>What you will learn · AI skills foundations</summary><ul>'+core.map(function(x){return "<li>"+esc(x)+"</li>"}).join("")+'</ul></details>'+
  '<p class="nr-program-notice">Premium stages are a product preview, not published lessons. Plans and checkout are demonstration only.</p></section>';
 }
+document.addEventListener("click",function(event){var target=event.target.closest('[data-flow-action="free-marketing-tryout"]');if(!target)return;event.preventDefault();if(window.NEWROFlow){history.replaceState(null,"",location.pathname+location.search);window.NEWRO.start("marketing");}});
 window.NEWROCurriculum={render:render,tracks:tracks,core:core,source:"Newro Business Cup research, revised 2026-11-15"};
 })();
