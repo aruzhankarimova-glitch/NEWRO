@@ -29,7 +29,11 @@ async function tryout(page, role) {
     await next(page);
     await choose(page,'Small paid social test');
     await choose(page,'Landing-page signup rate');
+    await page.locator('.nr-ad-card[data-choice-id="story"]').click();
+    assert.equal(await page.locator('.nr-ad-card[aria-pressed="true"]').count(),1,'Exactly one creative is selected');
     await next(page);
+    await page.locator('.nr-test-results').waitFor();
+    assert.match(await page.locator('.nr-test-results').innerText(),/invented for learning/);
     await page.locator('#field-reason').fill('I would check whether the landing page matches the ad, then adjust the audience or message before raising the budget.');
     await next(page); await next(page);
   } else {
