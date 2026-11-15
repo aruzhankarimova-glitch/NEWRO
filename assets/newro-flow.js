@@ -108,7 +108,7 @@ function dash(){
  layout("My learning","Your practice track: "+names[role]+".",body,"dashboard");
 }
 function sampleCard(s){
- return '<article class="nf-sample"><span class="nf-sample-art">'+art(s.role)+'</span><div class="nf-sample-body"><span class="nf-label">'+(s.kind==="tryout"?"CAREER TRY-OUT":s.kind==="lesson"?"FREE LESSON":"GUIDED PROJECT")+' · '+niceDate(s.date)+'</span><h3>'+esc(s.title)+'</h3><p>'+names[s.role]+'</p>'+button("Open work sample →","sample","nf-linkbtn",'data-id="'+esc(s.id)+'"')+'</div></article>';
+ return '<article class="nf-sample"><span class="nf-sample-art">'+art(s.role)+'</span><div class="nf-sample-body"><span class="nf-label">'+(s.kind==="tryout"?"CAREER TRY-OUT":s.kind==="lesson"?"FREE LESSON":"GUIDED PROJECT")+' · '+niceDate(s.date)+'</span><h3>'+esc(s.title)+'</h3><p>'+names[s.role]+'</p>'+button("Open work sample →","sample","nf-linkbtn",'data-id="'+esc(s.id)+'"')+button(s.featured?"Remove from portfolio":"Add to portfolio","toggle-feature","nf-btn nf-secondary nr-feature-button",'data-id="'+esc(s.id)+'"')+'</div></article>';
 }
 function paths(){
  var cards=Object.keys(names).map(function(role){
@@ -118,9 +118,11 @@ function paths(){
  layout("Explore career paths","Try the role first. Then build a guided work sample.",'<div class="nf-trackgrid">'+cards+'</div>'+curriculumPreview("pm")+curriculumPreview("marketing")+'<section class="nf-notice"><img src="'+images.mentor+'" alt="" loading="lazy"><div><b>Start with a try-out. Continue with a project.</b><p>Try either role for free. Continue with a guided project and keep the work you create.</p></div></section>',"paths");
 }
 function portfolio(){
- var done=st.samples.slice().reverse();
- var body='<section class="nf-portfolio-banner"><div><span class="nf-label">YOUR WORK / SAVED LOCALLY</span><h2>Your completed work.</h2><p>These work samples are saved locally in your browser. Export them to keep a copy.</p></div><img src="'+images.mentor+'" alt="" loading="lazy"></section><div class="nf-section-head"><h2>'+done.length+' work sample'+(done.length===1?"":"s")+'</h2>'+button("Export all data","export","nf-linkbtn")+'</div><div class="nf-workgrid">'+(done.length?done.map(sampleCard).join(""):'<div class="nf-empty"><img src="'+images.marketing+'" alt="" loading="lazy"><h3>Nothing saved yet.</h3><p>Try a career to create your first artifact.</p>'+button("Explore careers","browse","nf-btn nf-primary")+'</div>')+'</div>';
- layout("My portfolio","Work samples from your career exercises and projects.",body,"portfolio");
+ var all=st.samples.slice().reverse(),featured=all.filter(function(s){return s.featured===true;}),practice=all.filter(function(s){return s.featured!==true;});
+ var body='<section class="nf-portfolio-banner"><div><span class="nf-label">YOUR WORK / YOUR CHOICE</span><h2>Choose what represents you.</h2><p>Every attempt stays in practice history. Feature only the work you want to showcase.</p></div><img src="'+images.mentor+'" alt="" loading="lazy"></section>'+
+ '<section class="nf-section"><div class="nf-section-head"><h2>Featured portfolio · '+featured.length+'</h2>'+button("Export all data","export","nf-linkbtn")+'</div><div class="nf-workgrid">'+(featured.length?featured.map(sampleCard).join(""):'<div class="nf-empty nr-curation-empty"><h3>Nothing featured yet.</h3><p>Use <b>Add to portfolio</b> on any saved work sample.</p></div>')+'</div></section>'+
+ '<section class="nf-section"><div class="nf-section-head"><h2>Practice history · '+practice.length+'</h2><span class="nf-small">Stored on this device</span></div><div class="nf-workgrid">'+(practice.length?practice.map(sampleCard).join(""):'<div class="nf-empty"><h3>No unfeatured attempts.</h3><p>When you save work, it will appear here first.</p></div>')+'</div></section>';
+ layout("My work","Keep every practice attempt. Share only your strongest work.",body,"portfolio");
 }
 function profile(){
  if(!st.profile){onboarding(st.preferred);return;}
@@ -179,12 +181,12 @@ function projectNext(nextAction){
  p.step=step+1;save();projectView(role);
 }
 function upsert(s){
- if(!st.samples.some(function(item){return item.id===s.id;}))st.samples.push(s);
+ if(!st.samples.some(function(item){return item.id===s.id;})){s.featured=s.featured===true;st.samples.push(s);}
  save();
 }
 function projectFinished(role){
  var p=st.projects[role],name=names[role];
- var body='<section class="nf-celebrate"><img src="'+images.mentor+'" alt="" loading="lazy"><span class="nf-label">PROJECT COMPLETE</span><h2>Project added to your portfolio.</h2><p>Your '+esc(name)+' work sample is now in your portfolio. Review your answers and download your work sample.</p><div class="nf-actions">'+button("Open my portfolio","portfolio","nf-btn nf-primary")+button("Start another project","project-restart","nf-btn nf-secondary",'data-role="'+role+'"')+button("Explore another role","browse","nf-linkbtn")+'</div></section><section class="nf-section"><h2>Your project</h2>'+defs[role].steps.map(function(t){return '<div class="nf-workrow"><b>'+esc(t.title)+'</b><p>'+paragraphs(p.answers[t.key]||"")+'</p></div>';}).join("")+'</section>';
+ var body='<section class="nf-celebrate"><img src="'+images.mentor+'" alt="" loading="lazy"><span class="nf-label">PROJECT COMPLETE</span><h2>Project saved to your work library.</h2><p>Your '+esc(name)+' work sample is now in practice history. Review your answers and download your work sample.</p><div class="nf-actions">'+button("Open my portfolio","portfolio","nf-btn nf-primary")+button("Start another project","project-restart","nf-btn nf-secondary",'data-role="'+role+'"')+button("Explore another role","browse","nf-linkbtn")+'</div></section><section class="nf-section"><h2>Your project</h2>'+defs[role].steps.map(function(t){return '<div class="nf-workrow"><b>'+esc(t.title)+'</b><p>'+paragraphs(p.answers[t.key]||"")+'</p></div>';}).join("")+'</section>';
  layout("Project complete","Your artifact is saved on this device.",body,"portfolio");
 }
 function detail(id){
@@ -285,6 +287,15 @@ document.addEventListener("click",function(event){
   case "continue-after-result":{st.preferred=safeRole(role);save();if(st.profile)go("dashboard");else go("onboarding",role);break;}
   case "project-next":projectNext("next");break;case "project-back":projectNext("back");break;case "project-review":projectNext("review");break;
   case "sample":go("sample",btn.dataset.id);break;
+  case "toggle-feature":{
+    var item=st.samples.find(function(s){return s.id===btn.dataset.id;});
+    if(item){item.featured=!item.featured;save();
+       if(location.hash.indexOf("#/sample/")===0)go("sample",item.id);
+       else if(location.hash.indexOf("#/result/")===0)go("result",item.id);
+       else go("portfolio");
+    }
+    break;
+  }
   case "download-sample":{var sample=st.samples.find(function(s){return s.id===btn.dataset.id;});if(sample)download("newro-"+sample.id+".txt",sampleText(sample));break;}
   case "share-sample":{var item=st.samples.find(function(s){return s.id===btn.dataset.id;});if(item&&window.NEWROMobile)window.NEWROMobile.shareSample(item);break;}
   case "copy-sample":{var sample=st.samples.find(function(s){return s.id===btn.dataset.id;});if(sample&&navigator.clipboard){navigator.clipboard.writeText(sampleText(sample)).then(function(){var el=document.getElementById("nf-copy-status");if(el)el.textContent="Copied!";}).catch(function(){var el=document.getElementById("nf-copy-status");if(el)el.textContent="Copy not available. Use Download instead.";});}break;}
