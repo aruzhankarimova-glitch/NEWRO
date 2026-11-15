@@ -54,7 +54,7 @@ function render(role,esc,button,completed){
  return '<section class="nr-syllabus nf-section" aria-labelledby="'+id+'">'+
  '<header class="nr-syllabus-heading"><div><span class="nf-label">'+(pm?"AI PRODUCT MANAGER":"AI MARKETER")+' / LEARNING PATH</span>'+
  '<h2 id="'+id+'">Your next career steps</h2><p>'+t.subtitle+'</p>'+
- '<p>One free introduction. Continue through the locked premium journey when more lessons become available.</p></div>'+
+ '<p>One free introduction. The remaining lessons are planned and not yet available.</p></div>'+
  '<span class="nr-syllabus-status">'+(completed?"Free part completed":"Free part available")+'</span></header>'+
  '<p class="nr-journey-hint">'+(completed?"You have finished the free lesson. The next stages are locked.":"Start with the free part. The next steps are locked.")+' Select any locked step to explore subscription options. Scroll sideways to see the full path.</p>'+
  journey+

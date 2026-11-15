@@ -26,8 +26,8 @@ function home(meta,root){
     '<main><div class="nl-wrap"><section class="cs-hero" aria-label="Explore careers">' +
       '<div class="cs-hero-text">' +
         '<p class="cs-eyebrow" data-build="eyebrow"><span class="cs-eyebrow-dot"></span>FOR CAREER CHANGERS IN THE AGE OF AI</p>' +
-        '<h1 class="cs-title" data-build="heading">Upgrade your career by <em>trying the real work first.</em></h1>' +
-        '<p class="cs-lede" data-build="description">Try the role. Learn from your decisions. Leave with work for your portfolio — starting with a free 10-minute simulation.</p>' +
+        '<h1 class="cs-title" data-build="heading">Try the work <em>before choosing a career.</em></h1>' +
+        '<p class="cs-lede" data-build="description">Try a short task from product management or marketing. Make a few decisions and save your work. No signup required.</p>' +
         '<div class="cs-hero-buttons" data-build="actions"><button class="nl-bigcta" type="button" data-scroll="careers">Start free simulation<span class="cs-button-arrow">↗</span></button><button class="cs-linkbtn" type="button" data-scroll="how">How it works ↘</button></div>' +
         '<div class="cs-chips" data-build="proof"><span class="cs-chip">About 10 minutes · No signup · Keep your work</span></div>' +
         '<div class="nc-invite"><button type="button" data-share-challenge>↗ Invite a friend to try</button><span data-share-status role="status" aria-live="polite"></span><label data-share-fallback hidden>Share this link<input data-share-link readonly aria-label="Shareable NEWRO link"></label></div>' +

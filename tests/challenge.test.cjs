@@ -61,12 +61,19 @@ test('share falls back to a selectable clean link when sharing is unavailable',a
 test('reference landing retains working career links and honest product availability',()=>{
   const fs=require('node:fs');
   const source=fs.readFileSync('assets/newro-landing-reference.js','utf8');
-  for(const phrase of ['WHY CAREER CHANGERS CHOOSE NEWRO','Frequently asked questions','planned','data-flow-go']) assert.ok(source.includes(phrase),phrase);
-  assert.ok(source.includes('Someone using AI will'));
+  for(const phrase of ['WHAT YOU CAN DO','Frequently asked questions','planned','data-flow-go']) assert.ok(source.includes(phrase),phrase);
+  assert.ok(!source.includes('Someone using AI will'));
 });
 
 test('the product preview counts selected work against the 24-hour release budget',()=>{
   assert.equal(challenge.totalHours(['login','reminders']),12);
   assert.equal(challenge.totalHours(['login','reminders','household']),28);
   assert.equal(challenge.totalHours([]),0);
+});
+
+test('landing copy avoids em dashes and unsupported career promises',()=>{
+  const fs=require('node:fs');
+  const copy=fs.readFileSync('assets/newro-landing-reference.js','utf8')+fs.readFileSync('assets/newro-course.js','utf8').replace(/\/\*[\s\S]*?\*\//g,'');
+  assert.ok(!copy.includes('—'),'Landing copy has no em dash');
+  assert.ok(!copy.includes('Someone using AI will'),'No unsupported job replacement claim');
 });

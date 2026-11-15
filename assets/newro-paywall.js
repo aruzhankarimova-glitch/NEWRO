@@ -4,7 +4,7 @@ var selected=null,origin=null;
 var offers=[
  {id:"monthly",name:"Explorer",price:"$19",period:"/ month",description:"Explore learning paths at your pace",points:["Premium learning path preview","Practice scenarios","Portfolio exercises"]},
  {id:"bundle",name:"Career Sprint",price:"$39",period:"/ 3 shifts",description:"Go deeper into one career",points:["Three connected practice shifts","Feedback on key decisions","Replay important scenarios"]},
- {id:"annual",name:"Unlimited",price:"$99",period:"/ year",description:"A longer practice journey",points:["All premium learning paths (planned)","Practice across roles","Progress and portfolio"]}
+ {id:"annual",name:"Unlimited",price:"$99",period:"/ year",description:"More time to practice",points:["All premium learning paths (planned)","Practice across roles","Progress and portfolio"]}
 ];
 function escapeHtml(v){return String(v||"").replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
 function dialog(content){var d=document.getElementById("nr-paywall");if(!d){d=document.createElement("div");d.id="nr-paywall";document.body.appendChild(d)}d.innerHTML='<div class="nr-paywall-backdrop" data-nr-close></div><section class="nr-paywall-dialog" role="dialog" aria-modal="true" aria-label="NEWRO pricing"><button type="button" class="nr-paywall-close" data-nr-close aria-label="Close pricing">×</button>'+content+'</section>';document.body.classList.add("nr-paywall-open");(d.querySelector("button")||d).focus()}
