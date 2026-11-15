@@ -8,7 +8,7 @@ Gate: PRODUCT.md has no blocking open questions for this surface (audience state
 
 ## 2. Three directions
 Each direction: name, one-sentence idea, palette logic, type pairing, layout posture, motion posture, what the first screen looks like, why it fits this audience, one honest risk, one anti-reference. They must differ in structure and mood, not just hue. Neither purple-blue gradients nor indigo+clay defaults count as a direction.
-Gate: Aruzhan picks one (or a blend, stated explicitly). Log the pick in `docs/decisions.md`.
+Gate: Aruzhan picks one (or a blend, stated explicitly). Log the pick in `project-notes/decisions.md`.
 
 ## 3. Lock the system
 Decide: type scale and two families at most, color tokens (neutral ramp tinted toward the brand hue, one accent, semantic colors), 4px spacing scale, grid and container widths, radius by element size, elevation (hairline + soft shadow), motion tokens (durations, one easing), component list with states.
@@ -23,8 +23,8 @@ Real routes, real state, forms that submit (or are honestly marked as stubbed), 
 Gate: the flow works end to end with realistic data. No lorem ipsum, no fake metrics.
 
 ## 6. Anti-slop and craft audit
-Run in order: `docs/anti-slop-checklist.md` -> unslop signs -> Impeccable `audit` and `critique` -> `node ~/.claude/skills/hallmark/scripts/sloplint.mjs <path> --render` -> Vercel web-design-guidelines -> Emil review table.
-Gate: every FAIL fixed; every waiver recorded in `docs/decisions.md` with a real reason.
+Run in order: `project-notes/anti-slop-checklist.md` -> unslop signs -> Impeccable `audit` and `critique` -> `node ~/.claude/skills/hallmark/scripts/sloplint.mjs <path> --render` -> Vercel web-design-guidelines -> Emil review table.
+Gate: every FAIL fixed; every waiver recorded in `project-notes/decisions.md` with a real reason.
 
 ## 7. Responsive, keyboard, contrast, states, scenarios
 - `node scripts/shoot.mjs <url> --out shots` at 390, 768, 1280, 1440 (full-page screenshots, horizontal overflow check, console errors).

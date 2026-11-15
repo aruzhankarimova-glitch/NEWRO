@@ -13,7 +13,7 @@ NEWRO lets a user test a career through a fictional assignment, receive determin
 - `scripts/hackathon-smoke.cjs`: cursor animation exit, mobile haptic opt-out and feature fallback, native Share.
 - `scripts/premium-smoke.cjs`: task preview selections, navigation and layout tests.
 - `docs/assets/newro-responsive.css`: corrected mobile task controls, intermediate layout and contrast.
-- `docs/HACKATHON_AUDIT.md`: product and competition scope.
+- `project-notes/HACKATHON_AUDIT.md`: product and competition scope.
 
 The test runner publishes screenshots under the `newro-ux-screenshots` artifact of the relevant GitHub Actions run. Check the current commit's run status; passing code assertions do **not** substitute for testing a physical phone or with a screen reader.
 
