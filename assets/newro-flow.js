@@ -115,7 +115,7 @@ function paths(){
   var d=defs[role],n=stepsDone(role),pct=n/2*100;
   return '<article class="nf-track"><div class="nf-track-art nf-track-'+role+'">'+art(role)+'</div><div class="nf-track-copy"><div class="nf-same"><span class="nf-label">CAREER EXPLORATION</span><span class="nf-pill">'+n+'/2 milestones</span></div><h2>'+names[role]+'</h2><p>'+esc(d.description)+'</p><div class="nf-trackbar"><i style="width:'+pct+'%"></i></div><div class="nf-actions">'+button(st.done[role]?"Replay try-out":"Start free try-out","tryout","nf-btn nf-secondary",'data-role="'+role+'"')+button(st.done[role]?(st.projects[role].complete?"Review project":"🔒 View plans"):"See learning plan","project","nf-btn nf-primary",'data-role="'+role+'"')+'</div></div></article>';
  }).join("");
- layout("Explore career paths","Try the role first. Then build a guided work sample.",'<div class="nf-trackgrid">'+cards+'</div>'+curriculumPreview("pm")+curriculumPreview("marketing")+'<section class="nf-notice"><img src="'+images.mentor+'" alt="" loading="lazy"><div><b>Start with a try-out. Continue with a project.</b><p>Try either role for free. Continue with a guided project and keep the work you create.</p></div></section>',"paths");
+ layout("Explore career paths","Try a role and save your work sample.",'<div class="nf-trackgrid">'+cards+'</div>'+curriculumPreview("pm")+curriculumPreview("marketing")+'<section class="nf-notice"><img src="'+images.mentor+'" alt="" loading="lazy"><div><b>Start with a free try-out.</b><p>Try either role for free and keep the work you create. Guided projects are not yet available.</p></div></section>',"paths");
 }
 function portfolio(){
  var all=st.samples.slice().reverse(),featured=all.filter(function(s){return s.featured===true;}),practice=all.filter(function(s){return s.featured!==true;});
@@ -237,7 +237,7 @@ function augmentLanding(root){
  if(dock){var buttons=dock.querySelectorAll("button");if(buttons[2]){buttons[2].disabled=false;buttons[2].removeAttribute("data-resume");buttons[2].removeAttribute("aria-label");buttons[2].innerHTML=icon("home")+"My learning";buttons[2].dataset.flowGo="dashboard";}}
  var role=root.querySelector("#careers");
  if(role){
-  var section=document.createElement("section");section.className="nf-landing-bridge";section.innerHTML='<div><span class="nf-label">WHAT HAPPENS AFTER THE TRY-OUT?</span><h2>Build a complete brief.</h2><p>Finish a short try-out, move into a guided project, then save the work in your portfolio.</p>'+button("Open my learning space ↗","dashboard","nf-btn nf-secondary")+'</div><img src="'+images.mentor+'" alt="" loading="lazy">';
+  var section=document.createElement("section");section.className="nf-landing-bridge";section.innerHTML='<div><span class="nf-label">WHAT HAPPENS AFTER THE TRY-OUT?</span><h2>Build a complete brief.</h2><p>Finish a free try-out and save your work. Guided projects are a preview and are not yet available.</p>'+button("Open my learning space ↗","dashboard","nf-btn nf-secondary")+'</div><img src="'+images.mentor+'" alt="" loading="lazy">';
   role.after(section);
   var media=document.createElement("img");media.src="./assets/newro-career-loop.gif";media.alt="Animated NEWRO career simulation on a phone";media.loading="lazy";media.className="nr-career-loop";media.onerror=function(){this.remove()};section.appendChild(media);
  }
@@ -247,7 +247,7 @@ function enhanceResult(role){
  if(!main)return;
  var submit=document.getElementById("next");
  if(submit)submit.textContent="Save work & continue →";
- var hint=document.createElement("div");hint.className="nf-result-hint";hint.innerHTML='<img src="'+images.mentor+'" alt=""><div><b>What comes after this?</b><p>Save this sample to your portfolio and unlock your first guided project. Your work stays on this device.</p></div>';
+ var hint=document.createElement("div");hint.className="nf-result-hint";hint.innerHTML='<img src="'+images.mentor+'" alt=""><div><b>What comes after this?</b><p>Save this sample on your device. Guided projects are not yet available.</p></div>';
  main.appendChild(hint);
 }
 function exportData(){download("newro-learning-data.json",JSON.stringify(st,null,2),"application/json;charset=utf-8");}
@@ -334,6 +334,7 @@ var previousHome=window.NEWROHome;
 window.NEWROHome=function(meta,target){
  if(previousHome)previousHome(meta,target);
  augmentLanding(target);
+ if(window.NEWROReference)window.NEWROReference.mount(target);
  if(window.NEWROPremium)window.NEWROPremium.home(target.querySelector(".cs-shell"));
 };
 window.NEWROFlow={

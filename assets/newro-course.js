@@ -25,11 +25,12 @@ function home(meta,root){
     '</div></header>' +
     '<main><div class="nl-wrap"><section class="cs-hero" aria-label="Explore careers">' +
       '<div class="cs-hero-text">' +
-        '<p class="cs-eyebrow" data-build="eyebrow"><span class="cs-eyebrow-dot"></span>CAREER TEST / SKILLS</p>' +
-        '<h1 class="cs-title" data-build="heading">Try the job <em>before you retrain.</em></h1>' +
-        '<p class="cs-lede" data-build="description">Thinking about changing careers? Spend ten minutes on a realistic assignment. See your decisions, save the result and decide what to explore next.</p>' +
-        '<div class="cs-hero-buttons" data-build="actions"><button class="nl-bigcta" type="button" onclick="NEWRO.start(\'marketing\')">Try AI marketing · 10 min<span class="cs-button-arrow">↗</span></button><button class="cs-linkbtn" type="button" data-scroll="how">What will I do? ↘</button></div>' +
+        '<p class="cs-eyebrow" data-build="eyebrow"><span class="cs-eyebrow-dot"></span>FOR CAREER CHANGERS IN THE AGE OF AI</p>' +
+        '<h1 class="cs-title" data-build="heading">Upgrade your career by <em>trying the real work first.</em></h1>' +
+        '<p class="cs-lede" data-build="description">Try the role. Learn from your decisions. Leave with work for your portfolio — starting with a free career simulation.</p>' +
+        '<div class="cs-hero-buttons" data-build="actions"><button class="nl-bigcta" type="button" data-scroll="careers">Start free simulation<span class="cs-button-arrow">↗</span></button><button class="cs-linkbtn" type="button" data-scroll="how">How it works ↘</button></div>' +
         '<div class="cs-chips" data-build="proof"><span class="cs-chip">No payment</span><span class="cs-chip">Keep your work sample</span></div>' +
+        '<div class="nc-invite"><button type="button" data-share-challenge>↗ Invite a friend to try</button><span data-share-status role="status" aria-live="polite"></span><label data-share-fallback hidden>Share this link<input data-share-link readonly aria-label="Shareable NEWRO link"></label></div>' +
         (saved?'<div class="cs-resume" data-build="saved"><div><b>Welcome back</b><small>'+text(role)+' · your progress is saved</small></div><button type="button" data-resume>Resume →</button></div>':'') +
       '</div>' +
       '<div class="nl-stage cs-stage" data-build="stage">' +
@@ -37,7 +38,8 @@ function home(meta,root){
         '<div class="cs-stage-top"><span class="cs-stage-live">INTERACTIVE PREVIEW</span><button class="cs-replay" type="button" data-replay>↺ Replay</button></div>' +
         '<div class="cs-card-device">' +
 
-          '<p class="cs-phone-head" data-build="board-eyebrow">CLIENT: HARBOR</p>' +
+          '<p class="cs-phone-head" data-build="board-eyebrow">PICK A ROLE · MAKE A CALL</p>' +
+          '<div class="nc-role-switch" role="group" aria-label="Choose a career preview"><button type="button" data-preview-role="marketing" aria-pressed="false">Marketing</button><button type="button" data-preview-role="pm" aria-pressed="true">Product</button></div>' +
           '<h2 class="cs-phone-title" data-build="board-heading">Who would you target?</h2>' +
           '<div class="cs-phone-illus" aria-hidden="true"><span class="cs-illus-blob"></span><span class="cs-illus-person"><span class="cs-illus-head"></span><span class="cs-illus-body"></span></span><span class="cs-illus-card">✳</span></div>' +
           '<p class="cs-phone-task" data-build="board-copy">Harbor tracks subscription renewals. Which audience fits?</p>' +
@@ -54,7 +56,7 @@ function home(meta,root){
       '</div>' +
     '</section></div>' +
     '<section class="cs-role-section" id="careers"><div class="nl-wrap">' +
-      '<div class="cs-section-heading"><h2 data-build="careers-heading">Two roles. Two short assignments.</h2><p>Start with a practical decision, not another career quiz.</p></div>' +
+      '<div class="cs-section-heading"><h2 data-build="careers-heading">Choose a career. Try the work.</h2><p>Start with a free simulation and see what each role asks you to do.</p></div>' +
       '<div class="cs-roles">' +
         '<button class="cs-role" data-build="career-one" type="button" onclick="NEWRO.start(\'marketing\')">' +
           '<div class="cs-role-visual"><span class="cs-role-badge">FREE EXERCISE</span><div class="cs-role-graphic"><span class="cs-role-symbol">✳</span></div></div>' +
@@ -69,7 +71,7 @@ function home(meta,root){
     '<section class="cs-steps" id="how"><div class="nl-wrap cs-steps-grid"><h2>From one task<br>to a work sample.</h2>' +
       '<div class="cs-step"><span class="cs-step-number">01</span><h3>Read a short client brief</h3><p>See the customer problem, available evidence and constraints.</p></div>' +
       '<div class="cs-step"><span class="cs-step-number">02</span><h3>Make the trade-offs</h3><p>Choose an audience or a release scope and explain your reasoning.</p></div>' +
-      '<div class="cs-step"><span class="cs-step-number">03</span><h3>Save the decision card</h3><p>Download what you made, then start a guided follow-up project.</p></div>' +
+      '<div class="cs-step"><span class="cs-step-number">03</span><h3>Save the decision card</h3><p>Download what you made and save it on this device.</p></div>' +
     '</div></section></main>' +
     '<footer class="cs-bottom nl-wrap"><span>NEWRO · Career practice</span><span>Practice cases use sample data. Feedback is prewritten.</span></footer>' +
     '<nav class="nl-mobile-dock cs-mobile-dock" aria-label="Mobile navigation">' +

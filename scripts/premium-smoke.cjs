@@ -36,6 +36,8 @@ async function main(){
     if(d.width<=760){
       assert.equal(await page.locator(".cs-topin").evaluate(x=>getComputedStyle(x,"::after").content),"none","No duplicate pseudo-label");
     }
+    assert.match(await page.locator(".cs-phone-title").innerText(), /ship first/i, "Product preview appears first");
+    await page.locator('[data-preview-role="marketing"]').click();
     await page.locator('[data-quick-choice="stocks"]').click();
     const answer=page.locator(".nm-quick-feedback");
     assert.match(await answer.textContent(),/doesn't analyze stocks/i,"Unsupported role receives explanatory feedback");

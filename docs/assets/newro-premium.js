@@ -20,28 +20,7 @@ function home(shell){
   setupReveal(shell);
 }
 function setupQuickTask(shell){
-  var quiz=shell.querySelector(".nm-quick-choices");
-  if(!quiz)return;
-  var feedback=shell.querySelector(".nm-quick-feedback");
-  var next=shell.querySelector(".cs-phone-cta");
-  quiz.addEventListener("click",function(event){
-    var b=event.target.closest("[data-quick-choice]");
-    if(!b || !quiz.contains(b))return;
-    var right=b.dataset.quickChoice==="trials";
-    quiz.querySelectorAll("[data-quick-choice]").forEach(function(choice){
-      choice.setAttribute("aria-pressed",String(choice===b));
-      choice.classList.toggle("nm-selected",choice===b);
-    });
-    if(feedback){
-      feedback.textContent=right
-        ?"Matches the brief: Harbor tracks upcoming renewals."
-        :"Harbor doesn't analyze stocks. Try the other audience.";
-      feedback.dataset.result=right?"right":"try-again";
-      feedback.hidden=false;
-    }
-    if(next)next.textContent=right?"Continue to the full assignment →":"Open the full assignment →";
-    if(window.NEWROMobile)window.NEWROMobile.pulse(right?"success":"choice");
-  });
+  if(window.NEWROChallenge)window.NEWROChallenge.mount(shell);
 }
 function setupDepth(shell){
  if(!fine.matches||reduced())return;

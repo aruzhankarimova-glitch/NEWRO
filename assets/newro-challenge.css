@@ -1,0 +1,12 @@
+/* Compact role switch makes the first task playable without hiding the full try-outs. */
+.nc-role-switch{display:flex;gap:4px;background:#eeedfa;border-radius:12px;padding:4px;margin:10px 0 12px}
+.nc-role-switch button{flex:1;min-height:38px;border:0;border-radius:9px;background:transparent;color:#4c4965;font-size:13px;font-weight:700}
+.nc-role-switch button[aria-pressed=true]{background:#fff;color:#4135b9;box-shadow:0 1px 4px #211a3820}
+.nc-role-switch button:focus-visible,.nc-invite button:focus-visible,.nc-invite input:focus-visible{outline:3px solid #6154f5;outline-offset:3px}
+.nc-invite{margin-top:17px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;font-size:13px;color:#4c4965}
+.nc-invite button{border:0;background:transparent;color:#493dbb;font-weight:750;padding:5px 0;text-decoration:underline;text-underline-offset:4px}
+.nc-invite [data-share-status]:empty{display:none}
+.nc-invite label{flex-basis:100%;font-weight:700}
+.nc-invite label[hidden]{display:none}
+.nc-invite input{display:block;width:min(100%,380px);margin-top:6px;border:1px solid #bdb9d6;border-radius:8px;padding:10px;color:#171921;background:#fff;font-size:13px}
+@media(max-width:760px){.nc-invite{margin-top:14px}.nc-role-switch{margin:8px 0}}
