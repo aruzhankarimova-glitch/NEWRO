@@ -91,7 +91,7 @@ function home(meta,root){
   shell.querySelectorAll("[data-resume]").forEach(function(btn){btn.addEventListener("click",function(){if(window.NEWRO)window.NEWRO.resume();});});
   // A non-blocking brand loading accent; content remains usable immediately.
   if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    var loading=document.createElement("div");loading.className="nr-page-load";loading.setAttribute("aria-hidden","true");
+    var loading=document.createElement("div");loading.className="nr-page-load";loading.setAttribute("aria-hidden","true");loading.innerHTML='<span class="nr-load-chip"><i></i> PREPARING YOUR EXPERIENCE</span>';
     shell.prepend(loading);loading.addEventListener("animationend",function(){loading.remove();},{once:true});
   }
 

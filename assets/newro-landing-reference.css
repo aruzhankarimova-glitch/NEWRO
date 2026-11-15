@@ -61,3 +61,13 @@
 @media(hover:hover) and (pointer:fine){.nr-hero-roles button:hover{border-color:#6154f5;transform:translateY(-3px);box-shadow:0 12px 24px #6154f51c}}
 @media(max-width:400px){.nr-hero-roles{grid-template-columns:1fr}.nr-hero-roles button{min-height:76px}}
 @media(prefers-reduced-motion:reduce){.nr-hero-roles button{transition:none}}
+/* A brief brand-led loading cue; the interface underneath stays interactive. */
+.nr-page-load{height:0;background:transparent;transform:none;animation:nr-load-fade 1.4s ease both}
+.nr-page-load::before{content:"";position:fixed;top:0;left:0;width:100%;height:4px;background:linear-gradient(90deg,#21bb63,#6154f5,#21bb63);transform-origin:left;animation:nr-load-line 1.15s cubic-bezier(.22,.8,.27,1) both}
+.nr-load-chip{position:fixed;right:22px;top:88px;display:flex;align-items:center;gap:8px;padding:9px 13px;border:1px solid #dedbf7;border-radius:99px;background:#fff;color:#5146c8;box-shadow:0 8px 30px #30286818;font:700 10px/1.2 Inter,system-ui,sans-serif;letter-spacing:.05em;animation:nr-load-chip 1.1s ease both}
+.nr-load-chip i{width:8px;height:8px;border-radius:50%;background:#21bb63;box-shadow:0 0 0 4px #21bb6325}
+@keyframes nr-load-line{0%{transform:scaleX(0)}70%{transform:scaleX(.84)}100%{transform:scaleX(1)}}
+@keyframes nr-load-chip{0%{opacity:0;transform:translateY(-6px)}22%,75%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-4px)}}
+@keyframes nr-load-fade{0%,85%{opacity:1}100%{opacity:0}}
+@media(max-width:760px){.nr-load-chip{right:14px;top:72px;font-size:9px}}
+@media(prefers-reduced-motion:reduce){.nr-page-load,.nr-page-load::before,.nr-load-chip{animation:none;display:none}}
