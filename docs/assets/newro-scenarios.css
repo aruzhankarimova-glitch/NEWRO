@@ -50,3 +50,6 @@
  .nr-picked-tag{display:block;margin-left:0;margin-top:3px}
 }
 @media(prefers-reduced-motion:reduce){.nr-ad-card{transition:none}}
+
+.nr-ad-scrollhint{display:none}
+@media(max-width:720px){.nr-ad-scrollhint{display:block;text-align:center;font-size:11px;color:#6a5fc0;font-weight:750;margin:0 0 5px}}
