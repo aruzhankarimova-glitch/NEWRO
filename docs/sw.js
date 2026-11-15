@@ -1,5 +1,5 @@
-const CACHE = "newro-v11-clean-public-frontend-2026-11-15";
-const ASSETS = ["./", "./index.html", "./assets/newro-experience.css", "./assets/newro-experience.js", "./assets/newro-swarm.js", "./assets/newro-course.css", "./assets/newro-course.js", "./assets/newro-flow.css", "./assets/newro-flow.js", "./assets/newro-mobile.js", "./assets/newro-polish.css", "./assets/newro-premium.css", "./assets/newro-premium.js", "./assets/newro-responsive.css", "./assets/illustrations/marketing-illustration.svg", "./assets/illustrations/product-illustration.svg", "./assets/illustrations/mentor-illustration.svg", "./manifest.webmanifest", "./icon.svg"];
+const CACHE = "newro-v12-curriculum-2026-11-15";
+const ASSETS = ["./", "./index.html", "./assets/newro-experience.css", "./assets/newro-experience.js", "./assets/newro-swarm.js", "./assets/newro-course.css", "./assets/newro-course.js", "./assets/newro-flow.css", "./assets/newro-flow.js", "./assets/newro-mobile.js", "./assets/newro-polish.css", "./assets/newro-premium.css", "./assets/newro-premium.js", "./assets/newro-responsive.css", "./assets/newro-curriculum.js", "./assets/newro-curriculum.css", "./assets/newro-free-lesson.js", "./assets/illustrations/marketing-illustration.svg", "./assets/illustrations/product-illustration.svg", "./assets/illustrations/mentor-illustration.svg", "./manifest.webmanifest", "./icon.svg"];
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting()));
 });

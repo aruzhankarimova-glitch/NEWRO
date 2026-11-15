@@ -14,7 +14,7 @@ function icon(name){
 }
 function home(meta,root){
   if(window.NEWROSwarm)window.NEWROSwarm.stop();
-  var saved=!!(meta&&meta.resume),role=meta&&meta.role==="marketing"?"AI Marketing Specialist":"Product Manager";
+  var saved=!!(meta&&meta.resume),role=meta&&meta.role==="marketing"?"AI Marketing Specialist":"AI Product Manager";
   root.innerHTML=
   '<div id="nl-shell" class="nl-shell cs-shell">' +
     '<div class="nm-page-progress" aria-hidden="true"></div>' +
@@ -114,7 +114,7 @@ function enhance(o){
  player.classList.add("cs-player");
  var main=player.querySelector(".playerMain"),header=player.querySelector(".headerInner");
  if(!main||!header)return;
- var total=(o.max||0)+1,step=o.step||0,role=o.role==="pm"?"Product Manager":"AI Marketing Specialist";
+ var total=(o.max||0)+1,step=o.step||0,role=o.role==="pm"?"AI Product Manager":"AI Marketing Specialist";
  var meta=document.createElement("div");
  meta.className="cs-course-meta";
  meta.innerHTML='<span class="cs-course-icon" aria-hidden="true">'+(o.role==="pm"?"▤":"✳")+'</span><span class="cs-course-meta-text"><b>'+text(role)+'</b><small>Your career try-out · Short interactive practice</small></span><span class="cs-stage-pill">'+(step+1)+' / '+total+'</span>';
