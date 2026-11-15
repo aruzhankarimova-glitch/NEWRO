@@ -24,6 +24,7 @@ const assert = require('node:assert/strict');
    assert.match(await page.locator('.cs-phone-task').innerText(),/28 \/ 24/);
    assert.match(await page.locator('.nm-quick-feedback').innerText(),/over the 24-hour budget/i);
    await page.locator('[data-preview-role="marketing"]').click();
+   assert.match(await page.locator('.cs-stage-live').innerText(),/MARKETING/);
    await page.locator('[data-quick-choice="trials"]').click();
    assert.match(await page.locator('.nm-quick-feedback').innerText(),/matches the brief/i);
    const faq=page.locator('#faq details').first();await faq.locator('summary').click();

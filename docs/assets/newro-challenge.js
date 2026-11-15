@@ -23,7 +23,7 @@
    feedback.textContent=hours>24?'Practice coach: You are over the 24-hour budget. Which task could wait?':selected.indexOf('household')===-1&&selected.indexOf('login')!==-1&&selected.indexOf('reminders')!==-1?'Practice coach: You kept time for surprises. Can you explain why household plans wait two weeks?':'Practice coach: Consider customer impact, delivery risk and time before deciding what waits.';
   }
   function chooseRole(value){
-   if(!previews[value])return;role=value;var item=previews[role];question.textContent=item.question;quiz.setAttribute('aria-label',role==='pm'?'Try the product decision':'Try the marketing decision');
+   if(!previews[value])return;role=value;var item=previews[role];question.textContent=item.question;var stageLabel=shell.querySelector('.cs-stage-live'),stageBadge=shell.querySelector('.nr-friday-badge');if(stageLabel)stageLabel.textContent=role==='pm'?'SIMULATION · AI PRODUCT MANAGER':'SIMULATION · AI MARKETING SPECIALIST';if(stageBadge)stageBadge.textContent=role==='pm'?'Friday release':'Audience';quiz.setAttribute('aria-label',role==='pm'?'Try the product decision':'Try the marketing decision');
    switches.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.previewRole===role));});
    quiz.querySelectorAll('[data-quick-choice]').forEach(function(b,i){var choice=item.choices[i];b.hidden=!choice;if(!choice)return;b.textContent=choice.label;b.dataset.quickChoice=choice.id;var checked=role==='pm'&&selected.indexOf(choice.id)!==-1;b.setAttribute('aria-pressed',String(checked));b.classList.toggle('nm-selected',checked);});
    if(role==='pm')pmStatus();else{brief.textContent=item.brief;if(capacity)capacity.hidden=true;feedback.hidden=true;feedback.textContent='';}
