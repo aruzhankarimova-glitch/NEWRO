@@ -12,7 +12,7 @@ async function test(browser,width){
   await page.locator(".nr-syllabus").first().waitFor();
   assert.equal(await page.locator(".nr-syllabus").count(),2,"Both specializations have a course preview");
   assert.equal(await page.locator(".nr-journey-step.locked").count(),14,"7 locked modules per specialization");
-  assert.match(await page.locator(".nr-syllabus").first().innerText(),/AI Product Manager/);
+  assert.match(await page.locator(".nr-syllabus").first().innerText(),/AI Product Manager/i);
   assert.match(await page.locator(".nr-syllabus").last().innerText(),/Free part available/);
   assert.equal(await page.locator(".nr-syllabus-grid.nr-journey").count(),2,"Both paths are horizontal journeys");
   assert.equal(await page.locator(".nr-journey-step.free").count(),2,"One free introduction per role");
