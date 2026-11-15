@@ -31,6 +31,7 @@ async function tryout(page, role) {
     await choose(page,'Landing-page signup rate');
     await page.locator('.nr-ad-card[data-choice-id="story"]').click();
     assert.equal(await page.locator('.nr-ad-card[aria-pressed="true"]').count(),1,'Exactly one creative is selected');
+    await page.screenshot({path:'test-results/newro-marketing-creative-choice.png',fullPage:true});
     await next(page);
     await page.locator('.nr-test-results').waitFor();
     assert.match(await page.locator('.nr-test-results').innerText(),/invented for learning/);
