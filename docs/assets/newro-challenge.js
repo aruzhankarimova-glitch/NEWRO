@@ -35,7 +35,7 @@
     var next = shell.querySelector('.cs-phone-cta');
     var switches = shell.querySelectorAll('[data-preview-role]');
     if (!quiz || !feedback || !question || !brief || !next) return;
-    var role = 'marketing';
+    var role = 'pm';
     function chooseRole(value) {
       if (!previews[value]) return;
       role = value;

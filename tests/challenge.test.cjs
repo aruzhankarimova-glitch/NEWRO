@@ -26,7 +26,7 @@ test('role switching resets the decision and opens the selected assignment',()=>
   const map={'.nm-quick-choices':quiz,'.nm-quick-feedback':feedback,'.cs-phone-title':question,'.cs-phone-task':brief,'.cs-phone-cta':next};
   const shell={querySelector:s=>map[s]||null,querySelectorAll:()=>switches};
   challenge.mount(shell);
-  assert.match(question.textContent,/target/);
+  assert.match(question.textContent,/ship first/);
   handlers.get(switches[1])();
   assert.match(question.textContent,/ship first/);
   assert.equal(switches[1].attrs['aria-pressed'],'true');
@@ -54,4 +54,11 @@ test('share falls back to a selectable clean link when sharing is unavailable',a
   assert.equal(fallback.hidden,false);assert.equal(input.selected,true);
   assert.match(status.textContent,/Copy/);
   delete global.location;
+});
+
+test('reference landing retains working career links and honest product availability',()=>{
+  const fs=require('node:fs');
+  const source=fs.readFileSync('assets/newro-landing-reference.js','utf8');
+  for(const phrase of ['WHY TRY NEWRO','Frequently asked questions','planned','data-flow-go']) assert.ok(source.includes(phrase),phrase);
+  assert.ok(!source.includes('Someone using AI will'));
 });

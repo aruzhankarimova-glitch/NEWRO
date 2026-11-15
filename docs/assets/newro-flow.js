@@ -334,6 +334,7 @@ var previousHome=window.NEWROHome;
 window.NEWROHome=function(meta,target){
  if(previousHome)previousHome(meta,target);
  augmentLanding(target);
+ if(window.NEWROReference)window.NEWROReference.mount(target);
  if(window.NEWROPremium)window.NEWROPremium.home(target.querySelector(".cs-shell"));
 };
 window.NEWROFlow={
