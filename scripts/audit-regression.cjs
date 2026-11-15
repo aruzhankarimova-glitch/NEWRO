@@ -25,7 +25,7 @@ const assert = require('node:assert/strict');
   assert.equal(await page.locator('[data-choice-group=feature][data-choice-id=login]').evaluate(el=>document.activeElement===el),true,'Choice retains keyboard focus');
   await page.locator('[data-choice-group=feature][data-choice-id=household]').click();
   await page.locator('[data-choice-group=feature][data-choice-id=csv]').click();
-  await page.getByText('Over capacity by 2 hours.',{exact:false}).waitFor();
+  await page.locator('.playerMain .meter p.red').filter({hasText:'Over capacity by 2 hours.'}).waitFor();
   assert.equal(await page.locator('#next').isDisabled(),true);
   assert.match(await page.locator('#newro-announcer').textContent(),/Over capacity by 2 hours/,'Screen reader receives warning');
   assert.deepEqual(errors,[],'No JavaScript errors');
