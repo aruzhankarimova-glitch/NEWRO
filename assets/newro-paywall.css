@@ -49,3 +49,10 @@ body.nr-paywall-open{overflow:hidden}
 /* New visual asset in the course-to-portfolio bridge */
 .nf-landing-bridge .nr-career-loop{width:min(270px,100%);height:auto;object-fit:contain;border-radius:18px;display:block;margin:18px auto 0}
 @media(max-width:760px){.nf-landing-bridge .nr-career-loop{width:min(240px,90%)}}
+
+/* Keep the two main path milestones on one line, as in the requested UX. */
+.nf-app .nf-path{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:stretch}
+.nf-app .nf-path .nf-milestone{min-width:0;min-height:112px;align-items:center}
+.nf-app .nf-path .nf-milestone:not(.done) .nf-step-circle{background:#f1edfb;color:#6b5be0}
+.nf-app .nf-path .nf-milestone .nf-step-status{white-space:normal;text-align:right}
+@media(max-width:720px){.nf-app .nf-path{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding:2px 2px 12px;scrollbar-width:thin}.nf-app .nf-path .nf-milestone{flex:0 0 86%;scroll-snap-align:start;min-height:98px}}
