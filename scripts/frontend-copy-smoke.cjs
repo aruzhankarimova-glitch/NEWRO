@@ -25,7 +25,7 @@ assert(html.includes('application/ld+json'),"Keep factual structured product met
   for(const technical of ["rule-based","language model","career exploration prototype","automated evaluation","scoring instructions"]){
    assert(!landing.toLowerCase().includes(technical.toLowerCase()),"Technical explanation leaked to homepage: "+technical);
   }
-  assert(landing.includes("Cases use fictional companies"),"Keep concise explanation of sample-data use");
+  assert(/cases use fictional companies/i.test(landing),"Keep concise explanation of sample-data use");
   await page.locator(".cs-role").first().click();
   const mentor=page.locator(".playerMain .mentor b").first();
   await mentor.waitFor();
