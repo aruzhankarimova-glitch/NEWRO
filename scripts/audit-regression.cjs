@@ -1,0 +1,40 @@
+const {chromium} = require('playwright');
+const assert = require('node:assert/strict');
+(async function(){
+ const browser=await chromium.launch({headless:true});
+ try {
+  const page=await browser.newPage({viewport:{width:390,height:844},reducedMotion:'reduce'});
+  const errors=[];page.on('pageerror',e=>errors.push(e.message));
+  await page.goto('http://127.0.0.1:4173/',{waitUntil:'domcontentloaded'});
+  assert.equal(await page.locator('meta[property="og:title"]').count(),1,'Link preview title exists');
+  assert.equal(await page.locator('meta[property="og:description"]').count(),1,'Link preview description exists');
+  assert.equal(await page.locator('.newro-skip-link').count(),1,'Skip to content exists');
+  await page.locator('.cs-role').nth(1).click();
+  assert.equal(new URL(page.url()).hash,'#/tryout/pm/0','Start writes an actual history entry');
+  await page.locator('#next').click();
+  assert.equal(new URL(page.url()).hash,'#/tryout/pm/1','Next step writes history');
+  await page.goBack();
+  await page.getByRole('heading',{name:'Your first day as a Product Manager'}).waitFor();
+  assert.equal(new URL(page.url()).hash,'#/tryout/pm/0','Browser back returns to previous step');
+  await page.goForward();
+  await page.getByRole('heading',{name:'The Friday release'}).waitFor();
+  await page.locator('#next').click();
+  await page.getByRole('heading',{name:'Pick the Friday release'}).waitFor();
+  await page.locator('[data-choice-group=feature][data-choice-id=login]').click();
+  assert.equal(await page.locator('[data-choice-group=feature][data-choice-id=login]').getAttribute('aria-pressed'),'true');
+  assert.equal(await page.locator('[data-choice-group=feature][data-choice-id=login]').evaluate(el=>document.activeElement===el),true,'Choice retains keyboard focus');
+  await page.locator('[data-choice-group=feature][data-choice-id=household]').click();
+  await page.locator('[data-choice-group=feature][data-choice-id=csv]').click();
+  await page.getByText('Over capacity by 2 hours.',{exact:false}).waitFor();
+  assert.equal(await page.locator('#next').isDisabled(),true);
+  assert.match(await page.locator('#newro-announcer').textContent(),/Over capacity by 2 hours/,'Screen reader receives warning');
+  assert.deepEqual(errors,[],'No JavaScript errors');
+  await page.close();
+  const context=await browser.newContext({javaScriptEnabled:false});
+  const staticPage=await context.newPage();
+  await staticPage.goto('http://127.0.0.1:4173/',{waitUntil:'domcontentloaded'});
+  await staticPage.getByRole('heading',{name:'NEWRO needs JavaScript'}).waitFor();
+  await context.close();
+  console.log('PASS audit regressions: history, focus, capacity, no-JS fallback and metadata');
+ }finally{await browser.close()}
+})().catch(e=>{console.error(e.stack||e);process.exit(1);});
