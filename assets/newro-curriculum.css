@@ -1,0 +1,84 @@
+/* NEWRO / curriculum & learning. Content-first, responsive and accessible. */
+.nr-syllabus,.nr-pm-lesson{--nr-line:#e4e0f0;--nr-ink:#1b1b31;--nr-purple:#6355c9;max-width:1100px;margin:42px auto 24px}
+.nr-syllabus-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:22px}
+.nr-syllabus-heading>div{min-width:0;max-width:680px}
+.nr-syllabus-heading h2,.nr-lesson-heading h2{font-size:clamp(26px,3vw,42px);font-weight:850;letter-spacing:-.05em;color:var(--nr-ink);line-height:1.12;margin:9px 0 12px}
+.nr-syllabus-heading p,.nr-lesson-heading p{color:#525669;line-height:1.65;font-size:15px;margin:7px 0}
+.nr-syllabus-status{background:#eeeafb;color:#493bb3;padding:10px 13px;border-radius:20px;font-size:12px;font-weight:770;white-space:nowrap;border:1px solid #dcd5f9}
+.nr-free-entry{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:14px;padding:21px 23px;background:#eae5fc;border:1px solid #d8d2f3;border-radius:22px;margin-bottom:17px}
+.nr-free-entry>.nf-label{padding:8px 10px;background:#fff;border-radius:10px;font-size:11px}
+.nr-free-entry h3{font-size:21px;line-height:1.25;letter-spacing:-.027em;margin:0 0 7px}
+.nr-free-entry p{font-size:14px;margin:0;color:#56526c}
+.nr-free-entry button{min-height:46px;white-space:nowrap}
+.nr-course-notice{background:#f4f2fa;border:1px solid #e6e3f3;border-radius:16px;padding:16px;font-size:14px;color:#504b68;margin-bottom:17px}
+.nr-syllabus-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.nr-syllabus-module{background:#fff;border:1px solid var(--nr-line);border-radius:16px;overflow:hidden;min-width:0;transition:border-color .2s ease,box-shadow .2s ease}
+.nr-syllabus-module[open]{border-color:#b9adeb;box-shadow:0 6px 24px #45357d0d}
+.nr-syllabus-module summary{display:flex;align-items:center;gap:12px;padding:20px;min-height:72px;cursor:pointer;list-style:none}
+.nr-syllabus-module summary::-webkit-details-marker{display:none}
+.nr-syllabus-module summary:focus-visible,.nr-shared-core summary:focus-visible{outline:3px solid #6355d6;outline-offset:-3px}
+.nr-module-num{font-size:11px;font-weight:800;color:#5b48bc;border-radius:9px;background:#f1edff;padding:8px 9px;white-space:nowrap}
+.nr-module-name{font-size:15px;flex:1;min-width:0;color:#25233d;font-weight:790;line-height:1.32}
+.nr-module-state{font-size:10px;font-weight:800;white-space:nowrap;color:#6a6385}
+.nr-module-description{border-top:1px solid #eeeaf7;padding:15px 20px 18px;color:#4c5064}
+.nr-module-description p{font-size:14px;line-height:1.55;margin:0 0 12px}
+.nr-module-description dl{display:grid;grid-template-columns:1fr;gap:3px;font-size:12px}
+.nr-module-description dt{font-size:10px;text-transform:uppercase;font-weight:850;letter-spacing:.08em;color:#5a4baf;margin-top:5px}
+.nr-module-description dd{margin:0 0 3px;line-height:1.5}
+.nr-shared-core{margin:18px 0 0;padding:0;background:#fff;border:1px solid var(--nr-line);border-radius:14px}
+.nr-shared-core summary{padding:16px 20px;cursor:pointer;font-weight:750}
+.nr-shared-core ul{margin:0 20px 18px;padding-left:19px;color:#4f5164;line-height:1.6;font-size:14px}
+.nr-program-notice{font-size:12px;color:#656679;line-height:1.5;margin:16px 0}
+.nr-pm-lesson{margin:0 auto;background:white;border:1px solid #e5e1f4;border-radius:24px;padding:clamp(20px,4vw,42px);box-shadow:0 14px 48px #2c24550b}
+.nr-pm-lesson .nf-label{color:#5844b2}
+.nr-lesson-heading p{max-width:760px}
+.nr-lesson-brief{border:1px solid #e7e4f4;border-radius:18px;padding:clamp(16px,3vw,24px);background:#f8f6ff;margin:26px 0}
+.nr-lesson-brief h3,.nr-pm-review h3{font-size:22px;letter-spacing:-.03em;margin:9px 0}
+.nr-lesson-brief>p{font-size:14px;line-height:1.6}
+.nr-backlog{border-radius:11px;overflow:hidden;background:#fff;border:1px solid #e2ddf5;margin:17px 0}
+.nr-backlog>[role=row]{display:grid;grid-template-columns:minmax(0,2fr) minmax(68px,.7fr) minmax(60px,.7fr);gap:8px;padding:13px;border-bottom:1px solid #f0edf8;font-size:14px}
+.nr-backlog>[role=row]:last-child{border:0}
+.nr-backlog>[role=row]:first-child{background:#ede9f8;font-size:12px}
+.nr-example{background:#e5f5eb;border-left:3px solid #18854e;padding:13px 15px;border-radius:8px;margin:17px 0 0;font-size:14px;line-height:1.5;color:#26503a}
+.nr-pm-lesson fieldset{border:0;margin:0;padding:0}
+.nr-pm-lesson legend,.nr-pm-lesson label[for=nr-pm-explain]{font-size:16px;color:#24233b;font-weight:820;margin-bottom:15px}
+.nr-choice{display:flex;align-items:flex-start;gap:13px;padding:14px 15px;border-radius:14px;margin-bottom:10px;border:1px solid #dedbec;background:#fff;cursor:pointer;min-height:62px}
+.nr-choice:has(input:checked){background:#eeebfc;border-color:#8b7ee5}
+.nr-choice input{accent-color:#6150d6;width:21px;height:21px;flex:none;margin:4px 0 0}
+.nr-choice span{display:grid;gap:5px;line-height:1.35}
+.nr-choice strong{font-size:15px}
+.nr-choice small{font-size:13px;color:#5d5b70}
+.nr-choice:focus-within{outline:3px solid #7667d1;outline-offset:1px}
+.nr-pm-lesson form>label{display:block;margin-top:23px}
+.nr-pm-lesson form>p{font-size:13px;color:#5a5a70;margin:7px 0 11px}
+.nr-pm-lesson textarea{display:block;width:100%;min-height:140px;border-radius:14px;border:1px solid #c7bfdc;padding:14px;font:16px/1.6 inherit;resize:vertical;line-height:1.55;color:#262339;background:#fff}
+.nr-pm-lesson textarea:focus-visible{outline:3px solid #6355d6;outline-offset:2px}
+.nr-pm-lesson .nf-actions{margin-top:20px;display:flex;flex-wrap:wrap;gap:10px}
+.nr-pm-review>p{font-size:15px;line-height:1.7}
+.nr-rubric{border:1px solid #e4e0f3;background:#f8f6ff;padding:18px;border-radius:15px;margin:20px 0}
+.nr-rubric p{font-size:14px;line-height:1.55;margin:10px 0}
+.nr-user-reason{white-space:pre-wrap;overflow-wrap:anywhere;background:#f5f4f8;border-radius:12px;padding:17px}
+.nr-review-caveat{font-size:13px!important;color:#66657b}
+.nr-sample-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}
+.nr-sample-actions .nr-feature-button{font-size:12px;min-height:40px;padding:8px 12px;white-space:normal}
+.nr-curation-empty{min-height:140px}
+@media(max-width:960px){.nr-syllabus-grid{grid-template-columns:minmax(0,1fr)}.nr-free-entry{grid-template-columns:minmax(0,1fr) auto}.nr-free-entry>.nf-label{grid-column:1/-1;width:max-content}}
+@media(max-width:640px){
+.nr-syllabus,.nr-pm-lesson{margin:26px auto 18px}
+.nr-syllabus-heading{display:block}.nr-syllabus-heading h2{font-size:29px}
+.nr-syllabus-status{display:inline-block;margin-top:8px}
+.nr-free-entry{display:block;padding:19px}
+.nr-free-entry>.nf-label{display:inline-block;margin-bottom:12px}
+.nr-free-entry h3{font-size:19px}.nr-free-entry p{font-size:13px}
+.nr-free-entry button{display:block;width:100%;margin-top:16px;min-height:48px}
+.nr-syllabus-module summary{gap:9px;padding:15px;min-height:68px}
+.nr-module-name{font-size:14px}.nr-module-num{font-size:10px;padding:8px}
+.nr-module-state{font-size:10px}
+.nr-module-description{padding:13px 16px}
+.nr-backlog>[role=row]{font-size:12px;padding:11px 9px;grid-template-columns:minmax(0,2fr) 48px 50px}
+.nr-pm-lesson{padding:20px;border-radius:17px}
+.nr-pm-lesson .nf-actions button{width:100%;min-height:48px}
+.nr-choice{min-height:66px}
+.nr-choice small{font-size:12px}
+}
+@media(prefers-reduced-motion:reduce){.nr-syllabus-module{transition:none}}
