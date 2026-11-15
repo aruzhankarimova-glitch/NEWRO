@@ -49,6 +49,7 @@ jobs:
           node --check docs/assets/newro-mobile.js
           node --check docs/assets/newro-premium.js
           node --check docs/assets/newro-paywall.js
+          node --check docs/assets/newro-scenarios.js
           node <<'NODE'
           const fs = require('fs');
           const assert = require('assert');
@@ -68,10 +69,11 @@ jobs:
           assert(html.includes('newro-responsive.css'), 'Responsive accessibility CSS missing');
           assert(html.includes('newro-curriculum.js') && html.includes('newro-free-lesson.js') && html.includes('newro-curriculum.css'), 'Learning modules are missing');
           assert(html.includes('newro-paywall.js') && html.includes('newro-paywall.css'), 'Demo checkout UI missing');
+          assert(html.includes('newro-scenarios.js') && html.includes('newro-scenarios.css'), 'Interactive marketing visuals and PM scenes missing');
           assert(html.includes('application/ld+json'), 'Structured product description missing');
           const inline = Array.from(html.matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/g)).filter(m => !m[1].includes('application/ld+json')).map(m => m[2]);
           inline.forEach(src => new Function(src));
-          ['docs/index.html', 'docs/assets/newro-experience.js', 'docs/assets/newro-swarm.js', 'docs/assets/newro-course.js', 'docs/assets/newro-course.css', 'docs/assets/newro-flow.js', 'docs/assets/newro-flow.css', 'docs/assets/newro-mobile.js', 'docs/assets/newro-polish.css', 'docs/assets/newro-premium.js', 'docs/assets/newro-premium.css', 'docs/assets/newro-responsive.css', 'docs/assets/newro-curriculum.js', 'docs/assets/newro-free-lesson.js', 'docs/assets/newro-curriculum.css', 'docs/assets/illustrations/marketing-illustration.svg', 'docs/assets/illustrations/product-illustration.svg', 'docs/assets/illustrations/mentor-illustration.svg', 'docs/assets/newro-experience.css', 'docs/manifest.webmanifest', 'docs/sw.js'].forEach(f => assert(fs.statSync(f).size > 0, f + ' is empty'));
+          ['docs/index.html', 'docs/assets/newro-experience.js', 'docs/assets/newro-swarm.js', 'docs/assets/newro-course.js', 'docs/assets/newro-course.css', 'docs/assets/newro-flow.js', 'docs/assets/newro-flow.css', 'docs/assets/newro-mobile.js', 'docs/assets/newro-polish.css', 'docs/assets/newro-premium.js', 'docs/assets/newro-premium.css', 'docs/assets/newro-responsive.css', 'docs/assets/newro-curriculum.js', 'docs/assets/newro-free-lesson.js', 'docs/assets/newro-curriculum.css', 'docs/assets/newro-scenarios.js', 'docs/assets/newro-scenarios.css', 'docs/assets/illustrations/marketing-illustration.svg', 'docs/assets/illustrations/product-illustration.svg', 'docs/assets/illustrations/mentor-illustration.svg', 'docs/assets/newro-experience.css', 'docs/manifest.webmanifest', 'docs/sw.js'].forEach(f => assert(fs.statSync(f).size > 0, f + ' is empty'));
           assert(!fs.existsSync('docs/evaluation.json') && !fs.existsSync('docs/EVALUATION_EVIDENCE.md') && !fs.existsSync('docs/HACKATHON_AUDIT.md'), 'Internal audit instructions must not be published');
           console.log('NEWRO markup and JavaScript syntax validated');
           NODE
